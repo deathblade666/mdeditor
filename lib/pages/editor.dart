@@ -15,15 +15,23 @@ class Editor extends StatefulWidget {
 }
 // ignore: camel_case_types
 class _editorState extends State<Editor> {
-  TextEditingController myController = TextEditingController();
+  final myController = TextEditingController();
 
-  String contents = "";
+  
+  //String contents = "";
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
-  void textInput(String) {
-    setState(() {
-      contents = myController.text;
-    });
-  }
+  //void textInput(String) {
+  //  setState(() {
+  //    contents = myController.text;
+  //  });
+  //}
+  @override
+    void dispose() {
+      // Clean up the controller when the widget is disposed.
+      myController.dispose();
+      super.dispose();
+    }
+
 
 
   @override
@@ -55,7 +63,7 @@ class _editorState extends State<Editor> {
               child: MarkdownAutoPreview(
                 controller: myController,
                 emojiConvert: true,
-                onChanged: textInput,
+              //  onChanged: ,
                 enableToolBar: true,
                 autoCloseAfterSelectEmoji: false,
                 showEmojiSelection: true,
