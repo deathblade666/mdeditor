@@ -1,8 +1,10 @@
+import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-//import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 //import 'package:markdown/markdown.dart' as md;
 import 'package:markdown_editor_plus/markdown_editor_plus.dart';
+//import 'package:markdown_editor_plus/widgets/markdown_parse_body.dart';
 
 //test
 
@@ -13,26 +15,27 @@ class Editor extends StatefulWidget {
   State<Editor> createState() => _editorState();
 
 }
+
 // ignore: camel_case_types
 class _editorState extends State<Editor> {
-  final myController = TextEditingController();
-
-  
-  //String contents = "";
-  // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
-  //void textInput(String) {
-  //  setState(() {
-  //    contents = myController.text;
-  //  });
-  //}
+  final TextEditingController myController = TextEditingController();
+  String contents = ' ';
   @override
-    void dispose() {
-      // Clean up the controller when the widget is disposed.
-      myController.dispose();
-      super.dispose();
-    }
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    myController.dispose();
+    super.dispose();
+  }
 
+  // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+  void _mdText(String) {
+    setState(() {
+      contents = myController.text;      
+    });
 
+  }
+late final MarkdownCheckboxBuilder? checkboxBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +50,9 @@ class _editorState extends State<Editor> {
                 borderRadius: BorderRadius.circular(25),
                 border: Border.all(color: Colors.white)
               ),
-              padding: EdgeInsets.all(15),
-              child: MarkdownParse(
-                data: myController.text,
+              padding: const EdgeInsets.all(15),
+              child: Markdown(
+                data: contents,
               ),
             )
           ),
@@ -59,11 +62,11 @@ class _editorState extends State<Editor> {
                 borderRadius: BorderRadius.circular(25),
                 border: Border.all(color: Colors.white)
               ),
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               child: MarkdownAutoPreview(
                 controller: myController,
                 emojiConvert: true,
-              //  onChanged: ,
+                onChanged: _mdText,
                 enableToolBar: true,
                 autoCloseAfterSelectEmoji: false,
                 showEmojiSelection: true,
