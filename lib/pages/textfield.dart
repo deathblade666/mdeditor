@@ -3,21 +3,20 @@ import 'package:flutter/material.dart';
 //import 'package:flutter/widgets.dart';
 //import 'package:flutter_markdown/flutter_markdown.dart';
 //import 'package:markdown/markdown.dart' as md;
-//import 'package:markdown_editor_plus/markdown_editor_plus.dart';
+import 'package:markdown_editor_plus/markdown_editor_plus.dart';
 //import 'package:markdown_editor_plus/widgets/markdown_parse_body.dart';
-import 'package:mdeditor/pages/preview.dart';
-import 'package:mdeditor/pages/textfield.dart';
+//import 'package:mdeditor/pages/preview.dart';
 
-class Editor extends StatefulWidget {
-  const Editor(contents, {super.key});
+class mdtextfield extends StatefulWidget {
+  const mdtextfield(contents, {super.key});
 
   @override
-  State<Editor> createState() => editorState();
+  State<mdtextfield> createState() => mdtextfieldState();
 
 }
 
 // ignore: camel_case_types
-class editorState extends State<Editor> {
+class mdtextfieldState extends State<mdtextfield> {
   final TextEditingController myController = TextEditingController();
   String contents = ' ';
   @override
@@ -38,18 +37,23 @@ class editorState extends State<Editor> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Expanded(
-            flex: 2,
-            child: Renderer(),
+    return Container(
+      child: Expanded(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            border: Border.all(color: Colors.white)
           ),
-          Expanded(
-            child: mdtextfield(mdtextfield),
+          padding: const EdgeInsets.all(15),
+          child: MarkdownAutoPreview(
+            controller: myController,
+            emojiConvert: true,
+            onChanged: mdText,
+            enableToolBar: true,
+            autoCloseAfterSelectEmoji: false,
+            showEmojiSelection: true,
           ),
-        ]
+        ),
       ),
     );
   }
