@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mdeditor/pages/preview.dart';
 import 'package:mdeditor/pages/textfield.dart';
@@ -70,17 +69,17 @@ class editorState extends State<Editor> {
                   ),
                   const PopupMenuItem<Menu>(
                     value: Menu.fileInfo,
-                    //onTap: openFile,
+                    //onTap: showFileInfo,
                     child: Text("File Info"),
                   ),
                   const PopupMenuItem<Menu>(
                     value: Menu.switchView,
-                    //onTap: openFile,
+                    //onTap: switchViewMode,
                     child: Text("Switch Mode"),
                   ),
                   const PopupMenuItem<Menu>(
                     value: Menu.switchTheme,
-                    //onTap: openFile,
+                    //onTap: switchTheme,
                     child: Text("Change Theme"),
                   ),   
                 ]
