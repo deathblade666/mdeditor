@@ -7,8 +7,6 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 //import 'package:markdown_editor_plus/widgets/markdown_parse_body.dart';
 //import 'package:mdeditor/pages/editor.dart';
 
-
-
 class Renderer extends StatelessWidget {
   const Renderer({super.key});
 
@@ -24,6 +22,7 @@ class Renderer extends StatelessWidget {
             ),
           padding: const EdgeInsets.all(15),
           child: const Markdown(
+            // TODO - grab contents from textfield.dart
             data: "test",
           ),
         ),
