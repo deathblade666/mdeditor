@@ -1,4 +1,5 @@
 import 'dart:core';
+//import 'dart:js_interop';
 import 'package:flutter/material.dart';
 //import 'package:flutter/widgets.dart';
 //import 'package:flutter_markdown/flutter_markdown.dart';
@@ -9,7 +10,7 @@ import 'package:mdeditor/pages/preview.dart';
 import 'package:mdeditor/pages/textfield.dart';
 
 class Editor extends StatefulWidget {
-  const Editor(contents, {super.key});
+  const Editor({super.key});
 
   @override
   State<Editor> createState() => editorState();
@@ -18,36 +19,29 @@ class Editor extends StatefulWidget {
 
 // ignore: camel_case_types
 class editorState extends State<Editor> {
-  final TextEditingController myController = TextEditingController();
-  String contents = ' ';
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is removed from the
-    // widget tree.
-    myController.dispose();
-    super.dispose();
-  }
+  String contents = '';
 
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
-  void mdText(String) {
+  void mdText(String value) {
     setState(() {
-      contents = myController.text;      
+     contents = value;      
     });
 
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(elevation: 0,),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Expanded(
             flex: 2,
-            child: Renderer(),
+            child: Renderer(contents),
           ),
           Expanded(
-            child: mdtextfield(mdtextfield),
+            child: mdtextfield(ontextchanged: mdText,),
           ),
         ]
       ),

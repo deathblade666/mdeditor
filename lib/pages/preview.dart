@@ -6,26 +6,27 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 //import 'package:markdown_editor_plus/markdown_editor_plus.dart';
 //import 'package:markdown_editor_plus/widgets/markdown_parse_body.dart';
 //import 'package:mdeditor/pages/editor.dart';
+//import 'package:mdeditor/pages/textfield.dart';
+
+
 
 class Renderer extends StatelessWidget {
-  const Renderer({super.key});
+  const Renderer(this.value,{super.key});
 
+  final String value;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Expanded(
-        child: Container(
-          decoration: BoxDecoration( 
-            borderRadius: BorderRadius.circular(25),
-            border: Border.all(color: Colors.white)
-            ),
-          padding: const EdgeInsets.all(15),
-          child: const Markdown(
-            // TODO - grab contents from textfield.dart
-            data: "test",
-          ),
+      decoration: BoxDecoration( 
+        borderRadius: BorderRadius.circular(25),
+        border: Border.all(color: Colors.white)
         ),
+      padding: const EdgeInsets.all(15),
+      child: Markdown(
+        data: value,
+        styleSheet: MarkdownStyleSheet(checkbox: Theme.of(context).textTheme.bodyMedium)
+        //checkboxBuilder: (value) => Checkbox(value: value, onChanged: (_){}),
       ),
     );
   }
