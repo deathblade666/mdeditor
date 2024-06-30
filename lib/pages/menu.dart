@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
   save, 
   open,
   fileInfo,
+  close,
   switchTheme,
   switchView,
-  enableWorkCount
+  enableWorkCount,
   }
 
 class Menu extends StatelessWidget {
@@ -33,6 +34,11 @@ class Menu extends StatelessWidget {
           value: menuItems.fileInfo,
           //onTap: showFileInfo,
           child: Text("File Info"),
+        ),
+        const PopupMenuItem<menuItems>(
+          value: menuItems.close,
+          //onTap: closeFile,
+          child: Text("Close"),
         ),
         const PopupMenuItem<menuItems>(
           value: menuItems.switchView,
