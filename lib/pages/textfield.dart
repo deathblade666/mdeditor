@@ -26,8 +26,13 @@ class mdtextfieldState extends State<mdtextfield> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        border: Border.all(color: Colors.white)
+          color: Theme.of(context).focusColor,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: Theme.of(context).indicatorColor,
+            style: BorderStyle.solid,
+            width: 1.5,
+          )
       ),
       padding: const EdgeInsets.all(15),
       child: MarkdownField(

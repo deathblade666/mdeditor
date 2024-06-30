@@ -24,9 +24,12 @@ class editorState extends State<Editor> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(elevation: 0, forceMaterialTransparency: true,),
+      appBar: AppBar(
+        elevation: 0,
+        forceMaterialTransparency: true,
+        toolbarHeight: 2,
+      ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Expanded(
             flex: 2,

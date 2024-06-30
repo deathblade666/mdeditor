@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   markdown_editor_plus: ^0.2.15
   flutter_markdown: ^0.7.3
+  dynamic_color: ^1.7.0
 
 dev_dependencies:
   flutter_test:
