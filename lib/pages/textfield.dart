@@ -1,13 +1,5 @@
-//import 'dart:core';
-//import 'dart:nativewrappers/_internal/vm/lib/core_patch.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_markdown/flutter_markdown.dart';
-//import 'package:flutter/widgets.dart';
-//import 'package:flutter_markdown/flutter_markdown.dart';
-//import 'package:markdown/markdown.dart' as md;
 import 'package:markdown_editor_plus/markdown_editor_plus.dart';
-//import 'package:markdown_editor_plus/widgets/markdown_parse_body.dart';
-//import 'package:mdeditor/pages/preview.dart';
 
 class mdtextfield extends StatefulWidget {
   const mdtextfield( {required this.ontextchanged, super.key});
@@ -39,13 +31,9 @@ class mdtextfieldState extends State<mdtextfield> {
       ),
       padding: const EdgeInsets.all(15),
       child: MarkdownField(
-       // controller: myController,
-        //emojiConvert: true,
         onChanged: mdText,
         expands: true,
-        //enableToolBar: true,
-        //autoCloseAfterSelectEmoji: false,
-        //showEmojiSelection: true,
+        emojiConvert: true,
       ),
     );
   }

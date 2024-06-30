@@ -1,18 +1,8 @@
-//import 'dart:nativewrappers/_internal/vm/lib/core_patch.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter/widgets.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-//import 'package:markdown/markdown.dart' as md;
-//import 'package:markdown_editor_plus/markdown_editor_plus.dart';
-//import 'package:markdown_editor_plus/widgets/markdown_parse_body.dart';
-//import 'package:mdeditor/pages/editor.dart';
-//import 'package:mdeditor/pages/textfield.dart';
-
-
 
 class Renderer extends StatelessWidget {
   const Renderer(this.value,{super.key});
-
   final String value;
 
   @override
@@ -20,13 +10,13 @@ class Renderer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration( 
         borderRadius: BorderRadius.circular(25),
-        border: Border.all(color: Colors.white)
+        //border: Border.all(color: Colors.white)
         ),
       padding: const EdgeInsets.all(15),
       child: Markdown(
         data: value,
-        styleSheet: MarkdownStyleSheet(checkbox: Theme.of(context).textTheme.bodyMedium)
-        //checkboxBuilder: (value) => Checkbox(value: value, onChanged: (_){}),
+        styleSheet: MarkdownStyleSheet(checkbox: Theme.of(context).textTheme.bodyMedium),
+        //checkboxBuilder: (value) => Checkbox(value: value, onChanged: (){}),
       ),
     );
   }
