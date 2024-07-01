@@ -9,6 +9,7 @@ void main() {
 
 final _defaultDarkColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.indigo, brightness: Brightness.dark);
 final _defaultLightColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.indigo);
+
 class MyApp extends StatelessWidget{
   const MyApp({super.key});
   

@@ -9,6 +9,8 @@ class mdtextfield extends StatefulWidget {
 
 }
 
+//TODO: Set border color to be Material accent color?
+
 // ignore: camel_case_types
 class mdtextfieldState extends State<mdtextfield> {
 

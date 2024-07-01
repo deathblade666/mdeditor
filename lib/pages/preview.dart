@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
 
+
+//TODO: Change font size (bigger)
+
 class Renderer extends StatelessWidget {
   const Renderer(this.value,{super.key});
   final String value;
@@ -25,6 +28,8 @@ class Renderer extends StatelessWidget {
             ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes
           ],
         ),
+        softLineBreak: true,
+        shrinkWrap: true,
         //checkboxBuilder: (value) => Checkbox(value: value, onChanged: (){}),
       ),
     );

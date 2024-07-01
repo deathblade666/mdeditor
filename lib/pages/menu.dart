@@ -11,7 +11,15 @@ import 'package:flutter/services.dart';
   enableWorkCount,
   }
 
-  void pop({bool? animated}) async {
+//TODO: Implement new functions
+// Save function
+// Open function
+// function and widget for file info
+// function for theme control
+// function to change view modes
+// function to enable persistent word counter
+
+  void closeApp({bool? animated}) async {
     await SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop', animated);
   }
 
@@ -42,7 +50,7 @@ class Menu extends StatelessWidget {
         ),
         const PopupMenuItem<menuItems>(
           value: menuItems.close,
-          onTap: pop,
+          onTap: closeApp,
           child: Text("Close"),
         ),
         const PopupMenuItem<menuItems>(
