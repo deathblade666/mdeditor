@@ -31,7 +31,7 @@ class Menu extends StatelessWidget {
     return PopupMenuButton(
       padding: const EdgeInsets.only(left: 5),
       elevation: 0,
-      //color: Theme.of(context).canvasColor,
+      color: Colors.grey[400],
       itemBuilder: (BuildContext context) => <PopupMenuEntry<menuItems>>[
         const PopupMenuItem<menuItems>(
           value: menuItems.save,
