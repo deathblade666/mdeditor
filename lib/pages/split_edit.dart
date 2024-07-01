@@ -45,7 +45,7 @@ class editorState extends State<Editor> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
-                padding: const EdgeInsets.only(right: 20),
+                padding: const EdgeInsets.only(right: 15),
                 child: const Menu()
               ),
               
