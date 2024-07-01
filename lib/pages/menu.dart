@@ -18,36 +18,36 @@ class Menu extends StatelessWidget {
     return PopupMenuButton(
       padding: const EdgeInsets.only(left: 5),
       elevation: 0,
-      color: Theme.of(context).primaryColor,
+      //color: Theme.of(context).canvasColor,
       itemBuilder: (BuildContext context) => <PopupMenuEntry<menuItems>>[
         const PopupMenuItem<menuItems>(
           value: menuItems.save,
-          //nTap: save,
+          //onSelect: save,
           child: Text("Save"),
         ),
         const PopupMenuItem<menuItems>(
           value: menuItems.open,
-          //onTap: openFile,
+          //onSelect: openFile,
           child: Text("Open"),
         ),
         const PopupMenuItem<menuItems>(
           value: menuItems.fileInfo,
-          //onTap: showFileInfo,
+          //onSelect: showFileInfo,
           child: Text("File Info"),
         ),
         const PopupMenuItem<menuItems>(
           value: menuItems.close,
-          //onTap: closeFile,
+          //onSelect: closeFile,
           child: Text("Close"),
         ),
         const PopupMenuItem<menuItems>(
           value: menuItems.switchView,
-          //onTap: switchViewMode,
+          //onSelect: switchViewMode,
           child: Text("Switch Mode"),
         ),
         const PopupMenuItem<menuItems>(
           value: menuItems.switchTheme,
-          //onTap: switchTheme,
+          //onSelect: switchTheme,
           child: Text("Change Theme"),
         ),   
       ]
