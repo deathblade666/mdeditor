@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
  enum menuItems {
   save, 
@@ -8,6 +9,10 @@ import 'package:flutter/material.dart';
   switchTheme,
   switchView,
   enableWorkCount,
+  }
+
+  void pop({bool? animated}) async {
+    await SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop', animated);
   }
 
 class Menu extends StatelessWidget {
@@ -37,7 +42,7 @@ class Menu extends StatelessWidget {
         ),
         const PopupMenuItem<menuItems>(
           value: menuItems.close,
-          //onSelect: closeFile,
+          onTap: pop,
           child: Text("Close"),
         ),
         const PopupMenuItem<menuItems>(
