@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -23,6 +24,10 @@ import 'package:flutter/services.dart';
     await SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop', animated);
   }
 
+  void pickFile() async {
+    final result = await FilePicker.platform.pickFiles();
+  }
+
 class Menu extends StatelessWidget {
   const Menu({super.key});
 
@@ -40,7 +45,7 @@ class Menu extends StatelessWidget {
         ),
         const PopupMenuItem<menuItems>(
           value: menuItems.open,
-          //onSelect: openFile,
+          onTap: pickFile,
           child: Text("Open"),
         ),
         const PopupMenuItem<menuItems>(
