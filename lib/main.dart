@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget{
             ),
         //themeMode: ThemeMode.dark,
         // themeMode: ThemeMode.light,
+        themeMode: ThemeMode.system,
         );
     });
   }  
