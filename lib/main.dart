@@ -2,7 +2,6 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:mdeditor/pages/split_edit.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 void main() async {
   runApp(const MyApp());

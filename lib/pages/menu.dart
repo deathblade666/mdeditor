@@ -87,7 +87,17 @@ class Menu extends StatelessWidget {
               }
             );
             final file = File(outputfile!);
-            file.writeAsString(value);
+            try {
+              file.writeAsString(value);
+              } on Exception catch (_) {
+                showDialog(context: context, builder: (BuildContext context){
+                  return const AlertDialog(
+                    title: Text("Error"),
+                    content: Text("Save Failed"),
+                  );
+                });
+              }
+            
           },   
           child: Text("Save"),
         ),
