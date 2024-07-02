@@ -41,7 +41,7 @@ class fullEditorState extends State<fullEditor> {
             children: [
               Container(
                 padding: const EdgeInsets.only(right: 15),
-                child: const Menu()
+                child: Menu(contents)
               ),
               
             ]

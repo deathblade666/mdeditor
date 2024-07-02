@@ -37,7 +37,7 @@ class editorState extends State<Editor> {
             flex: 2,
             child: Renderer(contents),
           ),
-          Padding(padding: EdgeInsets.all(5)),
+          const Padding(padding: EdgeInsets.all(5)),
           Expanded(
             child: mdtextfield(ontextchanged: mdText,),
           ),
@@ -46,9 +46,8 @@ class editorState extends State<Editor> {
             children: [
               Container(
                 padding: const EdgeInsets.only(right: 15),
-                child: const Menu()
+                child: Menu(contents)
               ),
-              
             ]
           ),
         ]
