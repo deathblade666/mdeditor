@@ -2,6 +2,7 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:mdeditor/pages/split_edit.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,10 +11,16 @@ void main() {
 final _defaultDarkColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.indigo, brightness: Brightness.dark);
 final _defaultLightColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.indigo);
 
+void requestPermissions() async {
+    var status = await Permission.storage.status;
+    if (!status.isGranted) {
+      await Permission.storage.request();
+    }
+  }
+
 class MyApp extends StatelessWidget{
   const MyApp({super.key});
   
-
   // ignore: non_constant_identifier_names
 
   @override

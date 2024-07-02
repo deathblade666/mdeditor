@@ -60,8 +60,8 @@ import 'package:flutter/services.dart';
   //} 
 
 class Menu extends StatelessWidget {
-  Menu(this.value,{super.key});
-  String value;
+  const Menu(this.value,{super.key});
+  final String value;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,7 @@ class Menu extends StatelessWidget {
           onTap: () async {
             final outputfile = await FilePicker.platform.saveFile(
               dialogTitle: 'Please select an output file:',
-              fileName: '.md',
+              fileName: "''.md",
             );
             showDialog(
               context: context, 
