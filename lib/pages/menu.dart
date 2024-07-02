@@ -46,6 +46,7 @@ import 'package:flutter/services.dart';
 
   void saveFile() async {
     //String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
+    // ignore: unused_local_variable
     String? outputFile = await FilePicker.platform.saveFile(
       dialogTitle: 'Please select an output file:',
       fileName: 'output-file.pdf',
