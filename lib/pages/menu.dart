@@ -23,7 +23,6 @@ import 'package:flutter/services.dart';
 // function to change view modes
 // function to enable persistent word counter
 
-
   String filePath = '';
   void closeApp({bool? animated}) async {
     await SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop', animated);
@@ -44,18 +43,25 @@ import 'package:flutter/services.dart';
     
   }
 
-  void saveFile() async {
-    //String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
-    // ignore: unused_local_variable
-    String? outputFile = await FilePicker.platform.saveFile(
-      dialogTitle: 'Please select an output file:',
-      fileName: 'output-file.pdf',
-    );
-  } 
+  //void saveFile() async {
+  //  final outputfile = await FilePicker.platform.saveFile(
+  //    dialogTitle: 'Please select an output file:',
+  //    fileName: '.md',
+  //  );
+  //  print(outputfile);
+  //  showDialog(context: context, builder: (BuildContext context){
+  //    return AlertDialog(
+  //      title: Text("Success"),
+  //      content: Text("Save successfully to $outputfile"),
+  //    );
+  //  });
+  //  final file = File(outputfile!);
+  //  file.writeAsString(value);
+  //} 
 
 class Menu extends StatelessWidget {
-  const Menu(this.value,{super.key});
-  final String value;
+  Menu(this.value,{super.key});
+  String value;
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +70,25 @@ class Menu extends StatelessWidget {
       elevation: 0,
       color: Theme.of(context).highlightColor,
       itemBuilder: (BuildContext context) => <PopupMenuEntry<menuItems>>[
-        const PopupMenuItem<menuItems>(
+        PopupMenuItem<menuItems>(
           value: menuItems.save,
-          onTap: saveFile,
+          onTap: () async {
+            final outputfile = await FilePicker.platform.saveFile(
+              dialogTitle: 'Please select an output file:',
+              fileName: '.md',
+            );
+            showDialog(
+              context: context, 
+              builder: (BuildContext context){
+                return AlertDialog(
+                title: Text("Success"),
+                content: Text("Save successfully to $outputfile"),
+                );
+              }
+            );
+            final file = File(outputfile!);
+            file.writeAsString(value);
+          },   
           child: Text("Save"),
         ),
         const PopupMenuItem<menuItems>(
