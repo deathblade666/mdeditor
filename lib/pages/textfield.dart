@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_editor_plus/markdown_editor_plus.dart';
+import 'package:markdown_editor_plus/widgets/toolbar_item.dart';
 
 class mdtextfield extends StatefulWidget {
-  const mdtextfield( {required this.ontextchanged, super.key});
+  const mdtextfield({required this.ontextchanged, super.key});
   final void Function(String contents) ontextchanged;
+
+
   @override
   State<mdtextfield> createState() => mdtextfieldState();
-
 }
 
 //TODO: Set border color to be Material accent color?
 
 // ignore: camel_case_types
 class mdtextfieldState extends State<mdtextfield> {
-
 
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
   void mdText(String value) {
@@ -41,6 +42,7 @@ class mdtextfieldState extends State<mdtextfield> {
         onChanged: mdText,
         expands: true,
         emojiConvert: true,
+        maxLines: null,
       ),
     );
   }

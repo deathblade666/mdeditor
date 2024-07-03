@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:markdown_editor_plus/markdown_editor_plus.dart';
 import 'package:mdeditor/pages/menu.dart';
 import 'package:mdeditor/pages/preview.dart';
 import 'package:mdeditor/pages/textfield.dart';
@@ -22,6 +23,8 @@ class editorState extends State<Editor> {
     });
   }
 
+  final TextEditingController controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,14 +39,13 @@ class editorState extends State<Editor> {
             flex: 2,
             child: Renderer(contents),
           ),
-          const Padding(padding: EdgeInsets.all(5)),
           Expanded(
-            child: mdtextfield(ontextchanged: mdText,),
+            child: mdtextfield(ontextchanged: mdText),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(
+             Container(
                 padding: const EdgeInsets.only(right: 15),
                 child: Menu(contents)
               ),

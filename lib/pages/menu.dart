@@ -15,8 +15,6 @@ import 'package:flutter/services.dart';
   }
 
 //TODO: Implement new functions
-// Save
-//   - Fix crash on save
 // Open function
 //   - Load file value in textfield
 // function and widget for file info
@@ -32,33 +30,14 @@ import 'package:flutter/services.dart';
   void pickFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
     if (result == null) return;
-
     final filePicked = result.files;
     final path = filePicked.first.path.toString();
     final file = File(path);
     filePath = path;
+    // ignore: unused_local_variable
     final fileContent = await file.readAsString();
-    final value = fileContent;
-    print(value);
-    print(filePath);
-    
+    print(fileContent);
   }
-
-  //void saveFile() async {
-  //  final outputfile = await FilePicker.platform.saveFile(
-  //    dialogTitle: 'Please select an output file:',
-  //    fileName: '.md',
-  //  );
-  //  print(outputfile);
-  //  showDialog(context: context, builder: (BuildContext context){
-  //    return AlertDialog(
-  //      title: Text("Success"),
-  //      content: Text("Save successfully to $outputfile"),
-  //    );
-  //  });
-  //  final file = File(outputfile!);
-  //  file.writeAsString(value);
-  //} 
 
 class Menu extends StatelessWidget {
   const Menu(this.value,{super.key});
@@ -77,7 +56,6 @@ class Menu extends StatelessWidget {
             List<int> list = utf8.encode(value);
             Uint8List bytes = Uint8List.fromList(list);
             final outputfile = await FilePicker.platform.saveFile(bytes: bytes);
-            print(outputfile);
             showDialog(
               context: context, 
               builder: (BuildContext context){
@@ -88,17 +66,7 @@ class Menu extends StatelessWidget {
               }
             );
             final file = File(outputfile!);
-            try {
-              file.writeAsString(value);
-              } on Exception catch (_) {
-                showDialog(context: context, builder: (BuildContext context){
-                  return const AlertDialog(
-                    //title: Text("Error"),
-                    content: Text("Save Failed"),
-                  );
-                });
-              }
-            
+            file.writeAsString(value);
           },   
           child: const Text("Save"),
         ),
