@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -73,15 +74,15 @@ class Menu extends StatelessWidget {
         PopupMenuItem<menuItems>(
           value: menuItems.save,
           onTap: () async {
-            final outputfile = await FilePicker.platform.saveFile(
-              dialogTitle: 'Please select an output file:',
-              fileName: "''.md",
-            );
+            List<int> list = utf8.encode(value);
+            Uint8List bytes = Uint8List.fromList(list);
+            final outputfile = await FilePicker.platform.saveFile(bytes: bytes);
+            print(outputfile);
             showDialog(
               context: context, 
               builder: (BuildContext context){
                 return AlertDialog(
-                title: Text("Success"),
+                title: const Text("Success"),
                 content: Text("Save successfully to $outputfile"),
                 );
               }
@@ -92,14 +93,14 @@ class Menu extends StatelessWidget {
               } on Exception catch (_) {
                 showDialog(context: context, builder: (BuildContext context){
                   return const AlertDialog(
-                    title: Text("Error"),
+                    //title: Text("Error"),
                     content: Text("Save Failed"),
                   );
                 });
               }
             
           },   
-          child: Text("Save"),
+          child: const Text("Save"),
         ),
         const PopupMenuItem<menuItems>(
           value: menuItems.open,
