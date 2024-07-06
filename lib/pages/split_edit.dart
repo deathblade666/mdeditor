@@ -14,6 +14,7 @@ class Editor extends StatefulWidget {
 // ignore: camel_case_types
 class editorState extends State<Editor> {
   String contents = '';
+  String file = '';
 
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
   void mdText(String value) {
@@ -22,7 +23,11 @@ class editorState extends State<Editor> {
     });
   }
 
-  final TextEditingController controller = TextEditingController();
+  void loadedFile(fileAsString){
+    setState(() {
+      file = fileAsString;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +44,14 @@ class editorState extends State<Editor> {
             child: Renderer(contents),
           ),
           Expanded(
-            child: mdtextfield(ontextchanged: mdText),
+            child: mdtextfield(ontextchanged: mdText, file),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
              Container(
                 padding: const EdgeInsets.only(right: 15),
-                child: Menu(contents)
+                child: Menu(onFileLoad: loadedFile,contents)
               ),
             ]
           ),

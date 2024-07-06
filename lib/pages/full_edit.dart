@@ -1,25 +1,31 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:mdeditor/pages/menu.dart';
+import 'package:mdeditor/pages/preview.dart';
 import 'package:mdeditor/pages/textfield.dart';
 
-//TODO: Make this work, toggleable view menu item
-
-class fullEditor extends StatefulWidget {
-  const fullEditor({super.key});
+class Editor extends StatefulWidget {
+  const Editor({super.key});
 
   @override
-  State<fullEditor> createState() => fullEditorState();
+  State<Editor> createState() => editorState();
 }
 
 // ignore: camel_case_types
-class fullEditorState extends State<fullEditor> {
+class editorState extends State<Editor> {
   String contents = '';
+  String file = '';
 
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
   void mdText(String value) {
     setState(() {
      contents = value;      
+    });
+  }
+
+  void loadedFile(fileAsString){
+    setState(() {
+      file = fileAsString;
     });
   }
 
@@ -34,16 +40,19 @@ class fullEditorState extends State<fullEditor> {
       body: Column(
         children: [
           Expanded(
-            child: mdtextfield(ontextchanged: mdText,),
+            flex: 2,
+            child: Renderer(contents),
+          ),
+          Expanded(
+            child: mdtextfield(ontextchanged: mdText, file),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(
+             Container(
                 padding: const EdgeInsets.only(right: 15),
-                child: Menu(contents)
+                child: Menu(onFileLoad: loadedFile,contents)
               ),
-              
             ]
           ),
         ]

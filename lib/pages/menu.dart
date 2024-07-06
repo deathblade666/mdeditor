@@ -40,7 +40,8 @@ import 'package:flutter/services.dart';
   }
 
 class Menu extends StatelessWidget {
-  const Menu(this.value,{super.key});
+  const Menu(this.value,{required this.onFileLoad,super.key});
+  final void Function(String fileAsString) onFileLoad;
   final String value;
 
   @override
