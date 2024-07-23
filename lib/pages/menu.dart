@@ -49,7 +49,7 @@ class Menu extends StatefulWidget {
     final filePicked = result.files;
     final path = filePicked.first.path.toString();
     final file = File(path);
-    final fileName = result.names.toString();
+    final fileName = result.names.join(',').toString();
     filePath = path;
     final fileContent = await file.readAsString();
     widget.onFileLoad(fileContent);
