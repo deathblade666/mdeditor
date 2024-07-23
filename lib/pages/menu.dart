@@ -66,7 +66,6 @@ class Menu extends StatefulWidget {
             final outputfile = await FilePicker.platform.saveFile(bytes: bytes);
             final file = File(outputfile!);
             file.writeAsString(value);
-            print(file);
             showDialog(
               context: context, 
               builder: (BuildContext context){
