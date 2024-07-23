@@ -14,7 +14,8 @@ class Editor extends StatefulWidget {
 // ignore: camel_case_types
 class editorState extends State<Editor> {
   String contents = '';
-  String file = '';
+  String fileContent = '';
+  TextEditingController myController = TextEditingController();
 
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
   void mdText(String value) {
@@ -23,9 +24,9 @@ class editorState extends State<Editor> {
     });
   }
 
-  void loadedFile(fileAsString){
+  void loadedFile(fileContent){
     setState(() {
-      file = fileAsString;
+      myController.text = fileContent;
     });
   }
 
@@ -44,7 +45,7 @@ class editorState extends State<Editor> {
             child: Renderer(contents),
           ),
           Expanded(
-            child: mdtextfield(ontextchanged: mdText, file),
+            child: mdtextfield(ontextchanged: mdText, myController, fileContent),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

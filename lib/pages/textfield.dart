@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:markdown_editor_plus/markdown_editor_plus.dart';
 
 class mdtextfield extends StatefulWidget {
-  const mdtextfield(this.file,{required this.ontextchanged, super.key});
+  mdtextfield(this.myController,this.fileContent,{required this.ontextchanged, super.key});
   final void Function(String contents) ontextchanged;
-  final String file;
-
+  TextEditingController myController = TextEditingController();
+  String fileContent;
 
   @override
-  State<mdtextfield> createState() => mdtextfieldState(file);
+  State<mdtextfield> createState() => mdtextfieldState(myController,fileContent);
 }
-
-//TODO: Set border color to be Material accent color?
 
 // ignore: camel_case_types
 class mdtextfieldState extends State<mdtextfield> {
-  mdtextfieldState(String file);
-  String file = '';
+  mdtextfieldState(this.myController, this.fileContent);
+  String fileContent;
+  TextEditingController myController = TextEditingController();
+  
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
   void mdText(String value) {
     final lines = value.split('\n');
@@ -44,6 +45,7 @@ class mdtextfieldState extends State<mdtextfield> {
         expands: true,
         emojiConvert: true,
         maxLines: null,
+        controller: myController,
       ),
     );
   }

@@ -43,9 +43,9 @@ class editorState extends State<Editor> {
             flex: 2,
             child: Renderer(contents),
           ),
-          Expanded(
-            child: mdtextfield(ontextchanged: mdText, file),
-          ),
+          //Expanded(
+            //child: mdtextfield(ontextchanged: mdText, ),
+        //  ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

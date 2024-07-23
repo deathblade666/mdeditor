@@ -27,6 +27,18 @@ import 'package:flutter/services.dart';
     await SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop', animated);
   }
 
+class Menu extends StatefulWidget {
+  const Menu(this.value,{required this.onFileLoad,super.key});
+  final void Function(String fileContent) onFileLoad;
+  final String value;
+
+  @override
+  State<Menu> createState() => MenuState(value);
+}
+  class MenuState extends State<Menu> {
+    MenuState(this.value);
+    final String value;
+  
   void pickFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
     if (result == null) return;
@@ -36,14 +48,9 @@ import 'package:flutter/services.dart';
     filePath = path;
     // ignore: unused_local_variable
     final fileContent = await file.readAsString();
-    print(fileContent);
+    widget.onFileLoad(fileContent);
   }
-
-class Menu extends StatelessWidget {
-  const Menu(this.value,{required this.onFileLoad,super.key});
-  final void Function(String fileAsString) onFileLoad;
-  final String value;
-
+  
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
@@ -57,6 +64,9 @@ class Menu extends StatelessWidget {
             List<int> list = utf8.encode(value);
             Uint8List bytes = Uint8List.fromList(list);
             final outputfile = await FilePicker.platform.saveFile(bytes: bytes);
+            final file = File(outputfile!);
+            file.writeAsString(value);
+            print(file);
             showDialog(
               context: context, 
               builder: (BuildContext context){
@@ -66,12 +76,10 @@ class Menu extends StatelessWidget {
                 );
               }
             );
-            final file = File(outputfile!);
-            file.writeAsString(value);
           },   
           child: const Text("Save"),
         ),
-        const PopupMenuItem<menuItems>(
+        PopupMenuItem<menuItems>(
           value: menuItems.open,
           onTap: pickFile,
           child: Text("Open"),
