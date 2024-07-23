@@ -82,7 +82,7 @@ class Menu extends StatefulWidget {
         PopupMenuItem<menuItems>(
           value: menuItems.open,
           onTap: pickFile,
-          child: Text("Open"),
+          child: const Text("Open"),
         ),
         const PopupMenuItem<menuItems>(
           value: menuItems.fileInfo,
