@@ -25,7 +25,6 @@ class mdtextfieldState extends State<mdtextfield> {
     final emptyCheckbox = lines.where((e) => e == '- [ ] ');
     if (emptyCheckbox.isEmpty) {
       widget.ontextchanged(value);
-      print(value);
     }
   }
 
