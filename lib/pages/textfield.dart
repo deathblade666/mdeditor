@@ -1,28 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:markdown_editor_plus/markdown_editor_plus.dart';
 
 class mdtextfield extends StatefulWidget {
-  mdtextfield(this.myController,this.fileContent,{required this.ontextchanged, super.key});
-  final void Function(String contents) ontextchanged;
-  TextEditingController myController = TextEditingController();
+  mdtextfield(this.OpenFile,this.fileContent,{super.key});
+  //final void Function(String contents) ontextchanged;
+  TextEditingController OpenFile;
   String fileContent;
 
   @override
-  State<mdtextfield> createState() => mdtextfieldState(myController,fileContent);
+  State<mdtextfield> createState() => mdtextfieldState(OpenFile,fileContent);
 }
 
 // ignore: camel_case_types
 class mdtextfieldState extends State<mdtextfield> {
-  mdtextfieldState(this.myController, this.fileContent);
+  mdtextfieldState(this.OpenFile, this.fileContent);
   String fileContent;
-  TextEditingController myController = TextEditingController();
+  TextEditingController OpenFile = TextEditingController();
+
   
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
   void mdText(String value) {
     final lines = value.split('\n');
     final emptyCheckbox = lines.where((e) => e == '- [ ] ');
     if (emptyCheckbox.isEmpty) {
-      widget.ontextchanged(value);
+      //widget.ontextchanged(value);
     }
   }
 
@@ -40,11 +42,11 @@ class mdtextfieldState extends State<mdtextfield> {
       ),
       padding: const EdgeInsets.all(15),
       child: MarkdownField(
-        onChanged: mdText,
+        //onChanged: mdText,
         expands: true,
         emojiConvert: true,
         maxLines: null,
-        controller: myController,
+        controller: OpenFile,
       ),
     );
   }

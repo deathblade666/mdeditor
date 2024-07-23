@@ -38,10 +38,10 @@ class editorState extends State<Editor> {
       ),
       body: Column(
         children: [
-          Expanded(
-            flex: 2,
-            child: Renderer(contents),
-          ),
+          //Expanded(
+            //flex: 2,
+            //child: Renderer(OpenFile),
+          //),
           //Expanded(
             //child: mdtextfield(ontextchanged: mdText, ),
         //  ),
@@ -50,7 +50,7 @@ class editorState extends State<Editor> {
             children: [
              Container(
                 padding: const EdgeInsets.only(right: 15),
-                child: Menu(onFileLoad: loadedFile,contents)
+                //child: Menu(onFileLoad: loadedFile,OpenFile),
               ),
             ]
           ),

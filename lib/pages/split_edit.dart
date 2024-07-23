@@ -15,7 +15,7 @@ class Editor extends StatefulWidget {
 class editorState extends State<Editor> {
   String contents = '';
   String fileContent = '';
-  TextEditingController myController = TextEditingController();
+  TextEditingController OpenFile = TextEditingController();
 
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
   void mdText(String value) {
@@ -26,7 +26,7 @@ class editorState extends State<Editor> {
 
   void loadedFile(fileContent){
     setState(() {
-      myController.text = fileContent;
+      OpenFile.text = fileContent;
     });
   }
 
@@ -42,17 +42,17 @@ class editorState extends State<Editor> {
         children: [
           Expanded(
             flex: 2,
-            child: Renderer(contents),
+            child: Renderer(OpenFile),
           ),
           Expanded(
-            child: mdtextfield(ontextchanged: mdText, myController, fileContent),
+            child: mdtextfield(OpenFile, fileContent),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
              Container(
                 padding: const EdgeInsets.only(right: 15),
-                child: Menu(onFileLoad: loadedFile,contents)
+                child: Menu(onFileLoad: loadedFile,contents, OpenFile)
               ),
             ]
           ),

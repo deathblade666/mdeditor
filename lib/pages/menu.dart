@@ -28,16 +28,18 @@ import 'package:flutter/services.dart';
   }
 
 class Menu extends StatefulWidget {
-  const Menu(this.value,{required this.onFileLoad,super.key});
+  Menu(this.value,this.OpenFile,{required this.onFileLoad,super.key});
   final void Function(String fileContent) onFileLoad;
+  TextEditingController OpenFile = TextEditingController();
   final String value;
 
   @override
-  State<Menu> createState() => MenuState(value);
+  State<Menu> createState() => MenuState(value, OpenFile);
 }
   class MenuState extends State<Menu> {
-    MenuState(this.value);
+    MenuState(this.value, this.OpenFile);
     final String value;
+    TextEditingController OpenFile = TextEditingController();
   
   void pickFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
@@ -61,11 +63,12 @@ class Menu extends StatefulWidget {
         PopupMenuItem<menuItems>(
           value: menuItems.save,
           onTap: () async {
-            List<int> list = utf8.encode(value);
+            List<int> list = utf8.encode(OpenFile.text);
             Uint8List bytes = Uint8List.fromList(list);
             final outputfile = await FilePicker.platform.saveFile(bytes: bytes);
             final file = File(outputfile!);
-            file.writeAsString(value);
+            file.writeAsString(OpenFile.text);
+            print(bytes);
             showDialog(
               context: context, 
               builder: (BuildContext context){
