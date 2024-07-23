@@ -15,6 +15,7 @@ class Editor extends StatefulWidget {
 class editorState extends State<Editor> {
   String contents = '';
   String fileContent = '';
+  String fileName = '';
   TextEditingController OpenFile = TextEditingController();
 
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
@@ -51,9 +52,10 @@ class editorState extends State<Editor> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              Text(fileName),
              Container(
                 padding: const EdgeInsets.only(right: 15),
-                child: Menu(onFileLoad: loadedFile,contents, OpenFile)
+                child: Menu(onFileLoad: loadedFile, contents, OpenFile, fileName: fileName,),
               ),
             ]
           ),
