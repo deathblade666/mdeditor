@@ -57,14 +57,17 @@ class editorState extends State<Editor> {
             child: mdtextfield(OpenFile, fileContent,ontextchanged: mdText,),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("$NameofFile",),
-              Padding(padding: EdgeInsets.only(right: 20)),
+              Container(
+                padding: EdgeInsets.only(left: 15),
+                child: Text("$NameofFile",),
+              ),
               Text("20"),
-              Padding(padding: EdgeInsets.only(right: 10)),
-              Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName),
-              const Padding(padding: EdgeInsets.only(right: 15)),
+              Container(
+                padding: EdgeInsets.only(right: 15),
+                child: Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName),
+              ),
             ]
           ),
         ]
