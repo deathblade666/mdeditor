@@ -59,11 +59,12 @@ class editorState extends State<Editor> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text("Open File: $NameofFile"),
-              Container(
-                padding: const EdgeInsets.only(right: 15),
-                child: Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName),
-              ),
+              Text("$NameofFile",),
+              Padding(padding: EdgeInsets.only(right: 20)),
+              Text("20"),
+              Padding(padding: EdgeInsets.only(right: 10)),
+              Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName),
+              const Padding(padding: EdgeInsets.only(right: 15)),
             ]
           ),
         ]
