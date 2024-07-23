@@ -35,7 +35,6 @@ class editorState extends State<Editor> {
   void setFileName(fileName){
     setState(() {
       NameofFile = fileName;
-      print(NameofFile);
     });
   }
 
@@ -59,14 +58,18 @@ class editorState extends State<Editor> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                padding: EdgeInsets.only(left: 15),
-                child: Text("$NameofFile",),
-              ),
-              Text("20"),
-              Container(
-                padding: EdgeInsets.only(right: 15),
-                child: Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName),
+              Row(
+                children: [
+                  const Padding(padding: EdgeInsets.only(left: 15)),
+                  Text(NameofFile),
+              ],
+            ),
+              Row(
+                children: [
+                  Text("20"),
+                  Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName),
+                  const Padding(padding: EdgeInsets.only(right: 15)),
+                ],
               ),
             ]
           ),
