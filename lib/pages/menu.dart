@@ -61,7 +61,7 @@ class Menu extends StatefulWidget {
     return PopupMenuButton(
       padding: const EdgeInsets.only(left: 5),
       elevation: 0,
-      color: Theme.of(context).primaryColorDark,
+      color: Theme.of(context).colorScheme.surfaceBright,
       itemBuilder: (BuildContext context) => <PopupMenuEntry<menuItems>>[
         PopupMenuItem<menuItems>(
           value: menuItems.save,

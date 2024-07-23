@@ -14,8 +14,11 @@ class Renderer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).canvasColor,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.secondary
+        )
         ),
       padding: const EdgeInsets.all(15),
       child: Markdown(

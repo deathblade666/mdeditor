@@ -31,12 +31,12 @@ class mdtextfieldState extends State<mdtextfield> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Theme.of(context).focusColor,
+          color: Theme.of(context).colorScheme.surfaceContainerLow,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: Theme.of(context).indicatorColor,
+            color: Theme.of(context).colorScheme.secondary,
             style: BorderStyle.solid,
-            width: 1.5,
+            //width: 1.5,
           )
       ),
       padding: const EdgeInsets.all(15),
