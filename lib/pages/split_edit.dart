@@ -27,6 +27,7 @@ class editorState extends State<Editor> {
   void loadedFile(fileContent){
     setState(() {
       OpenFile.text = fileContent;
+      contents = fileContent;
     });
   }
 
