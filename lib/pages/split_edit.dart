@@ -15,7 +15,7 @@ class Editor extends StatefulWidget {
 class editorState extends State<Editor> {
   String contents = '';
   String fileContent = '';
-  String fileName = '';
+  String NameofFile = '';
   TextEditingController OpenFile = TextEditingController();
 
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
@@ -29,6 +29,13 @@ class editorState extends State<Editor> {
     setState(() {
       OpenFile.text = fileContent;
       contents = fileContent;
+    });
+  }
+
+  void setFileName(fileName){
+    setState(() {
+      NameofFile = fileName;
+      print(NameofFile);
     });
   }
 
@@ -52,10 +59,10 @@ class editorState extends State<Editor> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(fileName),
-             Container(
+              Text("Open File: $NameofFile"),
+              Container(
                 padding: const EdgeInsets.only(right: 15),
-                child: Menu(onFileLoad: loadedFile, contents, OpenFile, fileName: fileName,),
+                child: Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName),
               ),
             ]
           ),

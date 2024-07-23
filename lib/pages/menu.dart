@@ -26,9 +26,10 @@ import 'package:flutter/services.dart';
   }
 
 class Menu extends StatefulWidget {
-  Menu(this.value,this.OpenFile,{required this.onFileLoad, required this.fileName,super.key});
+  Menu(this.value,this.OpenFile,{required this.onFileLoad,required this.onfileName,super.key});
   final void Function(String fileContent) onFileLoad;
-  String fileName = '';
+  final void Function(String fileName) onfileName;
+
 
   TextEditingController OpenFile = TextEditingController();
   final String value;
@@ -39,6 +40,7 @@ class Menu extends StatefulWidget {
   class MenuState extends State<Menu> {
     MenuState(this.value, this.OpenFile);
     final String value;
+
     TextEditingController OpenFile = TextEditingController();
   
   void pickFile() async {
@@ -48,11 +50,10 @@ class Menu extends StatefulWidget {
     final path = filePicked.first.path.toString();
     final file = File(path);
     final fileName = result.names.toString();
-    print(fileName);
     filePath = path;
-    // ignore: unused_local_variable
     final fileContent = await file.readAsString();
     widget.onFileLoad(fileContent);
+    widget.onfileName(fileName);
   }
   
   @override
