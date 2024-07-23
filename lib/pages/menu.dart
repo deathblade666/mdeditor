@@ -15,8 +15,6 @@ import 'package:flutter/services.dart';
   }
 
 //TODO: Implement new functions
-// Open function
-//   - Load file value in textfield
 // function and widget for file info
 // function for theme control
 // function to change view modes
