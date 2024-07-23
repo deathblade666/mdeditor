@@ -6,8 +6,9 @@ import 'package:markdown/markdown.dart' as md;
 //TODO: Change font size (bigger)
 
 class Renderer extends StatelessWidget {
-  Renderer(this.OpenFile,{super.key});
-  TextEditingController OpenFile;
+  Renderer(this.OpenFile,this.value,{super.key});
+  String value;
+  TextEditingController OpenFile = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class Renderer extends StatelessWidget {
         ),
       padding: const EdgeInsets.all(15),
       child: Markdown(
-        data: OpenFile.text,
+        data: value,
         styleSheet: MarkdownStyleSheet(checkbox: Theme.of(context).textTheme.bodyMedium),
         selectable: true,
         extensionSet: md.ExtensionSet(

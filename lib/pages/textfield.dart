@@ -3,8 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:markdown_editor_plus/markdown_editor_plus.dart';
 
 class mdtextfield extends StatefulWidget {
-  mdtextfield(this.OpenFile,this.fileContent,{super.key});
-  //final void Function(String contents) ontextchanged;
+  mdtextfield(this.OpenFile,this.fileContent,{required this.ontextchanged, super.key});
+  final void Function(String contents) ontextchanged;
   TextEditingController OpenFile;
   String fileContent;
 
@@ -24,7 +24,8 @@ class mdtextfieldState extends State<mdtextfield> {
     final lines = value.split('\n');
     final emptyCheckbox = lines.where((e) => e == '- [ ] ');
     if (emptyCheckbox.isEmpty) {
-      //widget.ontextchanged(value);
+      widget.ontextchanged(value);
+      print(value);
     }
   }
 
@@ -42,7 +43,7 @@ class mdtextfieldState extends State<mdtextfield> {
       ),
       padding: const EdgeInsets.all(15),
       child: MarkdownField(
-        //onChanged: mdText,
+        onChanged: mdText,
         expands: true,
         emojiConvert: true,
         maxLines: null,

@@ -42,10 +42,10 @@ class editorState extends State<Editor> {
         children: [
           Expanded(
             flex: 2,
-            child: Renderer(OpenFile),
+            child: Renderer(OpenFile, contents),
           ),
           Expanded(
-            child: mdtextfield(OpenFile, fileContent),
+            child: mdtextfield(OpenFile, fileContent,ontextchanged: mdText,),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
