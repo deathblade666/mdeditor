@@ -16,9 +16,6 @@ class Renderer extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.secondary
-        )
         ),
       padding: const EdgeInsets.all(15),
       child: Markdown(
