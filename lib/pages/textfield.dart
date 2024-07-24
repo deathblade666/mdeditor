@@ -34,7 +34,8 @@ class mdtextfieldState extends State<mdtextfield> {
           color: Theme.of(context).colorScheme.surfaceContainer,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: Theme.of(context).colorScheme.tertiaryFixed,
+            //color: Theme.of(context).colorScheme.tertiaryFixed,
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
             style: BorderStyle.solid,
             width: 1.5,
           )
