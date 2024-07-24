@@ -60,7 +60,7 @@ class Menu extends StatefulWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton(
       elevation: 0,
-      color: Theme.of(context).colorScheme.surfaceBright,
+      color: Theme.of(context).colorScheme.surfaceContainerHighest,
       itemBuilder: (BuildContext context) => <PopupMenuEntry<menuItems>>[
         PopupMenuItem<menuItems>(
           value: menuItems.save,

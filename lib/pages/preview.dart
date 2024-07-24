@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
+import 'package:open_file/open_file.dart';
 
 
 //TODO: Change font size (bigger)
@@ -9,18 +10,19 @@ class Renderer extends StatelessWidget {
   Renderer(this.OpenFile,this.value,{super.key});
   String value;
   TextEditingController OpenFile = TextEditingController();
+  ScrollController autoScroll = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainer,
-        borderRadius: BorderRadius.circular(10),
+        color: Theme.of(context).colorScheme.surface,
         ),
       padding: const EdgeInsets.all(15),
       child: Markdown(
         data: value,
-        styleSheet: MarkdownStyleSheet(checkbox: Theme.of(context).textTheme.bodyMedium),
+        controller: autoScroll,
+        styleSheet: MarkdownStyleSheet(checkbox: Theme.of(context).textTheme.bodyMedium,),
         selectable: true,
         extensionSet: md.ExtensionSet(
           md.ExtensionSet.gitHubFlavored.blockSyntaxes,

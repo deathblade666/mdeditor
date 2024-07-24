@@ -8,7 +8,7 @@ void main() async {
 }
 
 final _defaultDarkColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.indigo, brightness: Brightness.dark);
-final _defaultLightColorScheme = ColorScheme.fromSeed(seedColor: Colors.lightGreen);
+final _defaultLightColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.indigo);
 
 class MyApp extends StatelessWidget{
   const MyApp({super.key});
@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget{
         //themeMode: ThemeMode.dark,
         //themeMode: ThemeMode.light,
         themeMode: ThemeMode.system,
-        
         );
     });
   }  
