@@ -7,8 +7,8 @@ void main() async {
   runApp(const MyApp());
 }
 
-final _defaultDarkColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.purple, brightness: Brightness.dark);
-final _defaultLightColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.purple);
+final _defaultDarkColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.indigo, brightness: Brightness.dark);
+final _defaultLightColorScheme = ColorScheme.fromSeed(seedColor: Colors.lightGreen);
 
 class MyApp extends StatelessWidget{
   const MyApp({super.key});
@@ -29,9 +29,9 @@ class MyApp extends StatelessWidget{
               colorScheme: darkColorScheme ?? _defaultDarkColorScheme,
               useMaterial3: true,
             ),
-        themeMode: ThemeMode.dark,
+        //themeMode: ThemeMode.dark,
         //themeMode: ThemeMode.light,
-        //themeMode: ThemeMode.system,
+        themeMode: ThemeMode.system,
         
         );
     });

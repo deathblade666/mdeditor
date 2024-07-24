@@ -48,10 +48,12 @@ class editorState extends State<Editor> {
       ),
       body: Column(
         children: [
+          Padding(padding: EdgeInsets.only(top: 5)),
           Expanded(
             flex: 2,
             child: Renderer(OpenFile, contents),
           ),
+          Padding(padding: EdgeInsets.only(top: 5)),
           Expanded(
             child: mdtextfield(OpenFile, fileContent,ontextchanged: mdText,),
           ),
