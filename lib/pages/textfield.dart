@@ -34,7 +34,7 @@ class mdtextfieldState extends State<mdtextfield> {
           color: Theme.of(context).colorScheme.surfaceContainer,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: Theme.of(context).colorScheme.onSecondaryFixedVariant,
+            color: Theme.of(context).colorScheme.tertiaryFixed,
             style: BorderStyle.solid,
             width: 1.5,
           )
@@ -46,6 +46,7 @@ class mdtextfieldState extends State<mdtextfield> {
         emojiConvert: true,
         maxLines: null,
         controller: OpenFile,
+        cursorColor: Theme.of(context).colorScheme.tertiaryFixed,
       ),
     );
   }

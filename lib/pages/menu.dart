@@ -59,7 +59,6 @@ class Menu extends StatefulWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      padding: const EdgeInsets.only(left: 5),
       elevation: 0,
       color: Theme.of(context).colorScheme.surfaceBright,
       itemBuilder: (BuildContext context) => <PopupMenuEntry<menuItems>>[
