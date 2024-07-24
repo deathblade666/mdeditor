@@ -60,7 +60,7 @@ class editorState extends State<Editor> {
             children: [
               Row(
                 children: [
-                  const Padding(padding: EdgeInsets.only(left: 20)),
+                  const Padding(padding: EdgeInsets.only(left: 15)),
                   Text(NameofFile),
                 ],
               ),
@@ -68,7 +68,7 @@ class editorState extends State<Editor> {
                 children: [
                   Text("20"),
                   Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName),
-                  const Padding(padding: EdgeInsets.only(right: 20)),
+                  const Padding(padding: EdgeInsets.only(right: 15)),
                 ],
               ),
             ]
