@@ -16,7 +16,7 @@ class editorState extends State<Editor> {
   String contents = '';
   String fileContent = '';
   String NameofFile = '';
-  bool fullEdit = true;
+  bool _full = true;
   TextEditingController OpenFile = TextEditingController();
 
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
@@ -41,7 +41,7 @@ class editorState extends State<Editor> {
 
   void switchViewMode(fullEdit){
     setState(() {
-      fullEdit = !fullEdit;
+      _full=fullEdit;
       print(fullEdit);
     });
   }
@@ -49,6 +49,7 @@ class editorState extends State<Editor> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         elevation: 0,
         forceMaterialTransparency: true,
@@ -58,7 +59,7 @@ class editorState extends State<Editor> {
         children: [
           const Padding(padding: EdgeInsets.only(top: 5)),
           Visibility(
-            visible: fullEdit,
+            visible: _full,
             child:Expanded(
               flex: 2,
               child: Renderer(OpenFile, contents),

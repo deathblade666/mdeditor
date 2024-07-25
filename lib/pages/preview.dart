@@ -17,7 +17,7 @@ class Renderer extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         ),
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       child: Markdown(
         data: value,
         controller: autoScroll,
