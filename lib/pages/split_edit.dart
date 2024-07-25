@@ -42,7 +42,6 @@ class editorState extends State<Editor> {
   void switchViewMode(fullEdit){
     setState(() {
       _full=fullEdit;
-      print(fullEdit);
     });
   }
 
