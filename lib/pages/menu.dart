@@ -69,7 +69,7 @@ class Menu extends StatefulWidget {
           onTap: () async {
             List<int> list = utf8.encode(OpenFile.text);
             Uint8List bytes = Uint8List.fromList(list);
-            final outputfile = await FilePicker.platform.saveFile(bytes: bytes, initialDirectory: filePath, fileName: _filename);
+            final outputfile = await FilePicker.platform.saveFile(bytes: bytes);
             final file = File(outputfile!);
             file.writeAsString(OpenFile.text);
             showDialog(
