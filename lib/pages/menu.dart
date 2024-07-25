@@ -21,6 +21,7 @@ import 'package:flutter/services.dart';
 // function to enable persistent word counter
 
   String filePath = '';
+  String _filename = '';
   void closeApp({bool? animated}) async {
     await SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop', animated);
   }
@@ -50,6 +51,7 @@ class Menu extends StatefulWidget {
     final path = filePicked.first.path.toString();
     final file = File(path);
     final fileName = result.names.join(',').toString();
+    _filename = fileName;
     filePath = path;
     final fileContent = await file.readAsString();
     widget.onFileLoad(fileContent);
@@ -67,7 +69,7 @@ class Menu extends StatefulWidget {
           onTap: () async {
             List<int> list = utf8.encode(OpenFile.text);
             Uint8List bytes = Uint8List.fromList(list);
-            final outputfile = await FilePicker.platform.saveFile(bytes: bytes);
+            final outputfile = await FilePicker.platform.saveFile(bytes: bytes, initialDirectory: filePath, fileName: _filename);
             final file = File(outputfile!);
             file.writeAsString(OpenFile.text);
             showDialog(
