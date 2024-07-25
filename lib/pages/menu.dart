@@ -65,7 +65,7 @@ class Menu extends StatefulWidget {
     fullEdit=!fullEdit;
     widget.onModeToggle(fullEdit);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
@@ -97,10 +97,24 @@ class Menu extends StatefulWidget {
           onTap: pickFile,
           child: const Text("Open"),
         ),
-        const PopupMenuItem<menuItems>(
+        PopupMenuItem<menuItems>(
           value: menuItems.fileInfo,
-          //onSelect: showFileInfo,
-          child: Text("File Info"),
+          onTap: () { showDialog(
+            context: context, builder: (BuildContext context){
+              return Dialog(
+              elevation: 1,
+              alignment: Alignment.center,
+              backgroundColor: Theme.of(context).colorScheme.onPrimary,
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(20),
+                height: 200,
+                width: 200,
+                child: Text("testing"),
+              ),);
+            }
+          );},
+          child: const Text("File Info"),
         ),
         const PopupMenuItem<menuItems>(
           value: menuItems.close,
