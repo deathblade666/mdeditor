@@ -16,6 +16,7 @@ class editorState extends State<Editor> {
   String contents = '';
   String fileContent = '';
   String NameofFile = '';
+  bool fullEdit = true;
   TextEditingController OpenFile = TextEditingController();
 
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
@@ -38,6 +39,13 @@ class editorState extends State<Editor> {
     });
   }
 
+  void switchViewMode(fullEdit){
+    setState(() {
+      fullEdit = !fullEdit;
+      print(fullEdit);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,9 +57,12 @@ class editorState extends State<Editor> {
       body: Column(
         children: [
           const Padding(padding: EdgeInsets.only(top: 5)),
-          Expanded(
-            flex: 2,
-            child: Renderer(OpenFile, contents),
+          Visibility(
+            visible: fullEdit,
+            child:Expanded(
+              flex: 2,
+              child: Renderer(OpenFile, contents),
+            ),
           ),
           Expanded(
             child: mdtextfield(OpenFile, fileContent,ontextchanged: mdText,),
@@ -68,7 +79,7 @@ class editorState extends State<Editor> {
               Row(
                 children: [
                   const Text("20"),
-                  Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName),
+                  Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName, onModeToggle: switchViewMode,),
                   const Padding(padding: EdgeInsets.only(right: 15)),
                 ],
               ),

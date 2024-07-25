@@ -1,5 +1,7 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:mdeditor/pages/textfield.dart';
+import 'package:mdeditor/pages/menu.dart';
 
 class Editor extends StatefulWidget {
   const Editor({super.key});
@@ -12,6 +14,9 @@ class Editor extends StatefulWidget {
 class editorState extends State<Editor> {
   String contents = '';
   String file = '';
+  TextEditingController OpenFile = TextEditingController();
+  String fileContent = '';
+  String NameofFile = '';
 
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
   void mdText(String value) {
@@ -26,6 +31,19 @@ class editorState extends State<Editor> {
     });
   }
 
+  void setFileName(fileName){
+    setState(() {
+      NameofFile = fileName;
+    });
+  }
+  void fullEdit(fullEdit){
+    if (fullEdit = true){
+      bool _full = true;
+    } else {
+      bool _full = false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,19 +54,24 @@ class editorState extends State<Editor> {
       ),
       body: Column(
         children: [
-          //Expanded(
-            //flex: 2,
-            //child: Renderer(OpenFile),
-          //),
-          //Expanded(
-            //child: mdtextfield(ontextchanged: mdText, ),
-        //  ),
+          Expanded(
+            child: mdtextfield(OpenFile, fileContent,ontextchanged: mdText ),
+          ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-             Container(
-                padding: const EdgeInsets.only(right: 15),
-                //child: Menu(onFileLoad: loadedFile,OpenFile),
+              Row(
+                children: [
+                  const Padding(padding: EdgeInsets.only(left: 15)),
+                  Text(NameofFile),
+                ],
+              ),
+              Row(
+                children: [
+                  const Text("20"),
+                  Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName, onModeToggle: fullEdit,),
+                  const Padding(padding: EdgeInsets.only(right: 15)),
+                ],
               ),
             ]
           ),

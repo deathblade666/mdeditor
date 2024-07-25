@@ -22,14 +22,17 @@ import 'package:flutter/services.dart';
 
   String filePath = '';
   String _filename = '';
+  bool fullEdit=true;
+
   void closeApp({bool? animated}) async {
     await SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop', animated);
   }
 
 class Menu extends StatefulWidget {
-  Menu(this.value,this.OpenFile,{required this.onFileLoad,required this.onfileName,super.key});
+  Menu(this.value,this.OpenFile,{required this.onModeToggle, required this.onFileLoad,required this.onfileName,super.key});
   final void Function(String fileContent) onFileLoad;
   final void Function(String fileName) onfileName;
+  final void Function(bool fullEdit) onModeToggle;
 
 
   TextEditingController OpenFile = TextEditingController();
@@ -56,6 +59,11 @@ class Menu extends StatefulWidget {
     final fileContent = await file.readAsString();
     widget.onFileLoad(fileContent);
     widget.onfileName(fileName);
+  }
+
+  void switchViewMode() async {
+    fullEdit=!fullEdit;
+    widget.onModeToggle(fullEdit);
   }
   
   @override
@@ -99,10 +107,10 @@ class Menu extends StatefulWidget {
           onTap: closeApp,
           child: Text("Close"),
         ),
-        const PopupMenuItem<menuItems>(
+        PopupMenuItem<menuItems>(
           value: menuItems.switchView,
-          //onSelect: switchViewMode,
-          child: Text("Switch Mode"),
+          onTap: switchViewMode,
+          child: const Text("Switch Mode"),
         ),
         const PopupMenuItem<menuItems>(
           value: menuItems.switchTheme,
