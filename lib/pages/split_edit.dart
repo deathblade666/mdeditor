@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:mdeditor/pages/menu.dart';
 import 'package:mdeditor/pages/preview.dart';
@@ -17,12 +18,16 @@ class editorState extends State<Editor> {
   String fileContent = '';
   String NameofFile = '';
   bool _full = true;
+  List words = [];
+  int wordCount = 0;
   TextEditingController OpenFile = TextEditingController();
 
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
   void mdText(String value) {
     setState(() {
-     contents = value;      
+      contents = value;
+      final List wordList = value.split(' ');
+      wordCount = wordList.length;
     });
   }
 
@@ -30,6 +35,8 @@ class editorState extends State<Editor> {
     setState(() {
       OpenFile.text = fileContent;
       contents = fileContent;
+      final List wordList = OpenFile.text.split(' ');
+      wordCount = wordList.length;
     });
   }
 
@@ -78,7 +85,7 @@ class editorState extends State<Editor> {
               ),
               Row(
                 children: [
-                  const Text("20"),
+                  Text("$wordCount"),
                   Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName, onModeToggle: switchViewMode,),
                   const Padding(padding: EdgeInsets.only(right: 15)),
                 ],

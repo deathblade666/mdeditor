@@ -107,10 +107,10 @@ class Menu extends StatefulWidget {
               backgroundColor: Theme.of(context).colorScheme.onPrimary,
               child: Container(
                 alignment: Alignment.center,
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 height: 200,
                 width: 200,
-                child: Text("testing"),
+                child: const Text("testing"),
               ),);
             }
           );},
