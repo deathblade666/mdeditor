@@ -16,6 +16,7 @@ class editorState extends State<Editor> {
   String fileContent = '';
   String NameofFile = '';
   bool _full = fullEdit;
+  bool showWordCount = WordCount;
   int wordCount = 0;
   TextEditingController OpenFile = TextEditingController();
 
@@ -45,6 +46,12 @@ class editorState extends State<Editor> {
   void switchViewMode(fullEdit){
     setState(() {
       _full=fullEdit;
+    });
+  }
+
+  void enableWordCount(WordCount){
+    setState(() {
+      showWordCount=WordCount;
     });
   }
 
@@ -80,8 +87,11 @@ class editorState extends State<Editor> {
               ),
               Row(
                 children: [
-                  Text("$wordCount"),
-                  Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName, onModeToggle: switchViewMode, wordCount),
+                  Visibility(
+                    visible: WordCount,
+                    child: Text("$wordCount"),
+                  ),
+                  Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName, onModeToggle: switchViewMode, wordCount, onEnableWordCount: enableWordCount,),
                   const Padding(padding: EdgeInsets.only(right: 15)),
                 ],
               ),

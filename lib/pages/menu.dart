@@ -23,16 +23,18 @@ import 'package:flutter/services.dart';
   String filePath = '';
   String _filename = '';
   bool fullEdit = true;
+  bool WordCount = false;
 
   void closeApp({bool? animated}) async {
     await SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop', animated);
   }
 
 class Menu extends StatefulWidget {
-  Menu(this.value,this.OpenFile,this.wordCount,{required this.onModeToggle, required this.onFileLoad,required this.onfileName,super.key});
+  Menu(this.value,this.OpenFile,this.wordCount,{required this.onEnableWordCount, required this.onModeToggle, required this.onFileLoad,required this.onfileName,super.key});
   final void Function(String fileContent) onFileLoad;
   final void Function(String fileName) onfileName;
   final void Function(bool fullEdit) onModeToggle;
+  final void Function(bool WordCount) onEnableWordCount;
   TextEditingController OpenFile = TextEditingController();
   final String value;
   int wordCount;
@@ -64,6 +66,11 @@ class Menu extends StatefulWidget {
   void switchViewMode() async {
     fullEdit=!fullEdit;
     widget.onModeToggle(fullEdit);
+  }
+
+  void showWordCount() async {
+    WordCount = !WordCount;
+    widget.onEnableWordCount(WordCount);
   }
 
   @override
@@ -130,7 +137,11 @@ class Menu extends StatefulWidget {
           value: menuItems.switchTheme,
           //onSelect: switchTheme,
           child: Text("Change Theme"),
-        ),   
+        ), 
+        PopupMenuItem<menuItems>(
+          onTap: showWordCount,
+          child: const Text("Word Count")
+        ) ,
       ]
     );
   }
