@@ -148,24 +148,28 @@ class Menu extends StatefulWidget {
                           title: const Text("Full Edit Mode"),
                           activeColor: Theme.of(context).colorScheme.primary,
                           onChanged: (bool value) async{
-                            setState(() {
-                              fullMode=value;
-                            });
                             fullEdit=!fullEdit;
+                            setState(() {
+                              value = fullEdit;
+                              fullMode = value;
+                              //print("value = $value");
+                              //print("fullMode = $fullMode");
+                            });
                             widget.onModeToggle(fullEdit);
                             final prefs = await SharedPreferences.getInstance();
                             prefs.setBool("ViewMode", fullEdit);
+                            //print("fullEdit = $fullEdit");
                           }
                         )
                       ),
                       PopupMenuItem<menuItems>(
                         value: menuItems.switchTheme,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text("Theme"),
-                            const Padding(padding: EdgeInsets.only(right: 57)),
                             DropdownMenu(
-                              width: 115,
+                              width: 120,
                               initialSelection: list.first,
                               onSelected: (String? value) async {
                                 setState(() {
