@@ -123,11 +123,6 @@ class Menu extends StatefulWidget {
           );},
           child: const Text("File Info"),
         ),
-        const PopupMenuItem<menuItems>(
-          value: menuItems.close,
-          onTap: closeApp,
-          child: Text("Close"),
-        ),
         PopupMenuItem(
           child: const Text("Options"),
           onTap: () { showDialog(
@@ -163,6 +158,11 @@ class Menu extends StatefulWidget {
               );
             }
           );}
+        ),
+        const PopupMenuItem<menuItems>(
+          value: menuItems.close,
+          onTap: closeApp,
+          child: Text("Close"),
         ),
       ]
     );
