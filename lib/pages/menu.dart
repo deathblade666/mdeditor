@@ -128,20 +128,42 @@ class Menu extends StatefulWidget {
           onTap: closeApp,
           child: Text("Close"),
         ),
-        PopupMenuItem<menuItems>(
-          value: menuItems.switchView,
-          onTap: switchViewMode,
-          child: const Text("Switch Mode"),
+        PopupMenuItem(
+          child: const Text("Options"),
+          onTap: () { showDialog(
+            context: context, builder: (BuildContext context){
+              return Dialog(
+                elevation: 1,
+                alignment: Alignment.center,
+                backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(20),
+                  height: 200,
+                  width: 200,
+                  child: Column(
+                    children: [
+                      PopupMenuItem<menuItems>(
+                        value: menuItems.switchView,
+                        onTap: switchViewMode,
+                        child: const Text("Switch Mode"),
+                      ),
+                      const PopupMenuItem<menuItems>(
+                        value: menuItems.switchTheme,
+                        //onSelect: switchTheme,
+                        child: Text("Change Theme"),
+                      ), 
+                      PopupMenuItem<menuItems>(
+                      onTap: showWordCount,
+                      child: const Text("Word Count")
+                      ),
+                    ],
+                  ),
+                )
+              );
+            }
+          );}
         ),
-        const PopupMenuItem<menuItems>(
-          value: menuItems.switchTheme,
-          //onSelect: switchTheme,
-          child: Text("Change Theme"),
-        ), 
-        PopupMenuItem<menuItems>(
-          onTap: showWordCount,
-          child: const Text("Word Count")
-        ) ,
       ]
     );
   }
