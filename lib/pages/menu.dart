@@ -22,7 +22,7 @@ import 'package:shared_preferences/shared_preferences.dart';
   String _filename = '';
   bool fullEdit = true;
   bool WordCount = false;
-  const List<String> list = <String>['Dark', 'Light', 'Pitch Black', 'System'];
+  const List<String> list = <String>['System', 'Dark', 'Light', 'Black'];
   String dropDownValue = list.first;
 
 class Menu extends StatefulWidget {
@@ -160,16 +160,23 @@ class Menu extends StatefulWidget {
                       ),
                       PopupMenuItem<menuItems>(
                         value: menuItems.switchTheme,
-                        child: DropdownMenu(
-                          initialSelection: list.first,
-                          onSelected: (String? value) async {
-                            setState(() {
-                              
-                            });
-                          },
-                          dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
-                            return DropdownMenuEntry<String>(value: value, label: value);
-                          }).toList(),
+                        child: Row(
+                          children: [
+                            const Text("Theme"),
+                            const Padding(padding: EdgeInsets.only(right: 57)),
+                            DropdownMenu(
+                              width: 115,
+                              initialSelection: list.first,
+                              onSelected: (String? value) async {
+                                setState(() {
+                                
+                                });
+                              },
+                              dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
+                                return DropdownMenuEntry<String>(value: value, label: value);
+                              }).toList(),
+                            )
+                          ]
                         )
                       ), 
                       PopupMenuItem<menuItems>(
