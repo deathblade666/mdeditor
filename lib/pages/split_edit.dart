@@ -1,8 +1,10 @@
 import 'dart:core';
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:mdeditor/pages/menu.dart';
 import 'package:mdeditor/pages/preview.dart';
 import 'package:mdeditor/pages/textfield.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Editor extends StatefulWidget {
   const Editor({super.key});
