@@ -193,7 +193,7 @@ class optionsDialogState extends State<optionsDialog> {
                 child: Container(
                   alignment: Alignment.center,
                   padding: const EdgeInsets.all(20),
-                  height: 200,
+                  height: 216,
                   width: 200,
                   child: Column(
                     children: [
@@ -243,6 +243,10 @@ class optionsDialogState extends State<optionsDialog> {
                           }
                         )
                       ),
+                      OutlinedButton(
+                        onPressed: (){Navigator.pop(context);},
+                        child: Text("Save"),
+                      )
                     ],
                   ),
                 )
