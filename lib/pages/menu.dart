@@ -45,7 +45,7 @@ class Menu extends StatefulWidget {
     final String inputText;
     int wordCount;
     TextEditingController OpenFile = TextEditingController();
-    bool _switchValue = false;
+    
   
   void closeApp({bool? animated}) async {
     await SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop', animated);
@@ -71,13 +71,16 @@ class Menu extends StatefulWidget {
   void enableFullEdit() async {
     fullEdit=!fullEdit;
     widget.onModeToggle(fullEdit);
-    //final prefs = await SharedPreferences.getInstance();
-    //prefs.setBool("ViewMode", fullEdit);
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool("ViewMode", fullEdit);
   }
-  //void showWordCount() async {
-  //  WordCount = !WordCount;
-  //  widget.onEnableWordCount(WordCount);
-  //}
+
+  void showWordCount() async {
+    final prefs = await SharedPreferences.getInstance();
+    WordCount = !WordCount;
+    widget.onEnableWordCount(WordCount);
+    prefs.setBool("DisplayWordCount", WordCount);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,6 +136,8 @@ class Menu extends StatefulWidget {
           child: const Text("Options"),
           onTap: () { showDialog(
             context: context, builder: (BuildContext context){
+              bool _switchModeValue = false;
+              bool _switchWCValue = false;
               return Dialog(
                 elevation: 1,
                 alignment: Alignment.center,
@@ -148,10 +153,10 @@ class Menu extends StatefulWidget {
                        child: SwitchListTile(
                           title: const Text("Full Edit Mode"),
                           activeColor: Theme.of(context).colorScheme.primary,
-                          value: _switchValue,
+                          value: _switchModeValue,
                           onChanged: (bool value) {
                             setState(() {
-                            _switchValue = value;
+                            _switchModeValue = value;
                           });
                           enableFullEdit();
                         }),
@@ -179,17 +184,14 @@ class Menu extends StatefulWidget {
                       ), 
                       PopupMenuItem<menuItems>(
                         child: SwitchListTile(
-                          value: _switchValue, 
+                          value: _switchWCValue, 
                           title: const Text("Display Word Count"),
                           activeColor: Theme.of(context).colorScheme.primary,
                           onChanged: (bool value) async {
                             setState(() {
-                              _switchValue = value;
+                              _switchWCValue = value;
                             });
-                            WordCount = !WordCount;
-                            widget.onEnableWordCount(WordCount);
-                            final prefs = await SharedPreferences.getInstance();
-                            prefs.setBool("DisplayWordCount", WordCount);
+                            showWordCount();
                           }
                         )
                       ),
