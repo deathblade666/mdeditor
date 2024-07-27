@@ -22,29 +22,29 @@ import 'package:flutter/services.dart';
 
   String filePath = '';
   String _filename = '';
-  bool fullEdit=true;
+  bool fullEdit = true;
 
   void closeApp({bool? animated}) async {
     await SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop', animated);
   }
 
 class Menu extends StatefulWidget {
-  Menu(this.value,this.OpenFile,{required this.onModeToggle, required this.onFileLoad,required this.onfileName,super.key});
+  Menu(this.value,this.OpenFile,this.wordCount,{required this.onModeToggle, required this.onFileLoad,required this.onfileName,super.key});
   final void Function(String fileContent) onFileLoad;
   final void Function(String fileName) onfileName;
   final void Function(bool fullEdit) onModeToggle;
-
-
   TextEditingController OpenFile = TextEditingController();
   final String value;
+  int wordCount;
+
 
   @override
-  State<Menu> createState() => MenuState(value, OpenFile);
+  State<Menu> createState() => MenuState(value, OpenFile, wordCount);
 }
   class MenuState extends State<Menu> {
-    MenuState(this.value, this.OpenFile);
+    MenuState(this.value, this.OpenFile, this.wordCount);
     final String value;
-
+    int wordCount;
     TextEditingController OpenFile = TextEditingController();
   
   void pickFile() async {
@@ -110,7 +110,7 @@ class Menu extends StatefulWidget {
                 padding: const EdgeInsets.all(20),
                 height: 200,
                 width: 200,
-                child: const Text("testing"),
+                child: Text("Word Count: $wordCount"),
               ),);
             }
           );},

@@ -1,10 +1,8 @@
 import 'dart:core';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:mdeditor/pages/menu.dart';
 import 'package:mdeditor/pages/preview.dart';
 import 'package:mdeditor/pages/textfield.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Editor extends StatefulWidget {
   const Editor({super.key});
@@ -13,21 +11,18 @@ class Editor extends StatefulWidget {
   State<Editor> createState() => editorState();
 }
 
-// ignore: camel_case_types
 class editorState extends State<Editor> {
   String contents = '';
   String fileContent = '';
   String NameofFile = '';
-  bool _full = true;
-  List words = [];
+  bool _full = fullEdit;
   int wordCount = 0;
   TextEditingController OpenFile = TextEditingController();
 
-  // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
   void mdText(String value) {
     setState(() {
       contents = value;
-      final List wordList = value.split(' ');
+      List wordList = value.split(' ');
       wordCount = wordList.length;
     });
   }
@@ -36,7 +31,7 @@ class editorState extends State<Editor> {
     setState(() {
       OpenFile.text = fileContent;
       contents = fileContent;
-      final List wordList = OpenFile.text.split(' ');
+      List wordList = OpenFile.text.split(' ');
       wordCount = wordList.length;
     });
   }
@@ -64,7 +59,6 @@ class editorState extends State<Editor> {
       ),
       body: Column(
         children: [
-          const Padding(padding: EdgeInsets.only(top: 5)),
           Visibility(
             visible: _full,
             child:Expanded(
@@ -87,7 +81,7 @@ class editorState extends State<Editor> {
               Row(
                 children: [
                   Text("$wordCount"),
-                  Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName, onModeToggle: switchViewMode,),
+                  Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName, onModeToggle: switchViewMode, wordCount),
                   const Padding(padding: EdgeInsets.only(right: 15)),
                 ],
               ),
