@@ -21,6 +21,7 @@ import 'package:shared_preferences/shared_preferences.dart';
   String filePath = '';
   String _filename = '';
   bool fullEdit = true;
+
   bool WordCount = false;
   const List<String> list = <String>['system', 'dark', 'light', 'black'];
   String dropDownValue = list.first;
@@ -35,16 +36,16 @@ class Menu extends StatefulWidget {
   final String inputText;
   int wordCount;
 
-
-
   @override
   State<Menu> createState() => MenuState(inputText, OpenFile, wordCount);
 }
   class MenuState extends State<Menu> {
+    //Declarations
     MenuState(this.inputText, this.OpenFile, this.wordCount);
     final String inputText;
     int wordCount;
     TextEditingController OpenFile = TextEditingController();
+    bool _switchValue = false;
   
   void closeApp({bool? animated}) async {
     await SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop', animated);
@@ -66,6 +67,13 @@ class Menu extends StatefulWidget {
     widget.onfileName(fileName);
   }
 
+
+  void enableFullEdit() async {
+    fullEdit=!fullEdit;
+    widget.onModeToggle(fullEdit);
+    //final prefs = await SharedPreferences.getInstance();
+    //prefs.setBool("ViewMode", fullEdit);
+  }
   //void showWordCount() async {
   //  WordCount = !WordCount;
   //  widget.onEnableWordCount(WordCount);
@@ -125,9 +133,6 @@ class Menu extends StatefulWidget {
           child: const Text("Options"),
           onTap: () { showDialog(
             context: context, builder: (BuildContext context){
-              bool fullMode=false;
-              var displayWordCount=false;
-              
               return Dialog(
                 elevation: 1,
                 alignment: Alignment.center,
@@ -139,28 +144,17 @@ class Menu extends StatefulWidget {
                   width: 200,
                   child: Column(
                     children: [
-                      PopupMenuItem<menuItems>(
-                        value: menuItems.switchView,
-                        //onTap: switchViewMode,
-                        //child: const Text("Switch Mode"),
-                        child: SwitchListTile(
-                          value: fullMode,
+                      PopupMenuItem(
+                       child: SwitchListTile(
                           title: const Text("Full Edit Mode"),
                           activeColor: Theme.of(context).colorScheme.primary,
-                          onChanged: (bool value) async{
-                            fullEdit=!fullEdit;
+                          value: _switchValue,
+                          onChanged: (bool value) {
                             setState(() {
-                              value = fullEdit;
-                              fullMode = value;
-                              //print("value = $value");
-                              //print("fullMode = $fullMode");
-                            });
-                            widget.onModeToggle(fullEdit);
-                            final prefs = await SharedPreferences.getInstance();
-                            prefs.setBool("ViewMode", fullEdit);
-                            //print("fullEdit = $fullEdit");
-                          }
-                        )
+                            _switchValue = value;
+                          });
+                          enableFullEdit();
+                        }),
                       ),
                       PopupMenuItem<menuItems>(
                         value: menuItems.switchTheme,
@@ -169,28 +163,28 @@ class Menu extends StatefulWidget {
                           children: [
                             const Text("Theme"),
                             DropdownMenu(
-                              width: 120,
+                              width: 125,
                               initialSelection: list.first,
                               onSelected: (String? value) async {
                                 setState(() {
-                                
+                                  //TODO: to be implemented
                                 });
                               },
                               dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
                                 return DropdownMenuEntry<String>(value: value, label: value);
                               }).toList(),
-                            )
+                            ),
                           ]
                         )
                       ), 
                       PopupMenuItem<menuItems>(
                         child: SwitchListTile(
-                          value: displayWordCount, 
+                          value: _switchValue, 
                           title: const Text("Display Word Count"),
                           activeColor: Theme.of(context).colorScheme.primary,
                           onChanged: (bool value) async {
                             setState(() {
-                              displayWordCount=value;
+                              _switchValue = value;
                             });
                             WordCount = !WordCount;
                             widget.onEnableWordCount(WordCount);
