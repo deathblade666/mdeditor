@@ -136,8 +136,8 @@ class Menu extends StatefulWidget {
           child: const Text("Options"),
           onTap: () { showDialog(
             context: context, builder: (BuildContext context){
-              bool _switchModeValue = false;
-              bool _switchWCValue = false;
+              bool switchModeValue = false;
+              bool switchWCValue = false;
               return Dialog(
                 elevation: 1,
                 alignment: Alignment.center,
@@ -153,10 +153,10 @@ class Menu extends StatefulWidget {
                        child: SwitchListTile(
                           title: const Text("Full Edit Mode"),
                           activeColor: Theme.of(context).colorScheme.primary,
-                          value: _switchModeValue,
+                          value: switchModeValue,
                           onChanged: (bool value) {
                             setState(() {
-                            _switchModeValue = value;
+                            switchModeValue = value;
                           });
                           enableFullEdit();
                         }),
@@ -184,12 +184,12 @@ class Menu extends StatefulWidget {
                       ), 
                       PopupMenuItem<menuItems>(
                         child: SwitchListTile(
-                          value: _switchWCValue, 
+                          value: switchWCValue, 
                           title: const Text("Display Word Count"),
                           activeColor: Theme.of(context).colorScheme.primary,
                           onChanged: (bool value) async {
                             setState(() {
-                              _switchWCValue = value;
+                              switchWCValue = value;
                             });
                             showWordCount();
                           }
