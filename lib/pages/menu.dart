@@ -26,6 +26,7 @@ import 'package:shared_preferences/shared_preferences.dart';
   const List<String> list = <String>['system', 'dark', 'light', 'black'];
   String dropDownValue = list.first;
 
+
 class Menu extends StatefulWidget {
   Menu(this.inputText,this.OpenFile,this.wordCount,{required this.onEnableWordCount, required this.onModeToggle, required this.onFileLoad,required this.onfileName,super.key});
   final void Function(String fileContent) onFileLoad;
@@ -36,6 +37,7 @@ class Menu extends StatefulWidget {
   final String inputText;
   int wordCount;
 
+
   @override
   State<Menu> createState() => MenuState(inputText, OpenFile, wordCount);
 }
@@ -45,6 +47,8 @@ class Menu extends StatefulWidget {
     final String inputText;
     int wordCount;
     TextEditingController OpenFile = TextEditingController();
+    bool switchModeValue = false;
+    bool switchWCValue = false;
     
   
   void closeApp({bool? animated}) async {
@@ -67,7 +71,6 @@ class Menu extends StatefulWidget {
     widget.onfileName(fileName);
   }
 
-
   void enableFullEdit() async {
     fullEdit=!fullEdit;
     widget.onModeToggle(fullEdit);
@@ -81,6 +84,7 @@ class Menu extends StatefulWidget {
     widget.onEnableWordCount(WordCount);
     prefs.setBool("DisplayWordCount", WordCount);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -135,10 +139,54 @@ class Menu extends StatefulWidget {
         PopupMenuItem(
           child: const Text("Options"),
           onTap: () { showDialog(
-            context: context, builder: (BuildContext context){
-              bool switchModeValue = false;
-              bool switchWCValue = false;
-              return Dialog(
+            context: context, 
+            builder: (context) => optionsDialog(switchModeValue,switchWCValue,widget.onEnableWordCount,widget.onModeToggle)
+            
+          );}
+        ),
+        PopupMenuItem<menuItems>(
+          value: menuItems.close,
+          onTap: closeApp,
+          child: const Text("Close"),
+        ),
+      ]
+    );
+  }
+}
+
+class optionsDialog extends StatefulWidget {
+  final Function onEnableWordCount;
+  final Function onModeToggle;
+  bool switchModeValue;
+  bool switchWCValue;
+
+  optionsDialog(this.switchModeValue, this.switchWCValue, this.onEnableWordCount, this.onModeToggle);
+
+  @override
+  optionsDialogState createState() => optionsDialogState();
+}
+
+
+
+class optionsDialogState extends State<optionsDialog> {
+
+  void enableFullEdit() async {
+    fullEdit = !fullEdit;
+    widget.onModeToggle(fullEdit);
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool("ViewMode", fullEdit);
+  }
+
+  void showWordCount() async {
+    final prefs = await SharedPreferences.getInstance();
+    WordCount = !WordCount;
+    widget.onEnableWordCount(WordCount);
+    prefs.setBool("DisplayWordCount", WordCount);
+  }
+
+  @override 
+  Widget build(BuildContext context) {
+    return Dialog(
                 elevation: 1,
                 alignment: Alignment.center,
                 backgroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -149,18 +197,6 @@ class Menu extends StatefulWidget {
                   width: 200,
                   child: Column(
                     children: [
-                      PopupMenuItem(
-                       child: SwitchListTile(
-                          title: const Text("Full Edit Mode"),
-                          activeColor: Theme.of(context).colorScheme.primary,
-                          value: switchModeValue,
-                          onChanged: (bool value) {
-                            setState(() {
-                            switchModeValue = value;
-                          });
-                          enableFullEdit();
-                        }),
-                      ),
                       PopupMenuItem<menuItems>(
                         value: menuItems.switchTheme,
                         child: Row(
@@ -182,14 +218,26 @@ class Menu extends StatefulWidget {
                           ]
                         )
                       ), 
+                      PopupMenuItem(
+                       child: SwitchListTile(
+                          title: const Text("Full Edit Mode"),
+                          activeColor: Theme.of(context).colorScheme.primary,
+                          value: widget.switchModeValue,
+                          onChanged: (bool value) {
+                            setState(() {
+                            widget.switchModeValue = value;
+                          });
+                          enableFullEdit();
+                        }),
+                      ),
                       PopupMenuItem<menuItems>(
                         child: SwitchListTile(
-                          value: switchWCValue, 
+                          value: widget.switchWCValue, 
                           title: const Text("Display Word Count"),
                           activeColor: Theme.of(context).colorScheme.primary,
                           onChanged: (bool value) async {
                             setState(() {
-                              switchWCValue = value;
+                              widget.switchWCValue = value;
                             });
                             showWordCount();
                           }
@@ -199,15 +247,5 @@ class Menu extends StatefulWidget {
                   ),
                 )
               );
-            }
-          );}
-        ),
-        PopupMenuItem<menuItems>(
-          value: menuItems.close,
-          onTap: closeApp,
-          child: const Text("Close"),
-        ),
-      ]
-    );
   }
 }
