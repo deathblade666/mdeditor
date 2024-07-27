@@ -19,11 +19,11 @@ class mdtextfieldState extends State<mdtextfield> {
 
   
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
-  void mdText(String value) {
-    final lines = value.split('\n');
+  void mdText(String inputText) {
+    final lines = inputText.split('\n');
     final emptyCheckbox = lines.where((e) => e == '- [ ] ');
     if (emptyCheckbox.isEmpty) {
-      widget.ontextchanged(value);
+      widget.ontextchanged(inputText);
     }
   }
 

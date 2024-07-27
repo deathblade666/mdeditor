@@ -20,10 +20,10 @@ class editorState extends State<Editor> {
   int wordCount = 0;
   TextEditingController OpenFile = TextEditingController();
 
-  void mdText(String value) {
+  void mdText(String inputText) {
     setState(() {
-      contents = value;
-      List wordList = value.split(' ');
+      contents = inputText;
+      List wordList = inputText.split(' ');
       wordCount = wordList.length;
     });
   }

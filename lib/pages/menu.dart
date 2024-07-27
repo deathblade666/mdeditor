@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
  enum menuItems {
   save, 
@@ -15,40 +16,42 @@ import 'package:flutter/services.dart';
   }
 
 //TODO: Implement new functions
-// function and widget for file info
 // function for theme control
-// function to change view modes
-// function to enable persistent word counter
 
   String filePath = '';
   String _filename = '';
   bool fullEdit = true;
   bool WordCount = false;
-
-  void closeApp({bool? animated}) async {
-    await SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop', animated);
-  }
+  const List<String> list = <String>['Dark', 'Light', 'Pitch Black', 'System'];
+  String dropDownValue = list.first;
 
 class Menu extends StatefulWidget {
-  Menu(this.value,this.OpenFile,this.wordCount,{required this.onEnableWordCount, required this.onModeToggle, required this.onFileLoad,required this.onfileName,super.key});
+  Menu(this.inputText,this.OpenFile,this.wordCount,{required this.onEnableWordCount, required this.onModeToggle, required this.onFileLoad,required this.onfileName,super.key});
   final void Function(String fileContent) onFileLoad;
   final void Function(String fileName) onfileName;
   final void Function(bool fullEdit) onModeToggle;
   final void Function(bool WordCount) onEnableWordCount;
   TextEditingController OpenFile = TextEditingController();
-  final String value;
+  final String inputText;
   int wordCount;
 
 
+
   @override
-  State<Menu> createState() => MenuState(value, OpenFile, wordCount);
+  State<Menu> createState() => MenuState(inputText, OpenFile, wordCount);
 }
   class MenuState extends State<Menu> {
-    MenuState(this.value, this.OpenFile, this.wordCount);
-    final String value;
+    MenuState(this.inputText, this.OpenFile, this.wordCount);
+    final String inputText;
     int wordCount;
     TextEditingController OpenFile = TextEditingController();
   
+  void closeApp({bool? animated}) async {
+    await SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop', animated);
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString("InputText", inputText);
+  }
+
   void pickFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
     if (result == null) return;
@@ -63,15 +66,10 @@ class Menu extends StatefulWidget {
     widget.onfileName(fileName);
   }
 
-  void switchViewMode() async {
-    fullEdit=!fullEdit;
-    widget.onModeToggle(fullEdit);
-  }
-
-  void showWordCount() async {
-    WordCount = !WordCount;
-    widget.onEnableWordCount(WordCount);
-  }
+  //void showWordCount() async {
+  //  WordCount = !WordCount;
+  //  widget.onEnableWordCount(WordCount);
+  //}
 
   @override
   Widget build(BuildContext context) {
@@ -127,6 +125,9 @@ class Menu extends StatefulWidget {
           child: const Text("Options"),
           onTap: () { showDialog(
             context: context, builder: (BuildContext context){
+              bool fullMode=false;
+              var displayWordCount=false;
+              
               return Dialog(
                 elevation: 1,
                 alignment: Alignment.center,
@@ -140,17 +141,52 @@ class Menu extends StatefulWidget {
                     children: [
                       PopupMenuItem<menuItems>(
                         value: menuItems.switchView,
-                        onTap: switchViewMode,
-                        child: const Text("Switch Mode"),
+                        //onTap: switchViewMode,
+                        //child: const Text("Switch Mode"),
+                        child: SwitchListTile(
+                          value: fullMode,
+                          title: const Text("Full Edit Mode"),
+                          activeColor: Theme.of(context).colorScheme.primary,
+                          onChanged: (bool value) async{
+                            setState(() {
+                              fullMode=value;
+                            });
+                            fullEdit=!fullEdit;
+                            widget.onModeToggle(fullEdit);
+                            final prefs = await SharedPreferences.getInstance();
+                            prefs.setBool("ViewMode", fullEdit);
+                          }
+                        )
                       ),
-                      const PopupMenuItem<menuItems>(
+                      PopupMenuItem<menuItems>(
                         value: menuItems.switchTheme,
-                        //onSelect: switchTheme,
-                        child: Text("Change Theme"),
+                        child: DropdownMenu(
+                          initialSelection: list.first,
+                          onSelected: (String? value) async {
+                            setState(() {
+                              
+                            });
+                          },
+                          dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
+                            return DropdownMenuEntry<String>(value: value, label: value);
+                          }).toList(),
+                        )
                       ), 
                       PopupMenuItem<menuItems>(
-                      onTap: showWordCount,
-                      child: const Text("Word Count")
+                        child: SwitchListTile(
+                          value: displayWordCount, 
+                          title: const Text("Display Word Count"),
+                          activeColor: Theme.of(context).colorScheme.primary,
+                          onChanged: (bool value) async {
+                            setState(() {
+                              displayWordCount=value;
+                            });
+                            WordCount = !WordCount;
+                            widget.onEnableWordCount(WordCount);
+                            final prefs = await SharedPreferences.getInstance();
+                            prefs.setBool("DisplayWordCount", WordCount);
+                          }
+                        )
                       ),
                     ],
                   ),
@@ -159,10 +195,10 @@ class Menu extends StatefulWidget {
             }
           );}
         ),
-        const PopupMenuItem<menuItems>(
+        PopupMenuItem<menuItems>(
           value: menuItems.close,
           onTap: closeApp,
-          child: Text("Close"),
+          child: const Text("Close"),
         ),
       ]
     );
