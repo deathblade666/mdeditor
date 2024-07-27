@@ -22,7 +22,7 @@ import 'package:shared_preferences/shared_preferences.dart';
   String _filename = '';
   bool fullEdit = true;
   bool WordCount = false;
-  const List<String> list = <String>['System', 'Dark', 'Light', 'Black'];
+  const List<String> list = <String>['system', 'dark', 'light', 'black'];
   String dropDownValue = list.first;
 
 class Menu extends StatefulWidget {
