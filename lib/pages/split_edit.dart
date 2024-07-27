@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:mdeditor/pages/menu.dart';
 import 'package:mdeditor/pages/preview.dart';
