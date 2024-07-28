@@ -7,8 +7,10 @@ void main() async {
   runApp(MyApp());
 }
 
+
 final _defaultDarkColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.indigo, brightness: Brightness.dark);
 final _defaultLightColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.indigo);
+
 
 class MyApp extends StatefulWidget{
   const MyApp({super.key});
@@ -35,6 +37,10 @@ class MyAppState extends State<MyApp> {
       if (selectedTheme == "dark"){
         theme = ThemeMode.dark;
       }
+      if (selectedTheme == "black"){
+        //selectedTheme = blackTheme;
+        theme = ThemeMode.dark;
+      }
     });
   }
 
@@ -42,7 +48,8 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     
-    return DynamicColorBuilder(builder: (lightColorScheme, darkColorScheme) {
+    return DynamicColorBuilder(builder: (lightColorScheme, darkColorScheme, ) {
+      
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Editor(onThemeSelect: setTheme,),
