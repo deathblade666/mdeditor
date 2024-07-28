@@ -160,7 +160,7 @@ class optionsDialog extends StatefulWidget {
   bool switchModeValue;
   bool switchWCValue;
 
-  optionsDialog(this.switchModeValue, this.switchWCValue, this.onEnableWordCount, this.onModeToggle);
+  optionsDialog(this.switchModeValue, this.switchWCValue, this.onEnableWordCount, this.onModeToggle, {super.key});
 
   @override
   optionsDialogState createState() => optionsDialogState();
@@ -245,7 +245,7 @@ class optionsDialogState extends State<optionsDialog> {
                       ),
                       OutlinedButton(
                         onPressed: (){Navigator.pop(context);},
-                        child: Text("Save"),
+                        child: const Text("Save"),
                       )
                     ],
                   ),
