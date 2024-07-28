@@ -11,7 +11,7 @@ final _defaultDarkColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.ind
 final _defaultLightColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.indigo);
 
 class MyApp extends StatefulWidget{
-  MyApp({super.key});
+  const MyApp({super.key});
 
 
   @override

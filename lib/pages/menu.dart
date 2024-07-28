@@ -21,7 +21,6 @@ import 'package:shared_preferences/shared_preferences.dart';
   String filePath = '';
   String _filename = '';
   bool fullEdit = true;
-
   bool WordCount = false;
   const List<String> list = <String>['system', 'dark', 'light', 'black'];
   String dropDownValue = list.first;
