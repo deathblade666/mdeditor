@@ -187,69 +187,67 @@ class optionsDialogState extends State<optionsDialog> {
   @override 
   Widget build(BuildContext context) {
     return Dialog(
-                elevation: 1,
-                alignment: Alignment.center,
-                backgroundColor: Theme.of(context).colorScheme.onPrimary,
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(20),
-                  height: 216,
-                  width: 200,
-                  child: Column(
-                    children: [
-                      PopupMenuItem<menuItems>(
-                        value: menuItems.switchTheme,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text("Theme"),
-                            DropdownMenu(
-                              width: 125,
-                              initialSelection: list.first,
-                              onSelected: (String? value) async {
-                                setState(() {
-                                  //TODO: to be implemented
-                                });
-                              },
-                              dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
-                                return DropdownMenuEntry<String>(value: value, label: value);
-                              }).toList(),
-                            ),
-                          ]
-                        )
-                      ), 
-                      PopupMenuItem(
-                       child: SwitchListTile(
-                          title: const Text("Full Edit Mode"),
-                          activeColor: Theme.of(context).colorScheme.primary,
-                          value: widget.switchModeValue,
-                          onChanged: (bool value) {
-                            setState(() {
-                            widget.switchModeValue = value;
-                          });
-                          enableFullEdit();
-                        }),
-                      ),
-                      PopupMenuItem<menuItems>(
-                        child: SwitchListTile(
-                          value: widget.switchWCValue, 
-                          title: const Text("Display Word Count"),
-                          activeColor: Theme.of(context).colorScheme.primary,
-                          onChanged: (bool value) async {
-                            setState(() {
-                              widget.switchWCValue = value;
-                            });
-                            showWordCount();
-                          }
-                        )
-                      ),
-                      OutlinedButton(
-                        onPressed: (){Navigator.pop(context);},
-                        child: const Text("Save"),
-                      )
-                    ],
-                  ),
-                )
-              );
+      elevation: 1,
+      alignment: Alignment.center,
+      backgroundColor: Theme.of(context).colorScheme.onPrimary,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Padding(padding: EdgeInsets.all(20)),
+          PopupMenuItem<menuItems>(
+            value: menuItems.switchTheme,
+              child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text("Theme"),
+                DropdownMenu(
+                  width: 125,
+                  initialSelection: list.first,
+                  onSelected: (String? value) async {
+                    setState(() {
+                      //TODO: to be implemented
+                    });
+                  },
+                  dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
+                    return DropdownMenuEntry<String>(value: value, label: value);
+                  }).toList(),
+                ),
+              ]
+            )
+          ), 
+          PopupMenuItem(
+            child: SwitchListTile(
+              title: const Text("Full Edit Mode"),
+              activeColor: Theme.of(context).colorScheme.primary,
+              value: widget.switchModeValue,
+              onChanged: (bool value) {
+                setState(() {
+                  widget.switchModeValue = value;
+                });
+                enableFullEdit();
+              }
+            ),
+          ),
+          PopupMenuItem<menuItems>(
+            child: SwitchListTile(
+              value: widget.switchWCValue, 
+              title: const Text("Display Word Count"),
+              activeColor: Theme.of(context).colorScheme.primary,
+              onChanged: (bool value) async {
+                setState(() {
+                  widget.switchWCValue = value;
+                });
+                showWordCount();
+              }
+            )
+          ),
+          OutlinedButton(
+            onPressed: (){Navigator.pop(context);},
+            child: const Text("Save"),
+          ),
+          const Padding(padding: EdgeInsets.only(bottom: 15)),
+        ],
+      ),
+    );
   }
 }
