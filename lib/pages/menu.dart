@@ -26,6 +26,7 @@ import 'package:shared_preferences/shared_preferences.dart';
   String dropDownValue = list.first;
 
 
+// ignore: must_be_immutable
 class Menu extends StatefulWidget {
   Menu(this.inputText,this.OpenFile,this.wordCount,{required this.onEnableWordCount, required this.onModeToggle, required this.onFileLoad,required this.onfileName,required this.onThemeSelected,super.key});
   final void Function(String fileContent) onFileLoad;
@@ -158,6 +159,7 @@ class Menu extends StatefulWidget {
   }
 }
 
+// ignore: must_be_immutable
 class optionsDialog extends StatefulWidget {
   final Function onEnableWordCount;
   final Function onModeToggle;

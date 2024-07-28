@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_editor_plus/markdown_editor_plus.dart';
 
+// ignore: must_be_immutable
 class mdtextfield extends StatefulWidget {
   mdtextfield(this.OpenFile,this.fileContent,{required this.ontextchanged, super.key});
   final void Function(String contents) ontextchanged;

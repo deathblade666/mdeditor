@@ -35,8 +35,6 @@ class MyAppState extends State<MyApp> {
       if (selectedTheme == "dark"){
         theme = ThemeMode.dark;
       }
-      print(selectedTheme);
-      print(theme);
     });
   }
 

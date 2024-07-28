@@ -5,6 +5,7 @@ import 'package:markdown/markdown.dart' as md;
 
 //TODO: Change font size (bigger)
 
+// ignore: must_be_immutable
 class Renderer extends StatelessWidget {
   Renderer(this.OpenFile,this.value,{super.key});
   String value;
