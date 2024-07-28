@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mdeditor/pages/menu.dart';
 import 'package:mdeditor/pages/preview.dart';
 import 'package:mdeditor/pages/textfield.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Editor extends StatefulWidget {
   const Editor({super.key, required this.onThemeSelect});
@@ -11,6 +12,8 @@ class Editor extends StatefulWidget {
   @override
   State<Editor> createState() => editorState();
 }
+
+
 
 class editorState extends State<Editor> {
   String contents = '';
@@ -21,6 +24,13 @@ class editorState extends State<Editor> {
   int wordCount = 0;
   var theme = ThemeMode.system;
   TextEditingController OpenFile = TextEditingController();
+
+@override
+  void initState() {
+    enableWordCount(WordCount);
+    switchViewMode(fullEdit);
+    super.initState();
+  }
 
   void mdText(String inputText) {
     setState(() {
@@ -45,16 +55,22 @@ class editorState extends State<Editor> {
     });
   }
 
-  void switchViewMode(fullEdit){
+  void switchViewMode(fullEdit) async {
+    //final prefs = await SharedPreferences.getInstance();
+    //final bool? fullEdit = prefs.getBool("ViewMode");
     setState(() {
-      _full=fullEdit;
+      _full=fullEdit!;
     });
+    //print("Full = $_full");
   }
 
-  void enableWordCount(WordCount){
+  void enableWordCount(WordCount) async {
+    //final prefs = await SharedPreferences.getInstance();
+    //final bool? WordCount = prefs.getBool('DisplayWordCount');
     setState(() {
-      showWordCount=WordCount;
+      showWordCount=WordCount!;
     });
+    //print("Word Count = $WordCount");
   }
 
   void setTheme(selectedTheme){

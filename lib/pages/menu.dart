@@ -86,9 +86,11 @@ class Menu extends StatefulWidget {
     prefs.setBool("DisplayWordCount", WordCount);
   }
 
-  void setTheme(String? value) async {
+  void setTheme(String value) async {
+    final prefs = await SharedPreferences.getInstance();
     var selectedTheme = value;
     widget.onThemeSelected(selectedTheme);
+    prefs.setString("selectedTheme", selectedTheme);
   }
 
   @override
@@ -167,7 +169,7 @@ class optionsDialog extends StatefulWidget {
   bool switchWCValue;
 
   optionsDialog(this.switchModeValue, this.switchWCValue, this.onEnableWordCount, this.onModeToggle, {required this.onThemeSelected,super.key});
-  void Function (String? selectedTheme) onThemeSelected;
+  void Function (String selectedTheme) onThemeSelected;
   @override
   optionsDialogState createState() => optionsDialogState();
 }
@@ -189,7 +191,7 @@ class optionsDialogState extends State<optionsDialog> {
     widget.onEnableWordCount(WordCount);
     prefs.setBool("DisplayWordCount", WordCount);
   }
-  
+
   @override 
   Widget build(BuildContext context) {
     return Dialog(
@@ -211,7 +213,7 @@ class optionsDialogState extends State<optionsDialog> {
                   initialSelection: list.first,
                   onSelected: (String? value) async {
                     setState(() {
-                      var selectedTheme = value;
+                      var selectedTheme = value.toString();
                       widget.onThemeSelected(selectedTheme);
                     });
                   },
