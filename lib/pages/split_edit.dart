@@ -5,7 +5,8 @@ import 'package:mdeditor/pages/preview.dart';
 import 'package:mdeditor/pages/textfield.dart';
 
 class Editor extends StatefulWidget {
-  const Editor({super.key});
+  const Editor({super.key, required this.onThemeSelect});
+  final void Function(String selectedtheme) onThemeSelect;
 
   @override
   State<Editor> createState() => editorState();
@@ -18,6 +19,7 @@ class editorState extends State<Editor> {
   bool _full = fullEdit;
   bool showWordCount = WordCount;
   int wordCount = 0;
+  var theme = ThemeMode.system;
   TextEditingController OpenFile = TextEditingController();
 
   void mdText(String inputText) {
@@ -55,6 +57,11 @@ class editorState extends State<Editor> {
     });
   }
 
+  void setTheme(selectedTheme){
+    widget.onThemeSelect(selectedTheme);
+  }
+      
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +98,7 @@ class editorState extends State<Editor> {
                     visible: WordCount,
                     child: Text("$wordCount"),
                   ),
-                  Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName, onModeToggle: switchViewMode, wordCount, onEnableWordCount: enableWordCount,),
+                  Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName, onModeToggle: switchViewMode, wordCount, onEnableWordCount: enableWordCount,onThemeSelected: setTheme,),
                   const Padding(padding: EdgeInsets.only(right: 15)),
                 ],
               ),

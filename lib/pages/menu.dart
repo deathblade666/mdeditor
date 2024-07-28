@@ -28,11 +28,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class Menu extends StatefulWidget {
-  Menu(this.inputText,this.OpenFile,this.wordCount,{required this.onEnableWordCount, required this.onModeToggle, required this.onFileLoad,required this.onfileName,super.key});
+  Menu(this.inputText,this.OpenFile,this.wordCount,{required this.onEnableWordCount, required this.onModeToggle, required this.onFileLoad,required this.onfileName,required this.onThemeSelected,super.key});
   final void Function(String fileContent) onFileLoad;
   final void Function(String fileName) onfileName;
   final void Function(bool fullEdit) onModeToggle;
   final void Function(bool WordCount) onEnableWordCount;
+  void Function(String? selectedTheme) onThemeSelected;
   TextEditingController OpenFile = TextEditingController();
   final String inputText;
   int wordCount;
@@ -85,6 +86,10 @@ class Menu extends StatefulWidget {
     prefs.setBool("DisplayWordCount", WordCount);
   }
 
+  void setTheme(String? value) async {
+    var selectedTheme = value;
+    widget.onThemeSelected(selectedTheme);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +145,7 @@ class Menu extends StatefulWidget {
           child: const Text("Options"),
           onTap: () { showDialog(
             context: context, 
-            builder: (context) => optionsDialog(switchModeValue,switchWCValue,widget.onEnableWordCount,widget.onModeToggle)
+            builder: (context) => optionsDialog(switchModeValue,switchWCValue,widget.onEnableWordCount,widget.onModeToggle, onThemeSelected: setTheme,)
             
           );}
         ),
@@ -160,8 +165,8 @@ class optionsDialog extends StatefulWidget {
   bool switchModeValue;
   bool switchWCValue;
 
-  optionsDialog(this.switchModeValue, this.switchWCValue, this.onEnableWordCount, this.onModeToggle, {super.key});
-
+  optionsDialog(this.switchModeValue, this.switchWCValue, this.onEnableWordCount, this.onModeToggle, {required this.onThemeSelected,super.key});
+  void Function (String? selectedTheme) onThemeSelected;
   @override
   optionsDialogState createState() => optionsDialogState();
 }
@@ -183,7 +188,7 @@ class optionsDialogState extends State<optionsDialog> {
     widget.onEnableWordCount(WordCount);
     prefs.setBool("DisplayWordCount", WordCount);
   }
-
+  
   @override 
   Widget build(BuildContext context) {
     return Dialog(
@@ -205,7 +210,8 @@ class optionsDialogState extends State<optionsDialog> {
                   initialSelection: list.first,
                   onSelected: (String? value) async {
                     setState(() {
-                      //TODO: to be implemented
+                      var selectedTheme = value;
+                      widget.onThemeSelected(selectedTheme);
                     });
                   },
                   dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
