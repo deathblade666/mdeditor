@@ -37,7 +37,6 @@ class editorState extends State<Editor> {
     bool? fullEdit = prefs.getBool("ViewMode");
     bool? WordCount = prefs.getBool('enableCount');
     String? priorInput = prefs.getString('InputText');
-    print(priorInput);
     if (WordCount != null){
       enableWordCount(WordCount);
     }

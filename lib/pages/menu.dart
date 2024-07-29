@@ -226,6 +226,7 @@ class optionsDialogState extends State<optionsDialog> {
 
   @override 
   Widget build(BuildContext context) {
+
     return Dialog(
       elevation: 1,
       alignment: Alignment.center,
@@ -241,8 +242,8 @@ class optionsDialogState extends State<optionsDialog> {
               children: [
                 const Text("Theme"),
                 DropdownMenu(
-                  width: 125,
-                  initialSelection: list.first,
+                  textStyle: TextStyle(fontSize: 14,),                  
+                  initialSelection: widget.prefs.getString('selectedTheme'),
                   onSelected: (String? value) async {
                     setState(() {
                       var selectedTheme = value.toString();
