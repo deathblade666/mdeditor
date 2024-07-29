@@ -25,7 +25,7 @@ class MyApp extends StatefulWidget{
   
 class MyAppState extends State<MyApp> {
   MyAppState(this.prefs);
-  var selectedTheme = "system";
+  var selectedTheme = '';
   var theme;
   final SharedPreferences prefs;
 
