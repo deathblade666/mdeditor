@@ -291,7 +291,7 @@ class optionsDialogState extends State<optionsDialog> {
                 prefs.clear();
                 Navigator.pop(context);
               }, 
-              child: Text("Clear Cache"),
+              child: const Text("Clear Cache"),
               ),
               const Padding(padding: EdgeInsets.only(right: 15)),
               OutlinedButton(
