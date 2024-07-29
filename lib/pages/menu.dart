@@ -64,9 +64,7 @@ class Menu extends StatefulWidget {
     if (RetainInputSwitch == false){
       await prefs.remove('InputText');
     }
-    SystemNavigator.pop();
-    //await SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop', animated);
-    //exit(0);
+    SystemNavigator.pop(animated: true);
   }
 
   void pickFile() async {
@@ -289,6 +287,7 @@ class optionsDialogState extends State<optionsDialog> {
           PopupMenuItem(
             child: SwitchListTile(
               title: const Text("Retain Input"),
+              activeColor: Theme.of(context).colorScheme.primary,
               value: widget.switchInputvalue,
               onChanged: (bool value) async {
                 setState(() {
