@@ -67,7 +67,6 @@ class editorState extends State<Editor> {
   void switchViewMode(fullEdit) async {
     setState(() {
       _full=fullEdit!;
-      print("Second _full = $_full");
     });
   }
 

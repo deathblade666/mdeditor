@@ -73,7 +73,7 @@ class Menu extends StatefulWidget {
   }
 
   void enableFullEdit() async {
-    //fullEdit=!fullEdit;
+    fullEdit=!fullEdit;
     widget.onModeToggle(fullEdit);
     //final prefs = await SharedPreferences.getInstance();
     //prefs.setBool("ViewMode", fullEdit);
@@ -146,9 +146,8 @@ class Menu extends StatefulWidget {
         PopupMenuItem(
           child: const Text("Options"),
           onTap: () { showDialog(
-            context: context, 
+            context: context,
             builder: (context) => optionsDialog(switchModeValue,switchWCValue,widget.onEnableWordCount,widget.onModeToggle, onThemeSelected: setTheme,)
-            
           );}
         ),
         PopupMenuItem<menuItems>(
@@ -174,8 +173,6 @@ class optionsDialog extends StatefulWidget {
   optionsDialogState createState() => optionsDialogState();
 }
 
-
-
 class optionsDialogState extends State<optionsDialog> {
 
   void enableFullEdit() async {
@@ -186,6 +183,28 @@ class optionsDialogState extends State<optionsDialog> {
   void showWordCount() async {
     WordCount = !WordCount;
     widget.onEnableWordCount(WordCount);
+  }
+
+  @override
+  void initState() {
+    onStart();
+    super.initState();
+  }
+
+  void onStart() async {
+    final prefs = await SharedPreferences.getInstance();
+    final bool? wordCountValue = prefs.getBool('DisplayWordCount');
+    bool? viewmodeValue = prefs.getBool('ViewMode');
+    viewmodeValue = !viewmodeValue!;
+    setState(() {
+    if (viewmodeValue != null) {
+      widget.switchModeValue = viewmodeValue;
+    }
+    if (wordCountValue != null) {
+      widget.switchWCValue = wordCountValue;
+    }
+    });
+    
   }
 
   @override 
@@ -229,6 +248,7 @@ class optionsDialogState extends State<optionsDialog> {
                 setState(() {
                   widget.switchModeValue = value;
                 });
+                enableFullEdit();
               }
             ),
           ),
@@ -237,10 +257,11 @@ class optionsDialogState extends State<optionsDialog> {
               value: widget.switchWCValue, 
               title: const Text("Display Word Count"),
               activeColor: Theme.of(context).colorScheme.primary,
-              onChanged: (bool value) async {
+              onChanged: (bool value) {
                 setState(() {
                   widget.switchWCValue = value;
                 });
+                showWordCount();
               }
             )
           ),
@@ -255,17 +276,13 @@ class optionsDialogState extends State<optionsDialog> {
               }, 
               child: Text("Clear Cache"),
               ),
-              Padding(padding: EdgeInsets.only(right: 15)),
+              const Padding(padding: EdgeInsets.only(right: 15)),
               OutlinedButton(
                 onPressed: () async {
                   final prefs = await SharedPreferences.getInstance();
                   prefs.setBool("DisplayWordCount", WordCount);
                   prefs.setBool("ViewMode", fullEdit);
-                  print("Word Count = $WordCount");
-                  print("Fulle Edit = $fullEdit");
                   Navigator.pop(context);
-                  showWordCount();
-                  enableFullEdit();
                 },
               child: const Text("Save"),
               ),
