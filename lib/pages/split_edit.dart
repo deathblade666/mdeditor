@@ -6,14 +6,17 @@ import 'package:mdeditor/pages/textfield.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Editor extends StatefulWidget {
-  const Editor({super.key, required this.onThemeSelect});
+  Editor(this.prefs,{super.key, required this.onThemeSelect});
   final void Function(String selectedtheme) onThemeSelect;
+  SharedPreferences prefs;
 
   @override
-  State<Editor> createState() => editorState();
+  State<Editor> createState() => editorState(prefs);
 }
 
 class editorState extends State<Editor> {
+  editorState(this.prefs);
+  SharedPreferences prefs;
   String contents = '';
   String fileContent = '';
   String NameofFile = '';
@@ -30,9 +33,9 @@ class editorState extends State<Editor> {
   }
 
   void onStart() async {
-    final prefs = await SharedPreferences.getInstance();
+    prefs.reload();
     final bool? fullEdit = prefs.getBool("ViewMode");
-    final bool? WordCount = prefs.getBool('DisplayWordCount');
+    final bool? WordCount = prefs.getBool('enableCount');
     if (WordCount != null){
       enableWordCount(WordCount);
     }
@@ -58,21 +61,21 @@ class editorState extends State<Editor> {
     });
   }
 
-  void setFileName(fileName){
+  void setFileName(fileName) {
     setState(() {
       NameofFile = fileName;
     });
   }
 
-  void switchViewMode(fullEdit) async {
+  void switchViewMode(fullEdit) {
     setState(() {
-      _full=fullEdit!;
+      _full=fullEdit;
     });
   }
 
-  void enableWordCount(WordCount) async {
+  void enableWordCount(WordCount) {
     setState(() {
-      showWordCount=WordCount!;
+      showWordCount=WordCount;
     });
   }
 
@@ -117,7 +120,7 @@ class editorState extends State<Editor> {
                     visible: showWordCount,
                     child: Text("$wordCount"),
                   ),
-                  Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName, onModeToggle: switchViewMode, wordCount, onEnableWordCount: enableWordCount,onThemeSelected: setTheme,),
+                  Menu(prefs,onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName, onModeToggle: switchViewMode, wordCount, onEnableWordCount: enableWordCount,onThemeSelected: setTheme,),
                   const Padding(padding: EdgeInsets.only(right: 15)),
                 ],
               ),

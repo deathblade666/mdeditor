@@ -5,7 +5,8 @@ import 'package:mdeditor/pages/split_edit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
-  runApp(MyApp());
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  runApp(MyApp(prefs));
 }
 
 
@@ -14,27 +15,32 @@ final _defaultLightColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.in
 
 
 class MyApp extends StatefulWidget{
-  const MyApp({super.key});
-  
+  MyApp(this.prefs,{super.key});
+  SharedPreferences prefs;
 
   @override
-  State<MyApp> createState() => MyAppState();
+  State<MyApp> createState() => MyAppState(prefs);
 }
   
 class MyAppState extends State<MyApp> {
-  MyAppState();
+  MyAppState(this.prefs);
   var selectedTheme = "system";
   var theme;
+  final SharedPreferences prefs;
 
   @override
   void initState() {
-    setTheme(selectedTheme);
+    onStart();
     super.initState();
   }
 
+  void onStart(){
+    prefs.reload();
+    String? selectedTheme = prefs.getString('selectedTheme');
+    setTheme(selectedTheme);
+  }
+
   void setTheme(selectedTheme) async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? selectedTheme = prefs.getString('selectedTheme');
     setState(() {
       if (selectedTheme == "system"){
         theme = ThemeMode.system;
@@ -60,7 +66,7 @@ class MyAppState extends State<MyApp> {
       
       return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Editor(onThemeSelect: setTheme,),
+        home: Editor(onThemeSelect: setTheme,prefs),
         theme: ThemeData(
             colorScheme: lightColorScheme ?? _defaultLightColorScheme,
             useMaterial3: true,
