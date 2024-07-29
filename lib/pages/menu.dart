@@ -246,7 +246,7 @@ class optionsDialogState extends State<optionsDialog> {
               children: [
                 const Text("Theme"),
                 DropdownMenu(
-                  textStyle: TextStyle(fontSize: 14,),                  
+                  textStyle: const TextStyle(fontSize: 14,),                  
                   initialSelection: widget.prefs.getString('selectedTheme'),
                   onSelected: (String? value) async {
                     setState(() {
@@ -294,7 +294,7 @@ class optionsDialogState extends State<optionsDialog> {
           PopupMenuItem(
             child: SwitchListTile(
               title: const Text("Retain Input"),
-              subtitle: Text("Retains text between sessions"),
+              subtitle: const Text("Retains text between sessions"),
               activeColor: Theme.of(context).colorScheme.primary,
               value: widget.switchInputvalue,
               onChanged: (bool value) async {
