@@ -259,7 +259,7 @@ class optionsDialogState extends State<optionsDialog> {
           PopupMenuItem(
             child: SwitchListTile(
               title: const Text("Full Edit Mode"),
-              subtitle: const Text("Toggles the top rendering portion of the screen"),
+              subtitle: const Text("Toggles full screen editing"),
               activeColor: Theme.of(context).colorScheme.primary,
               value: widget.switchModeValue,
               onChanged: (bool value) async {
@@ -275,7 +275,7 @@ class optionsDialogState extends State<optionsDialog> {
             child: SwitchListTile(
               value: widget.switchWCValue, 
               title: const Text("Display Word Count"),
-              subtitle: const Text("Toggles a word counter in the bottom of the screen"),
+              subtitle: const Text("Toggles a word counter"),
               activeColor: Theme.of(context).colorScheme.primary,
               onChanged: (bool value) async {
                 setState(() {
@@ -289,7 +289,7 @@ class optionsDialogState extends State<optionsDialog> {
           PopupMenuItem(
             child: SwitchListTile(
               title: const Text("Retain Input"),
-              subtitle: Text("Retains whats in the text field between sessions"),
+              subtitle: Text("Retains text between sessions"),
               activeColor: Theme.of(context).colorScheme.primary,
               value: widget.switchInputvalue,
               onChanged: (bool value) async {
