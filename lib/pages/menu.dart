@@ -65,6 +65,7 @@ class Menu extends StatefulWidget {
       await prefs.remove('InputText');
     }
     //await SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop', animated);
+    exit(0);
   }
 
   void pickFile() async {
