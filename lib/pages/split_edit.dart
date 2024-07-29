@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mdeditor/pages/menu.dart';
 import 'package:mdeditor/pages/preview.dart';
 import 'package:mdeditor/pages/textfield.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Editor extends StatefulWidget {
   const Editor({super.key, required this.onThemeSelect});
@@ -11,8 +12,6 @@ class Editor extends StatefulWidget {
   @override
   State<Editor> createState() => editorState();
 }
-
-
 
 class editorState extends State<Editor> {
   String contents = '';
@@ -26,9 +25,16 @@ class editorState extends State<Editor> {
 
 @override
   void initState() {
+    onStart();
+    super.initState();
+  }
+
+  void onStart() async {
+    final prefs = await SharedPreferences.getInstance();
+    final bool? fullEdit = prefs.getBool("ViewMode");
+    final bool? WordCount = prefs.getBool('DisplayWordCount');
     enableWordCount(WordCount);
     switchViewMode(fullEdit);
-    super.initState();
   }
 
   void mdText(String inputText) {
@@ -55,21 +61,15 @@ class editorState extends State<Editor> {
   }
 
   void switchViewMode(fullEdit) async {
-    //final prefs = await SharedPreferences.getInstance();
-    //final bool? fullEdit = prefs.getBool("ViewMode");
     setState(() {
       _full=fullEdit!;
     });
-    //print("Full = $_full");
   }
 
   void enableWordCount(WordCount) async {
-    //final prefs = await SharedPreferences.getInstance();
-    //final bool? WordCount = prefs.getBool('DisplayWordCount');
     setState(() {
       showWordCount=WordCount!;
     });
-    //print("Word Count = $WordCount");
   }
 
   void setTheme(selectedTheme){
@@ -110,7 +110,7 @@ class editorState extends State<Editor> {
               Row(
                 children: [
                   Visibility(
-                    visible: WordCount,
+                    visible: showWordCount,
                     child: Text("$wordCount"),
                   ),
                   Menu(onFileLoad: loadedFile, contents, OpenFile, onfileName: setFileName, onModeToggle: switchViewMode, wordCount, onEnableWordCount: enableWordCount,onThemeSelected: setTheme,),
