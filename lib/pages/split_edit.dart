@@ -33,8 +33,12 @@ class editorState extends State<Editor> {
     final prefs = await SharedPreferences.getInstance();
     final bool? fullEdit = prefs.getBool("ViewMode");
     final bool? WordCount = prefs.getBool('DisplayWordCount');
-    enableWordCount(WordCount);
-    switchViewMode(fullEdit);
+    if (WordCount != null){
+      enableWordCount(WordCount);
+    }
+    if (fullEdit != null) {
+      switchViewMode(fullEdit);
+    }
   }
 
   void mdText(String inputText) {
@@ -63,6 +67,7 @@ class editorState extends State<Editor> {
   void switchViewMode(fullEdit) async {
     setState(() {
       _full=fullEdit!;
+      print("Second _full = $_full");
     });
   }
 

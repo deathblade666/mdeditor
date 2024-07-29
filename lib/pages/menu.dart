@@ -73,17 +73,17 @@ class Menu extends StatefulWidget {
   }
 
   void enableFullEdit() async {
-    fullEdit=!fullEdit;
+    //fullEdit=!fullEdit;
     widget.onModeToggle(fullEdit);
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool("ViewMode", fullEdit);
+    //final prefs = await SharedPreferences.getInstance();
+    //prefs.setBool("ViewMode", fullEdit);
   }
 
   void showWordCount() async {
-    final prefs = await SharedPreferences.getInstance();
+    //final prefs = await SharedPreferences.getInstance();
     WordCount = !WordCount;
     widget.onEnableWordCount(WordCount);
-    prefs.setBool("DisplayWordCount", WordCount);
+    //prefs.setBool("DisplayWordCount", WordCount);
   }
 
   void setTheme(String value) async {
@@ -181,15 +181,11 @@ class optionsDialogState extends State<optionsDialog> {
   void enableFullEdit() async {
     fullEdit = !fullEdit;
     widget.onModeToggle(fullEdit);
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool("ViewMode", fullEdit);
   }
 
   void showWordCount() async {
-    final prefs = await SharedPreferences.getInstance();
     WordCount = !WordCount;
     widget.onEnableWordCount(WordCount);
-    prefs.setBool("DisplayWordCount", WordCount);
   }
 
   @override 
@@ -229,11 +225,10 @@ class optionsDialogState extends State<optionsDialog> {
               title: const Text("Full Edit Mode"),
               activeColor: Theme.of(context).colorScheme.primary,
               value: widget.switchModeValue,
-              onChanged: (bool value) {
+              onChanged: (bool value) async {
                 setState(() {
                   widget.switchModeValue = value;
                 });
-                enableFullEdit();
               }
             ),
           ),
@@ -246,15 +241,37 @@ class optionsDialogState extends State<optionsDialog> {
                 setState(() {
                   widget.switchWCValue = value;
                 });
-                showWordCount();
               }
             )
           ),
-          OutlinedButton(
-            onPressed: (){Navigator.pop(context);},
-            child: const Text("Save"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              OutlinedButton(
+                onPressed: () async {
+                final prefs = await SharedPreferences.getInstance();
+                prefs.clear();
+                Navigator.pop(context);
+              }, 
+              child: Text("Clear Cache"),
+              ),
+              Padding(padding: EdgeInsets.only(right: 15)),
+              OutlinedButton(
+                onPressed: () async {
+                  final prefs = await SharedPreferences.getInstance();
+                  prefs.setBool("DisplayWordCount", WordCount);
+                  prefs.setBool("ViewMode", fullEdit);
+                  print("Word Count = $WordCount");
+                  print("Fulle Edit = $fullEdit");
+                  Navigator.pop(context);
+                  showWordCount();
+                  enableFullEdit();
+                },
+              child: const Text("Save"),
+              ),
+            ],
           ),
-          const Padding(padding: EdgeInsets.only(bottom: 15)),
+          const Padding(padding: EdgeInsets.only(bottom: 20)),
         ],
       ),
     );
