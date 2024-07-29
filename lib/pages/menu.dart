@@ -211,6 +211,7 @@ class optionsDialogState extends State<optionsDialog> {
     bool? wordCountValue = prefs.getBool('DisplayWordCount');
     bool? viewmodeValue = prefs.getBool('ViewModeSwitch');
     bool? retainInput = prefs.getBool('RetainInputSwitch');
+    String? selectedTheme = prefs.getString('selectedTheme');
     setState(() {
     if (viewmodeValue != null) {
       widget.switchModeValue = viewmodeValue;
@@ -220,6 +221,9 @@ class optionsDialogState extends State<optionsDialog> {
     }
     if (retainInput != null){
       widget.switchInputvalue = retainInput;
+    }
+    if (selectedTheme == null) {
+      prefs.setString('selectedTheme', "system");
     }
     });
   }
