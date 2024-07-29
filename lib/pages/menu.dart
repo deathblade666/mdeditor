@@ -52,12 +52,19 @@ class Menu extends StatefulWidget {
     bool switchModeValue = false;
     bool switchWCValue = false;
     SharedPreferences prefs;
+    bool switchInputvalue = false;
     
   
   void closeApp({bool? animated}) async {
+    prefs.reload();
+    bool? RetainInputSwitch = prefs.getBool('RetainInputSwitch');
+    if (RetainInputSwitch == true){
+      prefs.setString("InputText", OpenFile.text);
+    }
+    if (RetainInputSwitch = false){
+      prefs.remove('InputText');
+    }
     await SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop', animated);
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString("InputText", inputText);
   }
 
   void pickFile() async {
@@ -73,18 +80,6 @@ class Menu extends StatefulWidget {
     widget.onFileLoad(fileContent);
     widget.onfileName(fileName);
   }
-
-  //void enableFullEdit() async {
-   // fullEdit=!fullEdit;
-  //  widget.onModeToggle(fullEdit);
-   // print("Fulledit = $fullEdit");
- // }
-
-  //void showWordCount() async {
-  //  WordCount = !WordCount;
-  //  widget.onEnableWordCount(WordCount);
-  //  print("word count = $WordCount");
- // }
 
   void setTheme(String value) async {
     var selectedTheme = value;
@@ -144,9 +139,10 @@ class Menu extends StatefulWidget {
         ),
         PopupMenuItem(
           child: const Text("Options"),
-          onTap: () { showDialog(
+          onTap: () {
+           showDialog(
             context: context,
-            builder: (context) => optionsDialog(switchModeValue,switchWCValue,widget.onEnableWordCount,widget.onModeToggle, onThemeSelected: setTheme,prefs)
+            builder: (context) => optionsDialog(switchModeValue,switchWCValue,widget.onEnableWordCount,widget.onModeToggle, onThemeSelected: setTheme,prefs,switchInputvalue)
           );}
         ),
         PopupMenuItem<menuItems>(
@@ -165,8 +161,9 @@ class optionsDialog extends StatefulWidget {
   final Function onModeToggle;
   bool switchModeValue;
   bool switchWCValue;
+  bool switchInputvalue;
 
-  optionsDialog(this.switchModeValue, this.switchWCValue, this.onEnableWordCount, this.onModeToggle,this.prefs,{required this.onThemeSelected,super.key});
+  optionsDialog(this.switchModeValue, this.switchWCValue, this.onEnableWordCount, this.onModeToggle,this.prefs,this.switchInputvalue,{required this.onThemeSelected,super.key});
   void Function (String selectedTheme) onThemeSelected;
   SharedPreferences prefs;
   @override
@@ -213,12 +210,16 @@ class optionsDialogState extends State<optionsDialog> {
     prefs.reload();
     bool? wordCountValue = prefs.getBool('DisplayWordCount');
     bool? viewmodeValue = prefs.getBool('ViewModeSwitch');
+    bool? retainInput = prefs.getBool('RetainInputSwitch');
     setState(() {
     if (viewmodeValue != null) {
       widget.switchModeValue = viewmodeValue;
     }
     if (wordCountValue != null) {
       widget.switchWCValue = wordCountValue;
+    }
+    if (retainInput != null){
+      widget.switchInputvalue = retainInput;
     }
     });
   }
@@ -281,6 +282,18 @@ class optionsDialogState extends State<optionsDialog> {
                 });
                 showWordCount(value);
               }
+            )
+          ),
+          PopupMenuItem(
+            child: SwitchListTile(
+              title: Text("Retain Input"),
+              value: widget.switchInputvalue,
+              onChanged: (bool value) async {
+                setState(() {
+                  widget.switchInputvalue = value;
+                  prefs.setBool("RetainInputSwitch", value);
+                });
+              },
             )
           ),
           Row(

@@ -36,11 +36,17 @@ class editorState extends State<Editor> {
     prefs.reload();
     final bool? fullEdit = prefs.getBool("ViewMode");
     final bool? WordCount = prefs.getBool('enableCount');
+    final String? priorInput = prefs.getString('InputText');
+    print(priorInput);
     if (WordCount != null){
       enableWordCount(WordCount);
     }
     if (fullEdit != null) {
       switchViewMode(fullEdit);
+    }
+    if (priorInput != null ){
+      fileContent=priorInput;
+      loadedFile(fileContent);
     }
   }
 
