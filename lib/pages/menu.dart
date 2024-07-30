@@ -47,7 +47,7 @@ class Menu extends StatefulWidget {
     //Declarations
     MenuState(this.inputText, this.OpenFile, this.wordCount,this.prefs);
     final String inputText;
-    int wordCount;
+    int wordCount=0;
     TextEditingController OpenFile = TextEditingController();
     bool switchModeValue = false;
     bool switchWCValue = false;
@@ -118,25 +118,27 @@ class Menu extends StatefulWidget {
           onTap: pickFile,
           child: const Text("Open"),
         ),
-        PopupMenuItem<menuItems>(
-          value: menuItems.fileInfo,
-          onTap: () { showDialog(
-            context: context, builder: (BuildContext context){
-              return Dialog(
-              elevation: 1,
-              alignment: Alignment.center,
-              backgroundColor: Theme.of(context).colorScheme.onPrimary,
-              child: Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(20),
-                height: 200,
-                width: 200,
-                child: Text("Word Count: $wordCount"),
-              ),);
-            }
-          );},
-          child: const Text("File Info"),
-        ),
+        //PopupMenuItem<menuItems>(
+          //value: menuItems.fileInfo,
+          //onTap: () { 
+            //int CountofWords=wordCount; 
+            //showDialog(
+            //context: context, builder: (BuildContext context){
+              //return Dialog(
+              //elevation: 1,
+              //alignment: Alignment.center,
+              //backgroundColor: Theme.of(context).colorScheme.onPrimary,
+              //child: Container(
+                //alignment: Alignment.center,
+                //padding: const EdgeInsets.all(20),
+                //height: 200,
+                //width: 200,
+                //child: Text("Word Count: $CountofWords"),
+              //),);
+            //}
+          //);},
+          //child: const Text("File Info"),
+        //),
         PopupMenuItem(
           child: const Text("Options"),
           onTap: () {
