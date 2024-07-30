@@ -51,7 +51,7 @@ class editorState extends State<Editor> {
 
   void mdText(String inputText) {
     setState(() {
-      var regExp = new RegExp(r"\w+(\'\w+)?");
+      var regExp = RegExp(r"\w+(\'\w+)?");
       contents = inputText;
       wordCount = regExp.allMatches(contents).length;
     });
@@ -59,7 +59,7 @@ class editorState extends State<Editor> {
 
   void loadedFile(fileContent){
     setState(() {
-      var regExp = new RegExp(r"\w+(\'\w+)?");
+      var regExp = RegExp(r"\w+(\'\w+)?");
       OpenFile.text = fileContent;
       contents = fileContent;
       wordCount = regExp.allMatches(contents).length;
