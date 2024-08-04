@@ -28,7 +28,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class Menu extends StatefulWidget {
-  Menu(this.prefs,this.inputText,this.OpenFile,this.wordCount,{required this.onEnableWordCount, required this.onModeToggle, required this.onFileLoad,required this.onfileName,required this.onThemeSelected,super.key});
+  Menu(
+    this.prefs,
+    this.inputText,
+    this.OpenFile,
+    this.wordCount,
+    {required this.onEnableWordCount, 
+      required this.onModeToggle, 
+      required this.onFileLoad,
+      required this.onfileName,
+      required this.onThemeSelected,
+      super.key
+      }
+    );
   final void Function(String fileContent) onFileLoad;
   final void Function(String fileName) onfileName;
   final void Function(bool fullEdit) onModeToggle;
@@ -142,10 +154,19 @@ class Menu extends StatefulWidget {
         PopupMenuItem(
           child: const Text("Options"),
           onTap: () {
-           showDialog(
-            context: context,
-            builder: (context) => optionsDialog(switchModeValue,switchWCValue,widget.onEnableWordCount,widget.onModeToggle, onThemeSelected: setTheme,prefs,switchInputvalue)
-          );}
+            showDialog(
+              context: context,
+              builder: (context) => optionsDialog(
+                switchModeValue,
+                switchWCValue,
+                widget.onEnableWordCount,
+                widget.onModeToggle, 
+                onThemeSelected: setTheme,
+                prefs,
+                switchInputvalue
+              )
+            );
+          }
         ),
         PopupMenuItem<menuItems>(
           value: menuItems.close,
@@ -165,7 +186,17 @@ class optionsDialog extends StatefulWidget {
   bool switchWCValue;
   bool switchInputvalue;
 
-  optionsDialog(this.switchModeValue, this.switchWCValue, this.onEnableWordCount, this.onModeToggle,this.prefs,this.switchInputvalue,{required this.onThemeSelected,super.key});
+  optionsDialog(
+    this.switchModeValue, 
+    this.switchWCValue, 
+    this.onEnableWordCount, 
+    this.onModeToggle,
+    this.prefs,
+    this.switchInputvalue,
+    {required this.onThemeSelected,
+      super.key
+    }
+  );
   void Function (String selectedTheme) onThemeSelected;
   SharedPreferences prefs;
   @override

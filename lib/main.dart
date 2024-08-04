@@ -11,8 +11,10 @@ void main() async {
 }
 
 
-final _defaultDarkColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.indigo, brightness: Brightness.dark);
-final _defaultLightColorScheme = ColorScheme.fromSwatch(primarySwatch: Colors.indigo);
+final _defaultDarkColorScheme = ColorScheme.fromSwatch(
+  primarySwatch: Colors.indigo, brightness: Brightness.dark);
+final _defaultLightColorScheme = ColorScheme.fromSwatch(
+  primarySwatch: Colors.indigo);
 
 
 class MyApp extends StatefulWidget{
