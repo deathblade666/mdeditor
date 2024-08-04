@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:markdown/markdown.dart' as md;
+import 'package:markdown_editor_plus/widgets/markdown_parse.dart';
 
 
 //TODO: Change font size (bigger)
@@ -19,21 +18,9 @@ class Renderer extends StatelessWidget {
         color: Theme.of(context).colorScheme.surface,
         ),
       padding: const EdgeInsets.all(15),
-      child: Markdown(
+      child: MarkdownParse(
         data: value,
         controller: autoScroll,
-        styleSheet: MarkdownStyleSheet(checkbox: Theme.of(context).textTheme.bodyMedium,),
-        selectable: true,
-        extensionSet: md.ExtensionSet(
-          md.ExtensionSet.gitHubFlavored.blockSyntaxes,
-          <md.InlineSyntax>[
-            md.EmojiSyntax(),
-            ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes
-          ],
-        ),
-        softLineBreak: true,
-        shrinkWrap: true,
-        //checkboxBuilder: (value) => Checkbox(value: value, onChanged: (){}),
       ),
     );
   }

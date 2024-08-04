@@ -22,7 +22,7 @@ import 'package:shared_preferences/shared_preferences.dart';
   String _filename = '';
   bool fullEdit = true;
   bool WordCount = false;
-  const List<String> list = <String>['system', 'dark', 'light', 'black'];
+  const List<String> list = <String>['system', 'dark', 'light',];
   String dropDownValue = list.first;
 
 
@@ -252,6 +252,7 @@ class optionsDialogState extends State<optionsDialog> {
                   initialSelection: widget.prefs.getString('selectedTheme'),
                   onSelected: (String? value) async {
                     setState(() {
+                      Navigator.pop(context);
                       var selectedTheme = value.toString();
                       widget.onThemeSelected(selectedTheme);
                     });

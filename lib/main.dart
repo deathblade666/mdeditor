@@ -52,10 +52,10 @@ class MyAppState extends State<MyApp> {
       if (selectedTheme == "dark"){
         theme = ThemeMode.dark;
       }
-      if (selectedTheme == "black"){
+      //if (selectedTheme == "black"){
         //selectedTheme = blackTheme;
-        theme = ThemeMode.dark;
-      }
+       // theme = ThemeMode.dark;
+     // }
     });
   }
 

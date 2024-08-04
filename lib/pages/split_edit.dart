@@ -88,7 +88,6 @@ class editorState extends State<Editor> {
     widget.onThemeSelect(selectedTheme);
   }
       
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,8 +106,12 @@ class editorState extends State<Editor> {
               child: Renderer(OpenFile, contents),
             ),
           ),
+          //MarkdownToolbar(
+            //controller: OpenFile, 
+            //toolbar: toolbar, 
+          //),
           Expanded(
-            child: mdtextfield(OpenFile, fileContent,ontextchanged: mdText,),
+           child: mdtextfield(OpenFile, fileContent,ontextchanged: mdText,),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -136,3 +139,4 @@ class editorState extends State<Editor> {
     );
   }
 }
+
