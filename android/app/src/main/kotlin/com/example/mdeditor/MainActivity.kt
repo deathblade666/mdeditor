@@ -1,4 +1,4 @@
-package com.example.mdeditor
+package com.deathblade666.mdeditor
 
 import io.flutter.embedding.android.FlutterActivity
 
