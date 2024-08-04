@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:markdown_editor_plus/widgets/markdown_toolbar.dart';
 import 'package:mdeditor/pages/menu.dart';
 import 'package:mdeditor/pages/preview.dart';
 import 'package:mdeditor/pages/textfield.dart';
@@ -106,10 +107,6 @@ class editorState extends State<Editor> {
               child: Renderer(OpenFile, contents),
             ),
           ),
-          //MarkdownToolbar(
-            //controller: OpenFile, 
-            //toolbar: toolbar, 
-          //),
           Expanded(
            child: mdtextfield(OpenFile, fileContent,ontextchanged: mdText,),
           ),

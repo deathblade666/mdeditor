@@ -41,14 +41,15 @@ class mdtextfieldState extends State<mdtextfield> {
             width: 1.5,
           )
       ),
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(7),
       child: MarkdownField(
         onChanged: mdText,
         expands: true,
         emojiConvert: true,
         maxLines: null,
         controller: OpenFile,
-        cursorColor: Theme.of(context).colorScheme.tertiaryFixed,
+        cursorColor: Theme.of(context).colorScheme.primary,
+
       ),
     );
   }
