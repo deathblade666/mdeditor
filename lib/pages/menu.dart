@@ -91,6 +91,7 @@ class Menu extends StatefulWidget {
     final fileContent = await file.readAsString();
     widget.onFileLoad(fileContent);
     widget.onfileName(fileName);
+    prefs.setString("FileName", fileName);
   }
 
   void setTheme(String value) async {
@@ -110,15 +111,21 @@ class Menu extends StatefulWidget {
           onTap: () async {
             List<int> list = utf8.encode(OpenFile.text);
             Uint8List bytes = Uint8List.fromList(list);
-            final outputfile = await FilePicker.platform.saveFile(bytes: bytes);
-            final file = File(outputfile!);
-            file.writeAsString(OpenFile.text);
+            //final outputfile = 
+            await FilePicker.platform.saveFile(bytes: bytes);
+            //print("Output File = $outputfile");
+            //final file = File(outputfile!);
+            //print("File = $file");
+            //file.writeAsString(OpenFile.text);
+            //print(OpenFile.text);
+            prefs.remove('FileName');
             showDialog(
               context: context, 
               builder: (BuildContext context){
-                return AlertDialog(
-                title: const Text("Success"),
-                content: Text("Save successfully to $outputfile"),
+                return const AlertDialog(
+                  alignment: Alignment.center,
+                  title: Text("Success"),
+                  content: Text("Saved successfully"),
                 );
               }
             );

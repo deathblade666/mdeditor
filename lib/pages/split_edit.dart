@@ -37,6 +37,8 @@ class editorState extends State<Editor> {
     bool? fullEdit = prefs.getBool("ViewMode");
     bool? WordCount = prefs.getBool('enableCount');
     String? priorInput = prefs.getString('InputText');
+    String? FileName = prefs.getString('FileName');
+    print(FileName);
     if (WordCount != null){
       enableWordCount(WordCount);
     }
@@ -46,6 +48,9 @@ class editorState extends State<Editor> {
     if (priorInput != null ){
       fileContent=priorInput;
       loadedFile(fileContent);
+    }
+    if (FileName == null){
+      NameofFile = "File";
     }
   }
 
@@ -115,7 +120,42 @@ class editorState extends State<Editor> {
               Row(
                 children: [
                   const Padding(padding: EdgeInsets.only(left: 15)),
-                  Text(NameofFile),
+                  GestureDetector(
+                    child: Text(NameofFile),
+                    onTap: () {
+                      showDialog(context: context, builder: (BuildContext context){
+                        TextEditingController fileNameController = TextEditingController();
+                        return Dialog(
+                          insetPadding: const EdgeInsets.all(15),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(top: 20),
+                                child: const Text("Enter file name with extension"),
+                              ),
+                              Container(
+                                width: 200,
+                                padding: EdgeInsets.all(7),
+                                child: TextField(
+                                  controller: fileNameController,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    NameofFile = fileNameController.text;
+                                  });
+                                  Navigator.pop(context);
+                                }, 
+                                child: const Text("Save")
+                              )
+                            ],
+                          )
+                        );
+                      });
+                    }
+                  )
                 ],
               ),
               Row(
