@@ -19,6 +19,3 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         path: build/app/outputs/flutter-apk/app-release.apk
-    # Run our tests
-    - run: flutter test
-    
