@@ -17,6 +17,8 @@ jobs:
     - run: flutter build apk
     - name: Upload Build
       uses: actions/upload-artifact@v4
+      with:
+        path: build/app/outputs/flutter-apk/app-release.apk
     # Analyze our Dart code
     - run: flutter analyze
     # Run our tests
