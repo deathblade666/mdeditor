@@ -14,7 +14,6 @@ jobs:
     - run: flutter pub get
     # Build :D 
     - uses: actions/checkout@v4
-    - run: dart fix --apply
     - run: flutter build apk
     - name: Upload Build
       uses: actions/upload-artifact@v4
