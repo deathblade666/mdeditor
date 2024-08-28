@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -110,9 +111,13 @@ class Menu extends StatefulWidget {
           onTap: () async {
             List<int> list = utf8.encode(OpenFile.text);
             Uint8List bytes = Uint8List.fromList(list);
-            final outputfile = await FilePicker.platform.saveFile(bytes: bytes);
-            final file = File(outputfile!);
-            file.writeAsString(OpenFile.text);
+            final outputfile = await FileSaver.instance.saveAs(
+              ext: "md",
+              name: "test",
+              bytes: bytes,
+              mimeType: MimeType.text);
+            //final file = File(outputfile!);
+            //file.writeAsString(OpenFile.text);
             showDialog(
               context: context, 
               builder: (BuildContext context){

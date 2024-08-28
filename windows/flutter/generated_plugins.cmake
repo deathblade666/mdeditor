@@ -4,7 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
-  permission_handler_windows
+  file_saver
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
