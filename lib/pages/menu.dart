@@ -66,7 +66,6 @@ class Menu extends StatefulWidget {
     bool switchWCValue = false;
     SharedPreferences prefs;
     bool switchInputvalue = false;
-    
   
   void closeApp({bool? animated}) async {
     prefs.reload();
@@ -115,12 +114,14 @@ class Menu extends StatefulWidget {
             final outputfile = await FileSaver.instance.saveAs(
               ext: "md",
               name: "test",
+              //file: file,
               bytes: bytes,
               mimeType: MimeType.custom,
               customMimeType: 'text/markdown',
               );
-            //final file = File(outputfile!);
-            //file.writeAsString(OpenFile.text);
+            final file = File(outputfile!);
+            file.writeAsString(OpenFile.text);
+
             showDialog(
               context: context, 
               builder: (BuildContext context){
