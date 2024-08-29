@@ -109,8 +109,9 @@ class Menu extends StatefulWidget {
         PopupMenuItem<menuItems>(
           value: menuItems.save,
           onTap: () async {
-            List<int> list = utf8.encode(OpenFile.text);
-            Uint8List bytes = Uint8List.fromList(list);
+            //List<int> list = utf8.encode(OpenFile.text);
+            Uint8List bytes = utf8.encode(OpenFile.text);
+            //Uint8List.fromList(list);
             final outputfile = await FileSaver.instance.saveAs(
               ext: "md",
               name: "test",
