@@ -119,8 +119,8 @@ class Menu extends StatefulWidget {
               mimeType: MimeType.custom,
               customMimeType: 'text/markdown',
               );
-            final file = File(outputfile!);
-            file.writeAsString(OpenFile.text);
+            //final file = File(outputfile!);
+            //file.writeAsString(OpenFile.text);
             showDialog(
               context: context, 
               builder: (BuildContext context){
