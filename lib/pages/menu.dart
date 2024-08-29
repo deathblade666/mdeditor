@@ -115,12 +115,11 @@ class Menu extends StatefulWidget {
               ext: "md",
               name: "test",
               bytes: bytes,
-              filePath: "/sdcard/Downloads/",
               mimeType: MimeType.custom,
               customMimeType: 'text/md'
               );
-            //final file = File(outputfile!);
-            //file.writeAsString(OpenFile.text);
+            final file = File(outputfile!);
+            file.writeAsString(OpenFile.text);
             showDialog(
               context: context, 
               builder: (BuildContext context){
