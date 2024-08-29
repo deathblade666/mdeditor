@@ -117,7 +117,8 @@ class Menu extends StatefulWidget {
               bytes: bytes,
               filePath: "/sdcard/Downloads/",
               mimeType: MimeType.custom,
-              customMimeType: "md");
+              customMimeType: 'text/md'
+              );
             //final file = File(outputfile!);
             //file.writeAsString(OpenFile.text);
             showDialog(
