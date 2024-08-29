@@ -116,7 +116,7 @@ class Menu extends StatefulWidget {
               name: "test",
               bytes: bytes,
               mimeType: MimeType.custom,
-              customMimeType: 'text/md',
+              customMimeType: 'text/plain',
               );
             final file = File(outputfile!);
             file.writeAsString(OpenFile.text);
