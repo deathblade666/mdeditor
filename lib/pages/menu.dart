@@ -116,8 +116,12 @@ class Menu extends StatefulWidget {
             // Operation was canceled by the user.
               //return;
             //}
+
             try {
               final result = (await FlutterFileDialog.pickFile());
+              var file = File(result!);
+              var sink = file.openWrite();
+              sink.add(bytes);
             }
             on Exception catch (result) {
               showDialog(
