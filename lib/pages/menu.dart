@@ -117,9 +117,11 @@ class Menu extends StatefulWidget {
               //return;
             //}
 
+            var saveFile = await FlutterFileDialog.pickFile(params: OpenFileDialogParams());
+            final String filePath = saveFile.toString();
             var result = await FlutterFileDialog.saveFile(params: 
               SaveFileDialogParams (
-                sourceFilePath:" ",
+                sourceFilePath:filePath,
                 data: bytes, 
                 fileName: "Test.md")
             );
