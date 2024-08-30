@@ -120,7 +120,6 @@ class Menu extends StatefulWidget {
               final result = (await FlutterFileDialog.pickFile());
             }
             on Exception catch (result) {
-            if (result == null) {
               showDialog(
                 context: context, 
                 builder: (BuildContext context) {
@@ -129,7 +128,6 @@ class Menu extends StatefulWidget {
                   );
                 }
               );
-            };
             }
            // await CRFileSaver.saveFileWithDialog(SaveFileDialogParams(sourceFilePath: '/sdcard/Downloads', destinationFileName: destinationFileName))
             //final XFile textfile = XFile.fromData(bytes);
