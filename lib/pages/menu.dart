@@ -16,9 +16,6 @@ import 'package:shared_preferences/shared_preferences.dart';
   enableWorkCount,
   }
 
-//TODO: Implement new functions
-// function for theme control
-
   String filePath = '';
   String _filename = '';
   bool fullEdit = true;
@@ -32,7 +29,7 @@ class Menu extends StatefulWidget {
   Menu(
     this.prefs,
     this.inputText,
-    this.OpenFile,
+    this.openFile,
     this.wordCount,
     {required this.onEnableWordCount, 
       required this.onModeToggle, 
@@ -47,21 +44,21 @@ class Menu extends StatefulWidget {
   final void Function(bool fullEdit) onModeToggle;
   final void Function(bool WordCount) onEnableWordCount;
   void Function(String? selectedTheme) onThemeSelected;
-  TextEditingController OpenFile = TextEditingController();
+  TextEditingController openFile = TextEditingController();
   final String inputText;
   int wordCount;
   SharedPreferences prefs;
 
 
   @override
-  State<Menu> createState() => MenuState(inputText, OpenFile, wordCount, prefs);
+  State<Menu> createState() => MenuState(inputText, openFile, wordCount, prefs);
 }
   class MenuState extends State<Menu> {
     //Declarations
-    MenuState(this.inputText, this.OpenFile, this.wordCount,this.prefs);
+    MenuState(this.inputText, this.openFile, this.wordCount,this.prefs);
     final String inputText;
     int wordCount=0;
-    TextEditingController OpenFile = TextEditingController();
+    TextEditingController openFile = TextEditingController();
     bool switchModeValue = false;
     bool switchWCValue = false;
     SharedPreferences prefs;
@@ -71,7 +68,7 @@ class Menu extends StatefulWidget {
     prefs.reload();
     bool? RetainInputSwitch = prefs.getBool('RetainInputSwitch');
     if (RetainInputSwitch == true){
-      prefs.setString("InputText", OpenFile.text);
+      prefs.setString("InputText", openFile.text);
     }
     if (RetainInputSwitch == false){
       await prefs.remove('InputText');
@@ -108,26 +105,31 @@ class Menu extends StatefulWidget {
         PopupMenuItem<menuItems>(
           value: menuItems.save,
           onTap: () async {
-            //List<int> list = utf8.encode(OpenFile.text);
-            Uint8List bytes = utf8.encode(OpenFile.text);
-            //Uint8List.fromList(list);
-            final outputfile = await FileSaver.instance.saveAs(
-              ext: "md",
-              name: "test",
-              //file: file,
-              bytes: bytes,
-              mimeType: MimeType.custom,
-              customMimeType: 'text/markdown',
-              );
-            final file = File(outputfile!);
-            file.writeAsString(OpenFile.text);
+            List<int> list = utf8.encode(openFile.text);
+            //Uint8List bytes = utf8.encode(openFile.text);
+            Uint8List bytes = Uint8List.fromList(list);
+            var file = File('/sdcard/mdeditor/test files/test58.md');
+            //final outputfile = await FileSaver.instance.saveAs(
+             // ext: "md",
+              //name: "test58",
+             // file: file,
+             // mimeType: MimeType.custom,
+             // customMimeType: 'text/markdown',
+             // );
+            
+            //var file = File(outputfile!);
+            var sink = file.openWrite();
+            sink.add(bytes);
+            //sink.write(openFile.text);
+            //file.writeAsString(openFile.text);
+            
 
             showDialog(
               context: context, 
               builder: (BuildContext context){
                 return AlertDialog(
                 title: const Text("Success"),
-                content: Text("Save successfully to $outputfile"),
+                content: Text("Save successfully to "),
                 );
               }
             );

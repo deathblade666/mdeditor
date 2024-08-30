@@ -4,25 +4,25 @@ import 'package:markdown_editor_plus/markdown_editor_plus.dart';
 // ignore: must_be_immutable
 class mdtextfield extends StatefulWidget {
   mdtextfield(
-    this.OpenFile,
+    this.openFile,
     this.fileContent,
     {required this.ontextchanged, 
       super.key
     }
   );
   final void Function(String contents) ontextchanged;
-  TextEditingController OpenFile;
+  TextEditingController openFile;
   String fileContent;
 
   @override
-  State<mdtextfield> createState() => mdtextfieldState(OpenFile,fileContent);
+  State<mdtextfield> createState() => mdtextfieldState(openFile,fileContent);
 }
 
 // ignore: camel_case_types
 class mdtextfieldState extends State<mdtextfield> {
-  mdtextfieldState(this.OpenFile, this.fileContent);
+  mdtextfieldState(this.openFile, this.fileContent);
   String fileContent;
-  TextEditingController OpenFile = TextEditingController();
+  TextEditingController openFile = TextEditingController();
 
   
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
@@ -53,7 +53,7 @@ class mdtextfieldState extends State<mdtextfield> {
         expands: true,
         emojiConvert: true,
         maxLines: null,
-        controller: OpenFile,
+        controller: openFile,
         cursorColor: Theme.of(context).colorScheme.primary,
 
       ),

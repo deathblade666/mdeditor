@@ -6,9 +6,9 @@ import 'package:markdown_editor_plus/widgets/markdown_parse.dart';
 
 // ignore: must_be_immutable
 class Renderer extends StatelessWidget {
-  Renderer(this.OpenFile,this.value,{super.key});
+  Renderer(this.openFile,this.value,{super.key});
   String value;
-  TextEditingController OpenFile = TextEditingController();
+  TextEditingController openFile = TextEditingController();
   ScrollController autoScroll = ScrollController();
 
   @override

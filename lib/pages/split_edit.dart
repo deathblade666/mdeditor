@@ -24,7 +24,7 @@ class editorState extends State<Editor> {
   bool showWordCount = WordCount;
   int wordCount = 0;
   var theme = ThemeMode.system;
-  TextEditingController OpenFile = TextEditingController();
+  TextEditingController openFile = TextEditingController();
 
 @override
   void initState() {
@@ -60,7 +60,7 @@ class editorState extends State<Editor> {
   void loadedFile(fileContent){
     setState(() {
       var regExp = RegExp(r"\w+(\'\w+)?");
-      OpenFile.text = fileContent;
+      openFile.text = fileContent;
       contents = fileContent;
       wordCount = regExp.allMatches(contents).length;
     });
@@ -103,11 +103,11 @@ class editorState extends State<Editor> {
             visible: _full,
             child:Expanded(
               flex: 2,
-              child: Renderer(OpenFile, contents),
+              child: Renderer(openFile, contents),
             ),
           ),
           Expanded(
-           child: mdtextfield(OpenFile, fileContent,ontextchanged: mdText,),
+           child: mdtextfield(openFile, fileContent,ontextchanged: mdText,),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -128,7 +128,7 @@ class editorState extends State<Editor> {
                     prefs,
                     onFileLoad: loadedFile, 
                     contents, 
-                    OpenFile, 
+                    openFile, 
                     onfileName: setFileName, 
                     onModeToggle: switchViewMode, 
                     wordCount, onEnableWordCount: enableWordCount,
