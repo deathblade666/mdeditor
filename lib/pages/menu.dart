@@ -116,8 +116,10 @@ class Menu extends StatefulWidget {
             // Operation was canceled by the user.
               //return;
             //}
-
-            final result = (await FlutterFileDialog.pickFile());
+            try {
+              final result = (await FlutterFileDialog.pickFile());
+            }
+            on Exception catch (result) {
             if (result == null) {
               showDialog(
                 context: context, 
@@ -128,20 +130,21 @@ class Menu extends StatefulWidget {
                 }
               );
             };
+            }
            // await CRFileSaver.saveFileWithDialog(SaveFileDialogParams(sourceFilePath: '/sdcard/Downloads', destinationFileName: destinationFileName))
             //final XFile textfile = XFile.fromData(bytes);
             //await textfile.saveTo(result!);
             //String path = result;
-            var file = File(result!);
-            var sink = file.openWrite();
-            sink.add(bytes);
+            //var file = File(result!);
+            //var sink = file.openWrite();
+            //sink.add(bytes);
 
             showDialog(
               context: context, 
               builder: (BuildContext context){
                 return AlertDialog(
                 title: const Text("Success"),
-                content: Text('Save successfully to $result'),
+                content: Text('Save successfully to Blah'),
                 );
               }
             );
