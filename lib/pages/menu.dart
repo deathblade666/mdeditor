@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mdeditor/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
  enum menuItems {
@@ -105,31 +107,28 @@ class Menu extends StatefulWidget {
         PopupMenuItem<menuItems>(
           value: menuItems.save,
           onTap: () async {
-            List<int> list = utf8.encode(openFile.text);
-            //Uint8List bytes = utf8.encode(openFile.text);
-            Uint8List bytes = Uint8List.fromList(list);
-            var file = File('/sdcard/mdeditor/test files/test58.md');
-            //final outputfile = await FileSaver.instance.saveAs(
-             // ext: "md",
-              //name: "test58",
-             // file: file,
-             // mimeType: MimeType.custom,
-             // customMimeType: 'text/markdown',
-             // );
-            
+            Uint8List bytes = utf8.encode(openFile.text);
+            //var file = File('/sdcard/mdeditor/test files/test58.md');
+            final FileSaveLocation? result =
+              await getSaveLocation(suggestedName: "fileName");
+            if (result == null) {
+            // Operation was canceled by the user.
+              return;
+            }
+
+            final XFile textfile = XFile.fromData(bytes);
+            await textfile.saveTo(result.path);
+            String path = result.path;
             //var file = File(outputfile!);
-            var sink = file.openWrite();
-            sink.add(bytes);
-            //sink.write(openFile.text);
-            //file.writeAsString(openFile.text);
-            
+            //var sink = file.openWrite();
+            //sink.add(bytes);
 
             showDialog(
               context: context, 
               builder: (BuildContext context){
                 return AlertDialog(
                 title: const Text("Success"),
-                content: Text("Save successfully to "),
+                content: Text("Save successfully to $path"),
                 );
               }
             );
