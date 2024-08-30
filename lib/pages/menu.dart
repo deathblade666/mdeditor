@@ -101,6 +101,7 @@ class Menu extends StatefulWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController newfile = TextEditingController();
     return PopupMenuButton(
       elevation: 0,
       color: Theme.of(context).colorScheme.onPrimary,
@@ -108,49 +109,22 @@ class Menu extends StatefulWidget {
         PopupMenuItem<menuItems>(
           value: menuItems.save,
           onTap: () async {
+            Navigator.pop(context);
             Uint8List bytes = utf8.encode(openFile.text);
-            //var file = File('/sdcard/mdeditor/test files/test58.md');
-            //final FileSaveLocation? result =
-            //  await getSaveLocation(suggestedName: "fileName");
-            //if (result == null) {
-            // Operation was canceled by the user.
-              //return;
-            //}
-
-            
-              final result = (await FlutterFileDialog.pickFile());
-              var file = File(result!);
-              var sink = file.openWrite();
-              sink.add(bytes);
-              if (result == Null) {
-              showDialog(
-                context: context, 
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    content: Text("result: $result"),
-                  );
-                }
-              );
-            } else {
-           // await CRFileSaver.saveFileWithDialog(SaveFileDialogParams(sourceFilePath: '/sdcard/Downloads', destinationFileName: destinationFileName))
-            //final XFile textfile = XFile.fromData(bytes);
-            //await textfile.saveTo(result!);
-            //String path = result;
-            //var file = File(result!);
-            //var sink = file.openWrite();
-            //sink.add(bytes);
-
+            var file = File('/sdcard/mdeditor/test files/test58.md');
+            //var file = File("$result");
+            var sink = file.openWrite();
+            sink.add(bytes);
             showDialog(
               context: context, 
               builder: (BuildContext context){
                 return AlertDialog(
                 title: const Text("Success"),
-                content: Text('Save successfully to Blah'),
+                content: Text('Save successfully to $file'),
                 );
               }
             );
-          }
-          },   
+          }, 
           child: const Text("Save"),
         ),
         PopupMenuItem<menuItems>(
@@ -158,27 +132,6 @@ class Menu extends StatefulWidget {
           onTap: pickFile,
           child: const Text("Open"),
         ),
-        //PopupMenuItem<menuItems>(
-          //value: menuItems.fileInfo,
-          //onTap: () { 
-            //int CountofWords=wordCount; 
-            //showDialog(
-            //context: context, builder: (BuildContext context){
-              //return Dialog(
-              //elevation: 1,
-              //alignment: Alignment.center,
-              //backgroundColor: Theme.of(context).colorScheme.onPrimary,
-              //child: Container(
-                //alignment: Alignment.center,
-                //padding: const EdgeInsets.all(20),
-                //height: 200,
-                //width: 200,
-                //child: Text("Word Count: $CountofWords"),
-              //),);
-            //}
-          //);},
-          //child: const Text("File Info"),
-        //),
         PopupMenuItem(
           child: const Text("Options"),
           onTap: () {
