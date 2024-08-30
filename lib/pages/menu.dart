@@ -5,6 +5,7 @@ import 'package:file_saver/file_saver.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:mdeditor/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -109,16 +110,21 @@ class Menu extends StatefulWidget {
           onTap: () async {
             Uint8List bytes = utf8.encode(openFile.text);
             //var file = File('/sdcard/mdeditor/test files/test58.md');
-            final FileSaveLocation? result =
-              await getSaveLocation(suggestedName: "fileName");
-            if (result == null) {
+            //final FileSaveLocation? result =
+            //  await getSaveLocation(suggestedName: "fileName");
+            //if (result == null) {
             // Operation was canceled by the user.
-              return;
-            }
+              //return;
+            //}
 
+            final result = await FlutterFileDialog.saveFile(params: 
+              SaveFileDialogParams (data: bytes)
+            );
+           
+           // await CRFileSaver.saveFileWithDialog(SaveFileDialogParams(sourceFilePath: '/sdcard/Downloads', destinationFileName: destinationFileName))
             final XFile textfile = XFile.fromData(bytes);
-            await textfile.saveTo(result.path);
-            String path = result.path;
+            //await textfile.saveTo(result);
+            //String path = result;
             //var file = File(outputfile!);
             //var sink = file.openWrite();
             //sink.add(bytes);
@@ -128,7 +134,7 @@ class Menu extends StatefulWidget {
               builder: (BuildContext context){
                 return AlertDialog(
                 title: const Text("Success"),
-                content: Text("Save successfully to $path"),
+                content: Text("Save successfully to $result"),
                 );
               }
             );

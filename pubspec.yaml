@@ -41,6 +41,7 @@ dependencies:
   dynamic_color: 1.6.9
   file_picker: ^8.1.2
   file_selector: ^1.0.3
+  flutter_file_dialog: ^3.0.2
   
 dev_dependencies:
   flutter_test:
