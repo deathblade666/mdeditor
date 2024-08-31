@@ -113,10 +113,10 @@ class Menu extends StatefulWidget {
             
             Uint8List bytes = utf8.encode(openFile.text);
             //var file = File('/sdcard/mdeditor/test files/test58.md');
-            final file = FilePicker.platform.saveFile();
+            final file = await FilePicker.platform.saveFile(bytes: bytes);
             //var file = File("$result");
             //var sink = file.openWrite();
-            //sink.add(bytes);
+            sink.add(bytes);
             showDialog(
               context: context, 
               builder: (BuildContext context){
