@@ -115,6 +115,7 @@ class Menu extends StatefulWidget {
             //var file = File('/sdcard/mdeditor/test files/test58.md');
             try {
             final file = await FilePicker.platform.saveFile(bytes: bytes);
+            return;
             } catch (file) {
               if (file == Null) {
                 return;
