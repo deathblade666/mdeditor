@@ -113,7 +113,13 @@ class Menu extends StatefulWidget {
             
             Uint8List bytes = utf8.encode(openFile.text);
             //var file = File('/sdcard/mdeditor/test files/test58.md');
+            try {
             final file = await FilePicker.platform.saveFile(bytes: bytes);
+            } catch (file) {
+              if (file == Null) {
+                return;
+              }
+            }
             //var file = File("$result");
             //var sink = file.openWrite();
             //sink.add(bytes);
@@ -122,7 +128,7 @@ class Menu extends StatefulWidget {
               builder: (BuildContext context){
                 return AlertDialog(
                 title: const Text("Success"),
-                content: Text('Save successfully to $file'),
+                content: Text('Save successfully to '),
                 );
               }
             );
