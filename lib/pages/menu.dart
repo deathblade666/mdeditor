@@ -122,7 +122,7 @@ class Menu extends StatefulWidget {
               builder: (BuildContext context){
                 return AlertDialog(
                 title: const Text("Success"),
-                content: Text('Save successfully to '),
+                content: Text('Save successfully to $result'),
                 );
               }
             );
