@@ -111,10 +111,11 @@ class Menu extends StatefulWidget {
           onTap: () async {
             Navigator.pop(context);
             Uint8List bytes = utf8.encode(openFile.text);
-            var file = File('/sdcard/mdeditor/test files/test58.md');
+            //var file = File('/sdcard/mdeditor/test files/test58.md');
+            final file = FilePicker.platform.saveFile();
             //var file = File("$result");
-            var sink = file.openWrite();
-            sink.add(bytes);
+            //var sink = file.openWrite();
+            //sink.add(bytes);
             showDialog(
               context: context, 
               builder: (BuildContext context){
