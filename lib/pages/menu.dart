@@ -110,6 +110,7 @@ class Menu extends StatefulWidget {
           value: menuItems.save,
           onTap: () async {
             Navigator.pop(context);
+            
             Uint8List bytes = utf8.encode(openFile.text);
             //var file = File('/sdcard/mdeditor/test files/test58.md');
             final file = FilePicker.platform.saveFile();
