@@ -105,24 +105,42 @@ class Menu extends StatefulWidget {
       itemBuilder: (BuildContext context) => <PopupMenuEntry<menuItems>>[
         PopupMenuItem<menuItems>(
           value: menuItems.save,
-          onTap: () async {
-            Navigator.pop(context);
-            
+          onTap: () async {          
             Uint8List bytes = utf8.encode(openFile.text);
             //var file = File('/sdcard/mdeditor/test files/test58.md');
-            FilePickerResult? result = await FilePicker.platform.pickFiles();
-            var file = File("$result");
-            var sink = file.openWrite();
-            sink.add(bytes);
-            showDialog(
-              context: context, 
-              builder: (BuildContext context){
-                return AlertDialog(
-                title: const Text("Success"),
-                content: Text('Save successfully to $result'),
+            try {
+              final result = await FilePicker.platform.saveFile(bytes: bytes);
+              print("RESULT: $result");
+            } catch(result) {
+              if (result != null || result != "") {
+                //var file = File("$result");
+               // var sink = file.openWrite();
+               // sink.add(bytes);
+                showDialog(
+                  context: context, 
+                  builder: (BuildContext context){
+                    return AlertDialog(
+                    title: const Text("Success"),
+                    content: Text('Save successfully to $result'),
                 );
               }
             );
+              } else {
+                return showDialog(
+                  context: context, 
+                  builder: (BuildContext context){
+                    return const AlertDialog(
+                      title: Text("Fail"),
+                      content: Text('There was an issue saving your file :('),
+                    );
+                  }
+                );
+              }
+            }
+            
+            
+            
+            
           }, 
           child: const Text("Save"),
         ),
