@@ -26,6 +26,13 @@ The idea behind mdeditor is to provide a minimal markdown editor that wasnt "blo
 - [ ] when enabling sychronized scrolling you'll need to close and relaunch the app
 - [ ] Open files from the context menu is currently half way implemented (app shows in the menu but doesnt load the file)
 
+## How to build
+1. clone this repo ```git clone https://github.com/deathblade666/mdeditor```
+2. cd into the directory
+3. Install dependencies 
+```flutter pub get```
+4. Build 
+``` flutter build <platform>```
 
 ## ScreenShots
 To be uploaded
