@@ -12,7 +12,7 @@ The idea behind mdeditor is to provide a minimal markdown editor that wasnt "blo
   - local or remote files (depends on the service and if it offer file browser integration through their app)
 - render markdown in realtime
 - split view or just edit
-- Optional Toolbar to make wrighting in markdown a breeze!
+- Optional Toolbar to make writing in markdown a breeze!
 - Material You Themes
   - Dark
   - Light
