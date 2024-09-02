@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown_editor_plus/widgets/markdown_parse.dart';
 
 
@@ -39,7 +40,16 @@ class _RendererState extends State<Renderer> {
         data: widget.value,
         controller: widget.scrollRenderController,
         selectable: true,
+        checkboxBuilder: (bool value){
+          return CheckboxListTile(
+            value: value, 
+            onChanged: (bool? newValue){
+
+            }
+          );
+        },
       ),
     );
   }
 }
+

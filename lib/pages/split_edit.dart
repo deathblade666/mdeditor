@@ -122,7 +122,7 @@ class editorState extends State<Editor> {
   void setTheme(selectedTheme){
     widget.onThemeSelect(selectedTheme);
   }
-      
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(

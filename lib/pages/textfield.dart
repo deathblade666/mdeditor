@@ -40,6 +40,7 @@ class mdtextfieldState extends State<mdtextfield> {
 
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
   void mdText(String inputText) {
+    widget.ontextchanged(inputText);
     final lines = inputText.split('\n');
     final emptyCheckbox = lines.where((e) => e == '- [ ] ');
     if (emptyCheckbox.isEmpty) {
@@ -67,9 +68,8 @@ class mdtextfieldState extends State<mdtextfield> {
         controller: widget.openFile,
         cursorColor: Theme.of(context).colorScheme.primary,
         scrollController: widget.userInputController,
-        //enableToolBar: true,
         padding: EdgeInsets.only(left: 20, top: 5),
-        style: TextStyle(fontSize: 12.3),
+        style: TextStyle(fontSize: 14),
       ),
     );
   }
