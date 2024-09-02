@@ -378,6 +378,7 @@ class optionsDialogState extends State<optionsDialog> {
               },
             )
           ),
+          Padding(padding: EdgeInsets.only(top: 10)),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
