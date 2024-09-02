@@ -39,7 +39,11 @@ The idea behind mdeditor is to provide a minimal markdown editor that wasnt "blo
 ``` flutter build <platform>```
 
 ## ScreenShots
-![alt](https://github.com/deathblade666/mdeditor/blob/main/_screenshots/Screenshot_20240902-152251_mdeditor.png) ![alt](https://github.com/deathblade666/mdeditor/blob/main/_screenshots/Screenshot_20240902-152300_mdeditor.png) ![alt](https://github.com/deathblade666/mdeditor/blob/main/_screenshots/Screenshot_20240902-152309_mdeditor.png) ![alt](https://github.com/deathblade666/mdeditor/blob/main/_screenshots/Screenshot_20240902-152404_mdeditor.png)
+| Defult View| Full Edit Mode|
+|---|---|
+| ![alt](https://github.com/deathblade666/mdeditor/blob/main/_screenshots/Screenshot_20240902-152251_mdeditor.png) | ![alt](https://github.com/deathblade666/mdeditor/blob/main/_screenshots/Screenshot_20240902-152300_mdeditor.png) |
+
+![alt](https://github.com/deathblade666/mdeditor/blob/main/_screenshots/Screenshot_20240902-152309_mdeditor.png) ![alt](https://github.com/deathblade666/mdeditor/blob/main/_screenshots/Screenshot_20240902-152404_mdeditor.png)
 
 
 
