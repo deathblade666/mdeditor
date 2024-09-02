@@ -126,6 +126,7 @@ class editorState extends State<Editor> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
