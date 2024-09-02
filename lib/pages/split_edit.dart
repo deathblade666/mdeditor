@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
@@ -32,10 +33,15 @@ class editorState extends State<Editor> {
   ScrollController scrollRenderController = ScrollController();
   ScrollController userInputController = ScrollController();
   bool toolBarToggle = enableToolBar;
-  static const platform = MethodChannel("markdown editor");
+  var importedFilePath = '';
+  var importedFileName = '';
+  var importedText = '';
+  static const platform = MethodChannel("Markdown_Editor_Channel");
+
 @override
   void initState() {
     onStart();
+    getOpenFileUrl();
     super.initState();
   }
 
@@ -64,6 +70,25 @@ class editorState extends State<Editor> {
     }
   }
 
+  void getOpenFileUrl() async {
+    await platform.invokeMethod("getOpenFileUrl").then((fileUrl) async {
+      try {
+        importedFilePath = fileUrl as String;
+        String decodeUri = Uri.decodeFull(importedFilePath);
+        Uri fileUri = Uri.parse(decodeUri);
+        importedFilePath = fileUri.toFilePath().replaceFirst('/file://', '');
+        File file = File(importedFilePath);
+        importedText = await file.readAsString();
+        openFile.text = importedText;
+        setState(() {});
+      } catch (e) {
+        if (fileUrl == null) {
+          return;
+        }
+      }
+    });
+  }
+    
   void syncScroll (syncScrolling){
     if (syncScrolling == true) {
       setState(() {

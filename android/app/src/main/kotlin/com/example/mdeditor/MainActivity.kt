@@ -1,38 +1,45 @@
 package com.deathblade666.mdeditor
 
-//import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterActivity
+import android.content.Intent
+import android.os.Bundle
+import androidx.annotation.NonNull
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugin.common.MethodChannel
+import io.flutter.plugins.GeneratedPluginRegistrant
+import java.io.File
 
-//class MainActivity: FlutterActivity()
+class MainActivity: FlutterActivity() {
+    private val CHANNEL = "Markdown_Editor_Channel"
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import io.flutter.embedding.android.FlutterActivity;
-import io.flutter.plugin.common.MethodChannel;
-
-public class MainActivity extends FlutterActivity {
-    private static final String CHANNEL = "markdown editor";
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        new MethodChannel(getFlutterEngine().getDartExecutor().getBinaryMessenger(), CHANNEL)
-            .setMethodCallHandler((call, result) -> {
-                if (call.method.equals("getFileUri")) {
-                    Intent intent = getIntent();
-                    String action = intent.getAction();
-                    Uri data = intent.getData();
-
-                    if (Intent.ACTION_VIEW.equals(action) && data != null) {
-                        result.success(data.toString());
-                    } else {
-                        result.error("UNAVAILABLE", "File URI not available.", null);
-                    }
-                } else {
-                    result.notImplemented();
+    var openPath: String? = null
+    override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
+        GeneratedPluginRegistrant.registerWith(flutterEngine)
+        val channel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL)
+        channel.setMethodCallHandler { call, result ->
+            when (call.method) {
+                "getOpenFileUrl" -> {
+                    result.success(openPath)
                 }
-            });
+                else -> result.notImplemented()
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        handleOpenFileUrl(intent)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleOpenFileUrl(intent)
+    }
+
+    private fun handleOpenFileUrl(intent: Intent?) {
+        val path = intent?.data?.path
+        if (path != null) {
+            openPath = path
+        }
     }
 }
-
