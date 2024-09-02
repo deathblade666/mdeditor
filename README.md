@@ -2,6 +2,8 @@
 
 My first flutter app. mdeditor is a markdown editor written in Flutter. 
 
+The idea behind mdeditor is to provide a minimal markdown editor that wasnt "bloated" with abunch of features that got in the way. 
+
 ## Features
 - File Operations
   - open
