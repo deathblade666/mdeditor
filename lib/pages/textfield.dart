@@ -6,25 +6,37 @@ class mdtextfield extends StatefulWidget {
   mdtextfield(
     this.openFile,
     this.fileContent,
-    {required this.ontextchanged, 
+    this.userInputController,
+    {
+      required this.ontextchanged, 
       super.key
     }
   );
   final void Function(String contents) ontextchanged;
   TextEditingController openFile;
   String fileContent;
+  ScrollController userInputController;
 
   @override
-  State<mdtextfield> createState() => mdtextfieldState(openFile,fileContent);
+  State<mdtextfield> createState() => mdtextfieldState();
+  
 }
 
 // ignore: camel_case_types
 class mdtextfieldState extends State<mdtextfield> {
-  mdtextfieldState(this.openFile, this.fileContent);
-  String fileContent;
-  TextEditingController openFile = TextEditingController();
+  //String fileContent;
 
+  listener (){
+    double offset = widget.userInputController.offset;
+    print("Text Offset: $offset");
+  }
   
+  @override
+  void initState() {
+    widget.userInputController.addListener(listener);
+    super.initState();
+  }
+
   // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
   void mdText(String inputText) {
     final lines = inputText.split('\n');
@@ -41,7 +53,6 @@ class mdtextfieldState extends State<mdtextfield> {
           color: Theme.of(context).colorScheme.surfaceContainerLow,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            //color: Theme.of(context).colorScheme.tertiaryFixed,
             color: Theme.of(context).colorScheme.primary,
             style: BorderStyle.solid,
             width: 1.5,
@@ -53,9 +64,9 @@ class mdtextfieldState extends State<mdtextfield> {
         expands: true,
         emojiConvert: true,
         maxLines: null,
-        controller: openFile,
+        controller: widget.openFile,
         cursorColor: Theme.of(context).colorScheme.primary,
-
+        scrollController: widget.userInputController,
       ),
     );
   }

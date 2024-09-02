@@ -20,6 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
   String _filename = '';
   bool fullEdit = true;
   bool WordCount = false;
+  bool syncScrolling = false;
   const List<String> list = <String>['system', 'dark', 'light',];
   String dropDownValue = list.first;
 
@@ -36,6 +37,7 @@ class Menu extends StatefulWidget {
       required this.onFileLoad,
       required this.onfileName,
       required this.onThemeSelected,
+      required this.onsyncScrollEnable,
       super.key
       }
     );
@@ -44,6 +46,7 @@ class Menu extends StatefulWidget {
   final void Function(bool fullEdit) onModeToggle;
   final void Function(bool WordCount) onEnableWordCount;
   void Function(String? selectedTheme) onThemeSelected;
+  final void Function(bool syncScrolling) onsyncScrollEnable;
   TextEditingController openFile = TextEditingController();
   final String inputText;
   int wordCount;
@@ -63,6 +66,7 @@ class Menu extends StatefulWidget {
     bool switchWCValue = false;
     SharedPreferences prefs;
     bool switchInputvalue = false;
+    bool switchSyncScroll = false;
   
   void closeApp({bool? animated}) async {
     prefs.reload();
@@ -155,13 +159,15 @@ class Menu extends StatefulWidget {
             showDialog(
               context: context,
               builder: (context) => optionsDialog(
+                switchSyncScroll,
                 switchModeValue,
                 switchWCValue,
                 widget.onEnableWordCount,
                 widget.onModeToggle, 
                 onThemeSelected: setTheme,
+                widget.onsyncScrollEnable,
                 prefs,
-                switchInputvalue
+                switchInputvalue,
               )
             );
           }
@@ -180,18 +186,23 @@ class Menu extends StatefulWidget {
 class optionsDialog extends StatefulWidget {
   final Function onEnableWordCount;
   final Function onModeToggle;
+  final Function onsyncScrollEnable;
   bool switchModeValue;
   bool switchWCValue;
   bool switchInputvalue;
+  bool switchSyncScroll;
 
   optionsDialog(
+    this.switchSyncScroll,
     this.switchModeValue, 
     this.switchWCValue, 
     this.onEnableWordCount, 
     this.onModeToggle,
+    this.onsyncScrollEnable,
     this.prefs,
     this.switchInputvalue,
-    {required this.onThemeSelected,
+    {
+      required this.onThemeSelected,
       super.key
     }
   );
@@ -230,6 +241,18 @@ class optionsDialogState extends State<optionsDialog> {
     widget.onEnableWordCount(WordCount);
     prefs.setBool("enableCount", WordCount);
   }
+  
+  void synchronizeScrolling(value) {
+    prefs.reload();
+    bool? syncScroll = prefs.getBool('RetainsyncSwitch');
+    if (syncScroll == false) {
+      syncScrolling = false;
+    }
+    if (syncScroll == true) {
+      syncScrolling = true;
+    }
+    widget.onsyncScrollEnable(syncScrolling);
+  }
 
   @override
   void initState() {
@@ -243,6 +266,7 @@ class optionsDialogState extends State<optionsDialog> {
     bool? viewmodeValue = prefs.getBool('ViewModeSwitch');
     bool? retainInput = prefs.getBool('RetainInputSwitch');
     String? selectedTheme = prefs.getString('selectedTheme');
+    bool? syncScroll = prefs.getBool('RetainsyncSwitch');
     setState(() {
     if (viewmodeValue != null) {
       widget.switchModeValue = viewmodeValue;
@@ -255,6 +279,9 @@ class optionsDialogState extends State<optionsDialog> {
     }
     if (selectedTheme == null) {
       prefs.setString('selectedTheme', "system");
+    }
+    if (syncScroll != null){
+      widget.switchSyncScroll = syncScroll;
     }
     });
   }
@@ -334,6 +361,21 @@ class optionsDialogState extends State<optionsDialog> {
                   widget.switchInputvalue = value;
                   prefs.setBool("RetainInputSwitch", value);
                 });
+              },
+            )
+          ),
+          PopupMenuItem(
+            child: SwitchListTile(
+              title: const Text("Synchronized Scrolling"),
+              subtitle: const Text("Synchronize scrolling across the whole screen"),
+              activeColor: Theme.of(context).colorScheme.primary,
+              value: widget.switchSyncScroll, 
+              onChanged: (bool value) async {
+                setState(() {
+                  widget.switchSyncScroll = value;
+                  prefs.setBool("RetainsyncSwitch", value);
+                });
+                synchronizeScrolling(value);
               },
             )
           ),

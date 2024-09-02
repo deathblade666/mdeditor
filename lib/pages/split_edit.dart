@@ -1,5 +1,7 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:linked_scroll_controller/linked_scroll_controller.dart';
+import 'package:mdeditor/main.dart';
 import 'package:mdeditor/pages/menu.dart';
 import 'package:mdeditor/pages/preview.dart';
 import 'package:mdeditor/pages/textfield.dart';
@@ -25,6 +27,9 @@ class editorState extends State<Editor> {
   int wordCount = 0;
   var theme = ThemeMode.system;
   TextEditingController openFile = TextEditingController();
+  LinkedScrollControllerGroup scrollGroup = LinkedScrollControllerGroup();
+  ScrollController scrollRenderController = ScrollController();
+  ScrollController userInputController = ScrollController();
 
 @override
   void initState() {
@@ -37,6 +42,7 @@ class editorState extends State<Editor> {
     bool? fullEdit = prefs.getBool("ViewMode");
     bool? WordCount = prefs.getBool('enableCount');
     String? priorInput = prefs.getString('InputText');
+    bool? syncScrolling = prefs.getBool('RetainsyncSwitch');
     if (WordCount != null){
       enableWordCount(WordCount);
     }
@@ -46,6 +52,30 @@ class editorState extends State<Editor> {
     if (priorInput != null ){
       fileContent=priorInput;
       loadedFile(fileContent);
+    }
+    if (syncScrolling != null){
+      syncScroll(syncScrolling);
+    }
+  }
+
+  void syncScroll (syncScrolling){
+    if (syncScrolling == true) {
+      setState(() {
+        scrollRenderController = scrollGroup.addAndGet();
+        userInputController = scrollGroup.addAndGet();
+      });
+    }
+    if (syncScrolling == false) {
+      if (userInputController.hasClients == true){
+        setState(() {
+          userInputController.dispose();
+        });
+      }
+      if (scrollRenderController.hasClients == true){
+        setState(() {
+          scrollRenderController.dispose();
+        });
+      }
     }
   }
 
@@ -78,6 +108,12 @@ class editorState extends State<Editor> {
     });
   }
 
+  void toggleSyncScrolling(){
+    setState(() {
+      
+    });
+  }
+
   void enableWordCount(WordCount) {
     setState(() {
       showWordCount=WordCount;
@@ -102,12 +138,12 @@ class editorState extends State<Editor> {
           Visibility(
             visible: _full,
             child:Expanded(
-              flex: 2,
-              child: Renderer(openFile, contents),
+             // flex: 2,
+              child: Renderer(openFile, contents, scrollRenderController),
             ),
           ),
           Expanded(
-           child: mdtextfield(openFile, fileContent,ontextchanged: mdText,),
+           child: mdtextfield(openFile, fileContent,ontextchanged: mdText, userInputController),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,7 +168,8 @@ class editorState extends State<Editor> {
                     onfileName: setFileName, 
                     onModeToggle: switchViewMode, 
                     wordCount, onEnableWordCount: enableWordCount,
-                    onThemeSelected: setTheme,),
+                    onThemeSelected: setTheme,
+                    onsyncScrollEnable: syncScroll,),
                   const Padding(padding: EdgeInsets.only(right: 15)),
                 ],
               ),
