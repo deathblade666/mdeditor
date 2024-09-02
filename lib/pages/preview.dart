@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_editor_plus/widgets/markdown_parse.dart';
 
+
 //TODO: Change font size (bigger)
 
 // ignore: must_be_immutable
@@ -37,6 +38,7 @@ class _RendererState extends State<Renderer> {
       child: MarkdownParse(
         data: widget.value,
         controller: widget.scrollRenderController,
+        selectable: true,
       ),
     );
   }

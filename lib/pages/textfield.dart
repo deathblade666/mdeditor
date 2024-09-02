@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:markdown_editor_plus/markdown_editor_plus.dart';
 
+
 // ignore: must_be_immutable
 class mdtextfield extends StatefulWidget {
   mdtextfield(
@@ -58,7 +59,6 @@ class mdtextfieldState extends State<mdtextfield> {
             width: 1.5,
           )
       ),
-      padding: const EdgeInsets.all(7),
       child: MarkdownField(
         onChanged: mdText,
         expands: true,
@@ -67,6 +67,9 @@ class mdtextfieldState extends State<mdtextfield> {
         controller: widget.openFile,
         cursorColor: Theme.of(context).colorScheme.primary,
         scrollController: widget.userInputController,
+        //enableToolBar: true,
+        padding: EdgeInsets.only(left: 20),
+        style: TextStyle(fontSize: 13.5),
       ),
     );
   }
