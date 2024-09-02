@@ -68,8 +68,8 @@ class mdtextfieldState extends State<mdtextfield> {
         cursorColor: Theme.of(context).colorScheme.primary,
         scrollController: widget.userInputController,
         //enableToolBar: true,
-        padding: EdgeInsets.only(left: 20),
-        style: TextStyle(fontSize: 13.5),
+        padding: EdgeInsets.only(left: 20, top: 5),
+        style: TextStyle(fontSize: 12.3),
       ),
     );
   }
