@@ -20,6 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
   bool fullEdit = true;
   bool WordCount = false;
   bool syncScrolling = false;
+  bool enableToolBar = false;
   const List<String> list = <String>['system', 'dark', 'light',];
   String dropDownValue = list.first;
 
@@ -37,6 +38,7 @@ class Menu extends StatefulWidget {
       required this.onfileName,
       required this.onThemeSelected,
       required this.onsyncScrollEnable,
+      required this.onEnableToolBar,
       super.key
       }
     );
@@ -46,6 +48,7 @@ class Menu extends StatefulWidget {
   final void Function(bool WordCount) onEnableWordCount;
   void Function(String? selectedTheme) onThemeSelected;
   final void Function(bool syncScrolling) onsyncScrollEnable;
+  final void Function(bool enableToolBar) onEnableToolBar;
   TextEditingController openFile = TextEditingController();
   final String inputText;
   int wordCount;
@@ -66,6 +69,7 @@ class Menu extends StatefulWidget {
     SharedPreferences prefs;
     bool switchInputvalue = false;
     bool switchSyncScroll = false;
+    bool enableToolBar = false;
   
   void closeApp({bool? animated}) async {
     prefs.reload();
@@ -140,10 +144,6 @@ class Menu extends StatefulWidget {
                 );
               }
             }
-            
-            
-            
-            
           }, 
           child: const Text("Save"),
         ),
@@ -167,6 +167,8 @@ class Menu extends StatefulWidget {
                 widget.onsyncScrollEnable,
                 prefs,
                 switchInputvalue,
+                enableToolBar,
+                widget.onEnableToolBar,
               )
             );
           }
@@ -186,10 +188,12 @@ class optionsDialog extends StatefulWidget {
   final Function onEnableWordCount;
   final Function onModeToggle;
   final Function onsyncScrollEnable;
+  final Function onEnableToolBar;
   bool switchModeValue;
   bool switchWCValue;
   bool switchInputvalue;
   bool switchSyncScroll;
+  bool enableToolBar;
 
   optionsDialog(
     this.switchSyncScroll,
@@ -200,6 +204,8 @@ class optionsDialog extends StatefulWidget {
     this.onsyncScrollEnable,
     this.prefs,
     this.switchInputvalue,
+    this.enableToolBar,
+    this.onEnableToolBar,
     {
       required this.onThemeSelected,
       super.key
@@ -226,6 +232,19 @@ class optionsDialogState extends State<optionsDialog> {
     }
     widget.onModeToggle(fullEdit);
     prefs.setBool("ViewMode", fullEdit);
+  }
+
+  void enableToolbar(value) {
+    prefs.reload();
+    bool? toolbar = prefs.getBool('enableToolbar');
+    if (toolbar == true){
+      enableToolBar = true;
+    }
+    if (toolbar == false) {
+      enableToolBar = false;
+    }
+    widget.onEnableToolBar(enableToolBar);
+    prefs.setBool('enableToolbar', enableToolBar);
   }
 
   void showWordCount(value) {
@@ -266,6 +285,7 @@ class optionsDialogState extends State<optionsDialog> {
     bool? retainInput = prefs.getBool('RetainInputSwitch');
     String? selectedTheme = prefs.getString('selectedTheme');
     bool? syncScroll = prefs.getBool('RetainsyncSwitch');
+    bool? toolbar = prefs.getBool('enableToolbar');
     setState(() {
     if (viewmodeValue != null) {
       widget.switchModeValue = viewmodeValue;
@@ -281,6 +301,9 @@ class optionsDialogState extends State<optionsDialog> {
     }
     if (syncScroll != null){
       widget.switchSyncScroll = syncScroll;
+    }
+    if (toolbar != null) {
+      widget.enableToolBar = toolbar;
     }
     });
   }
@@ -361,6 +384,21 @@ class optionsDialogState extends State<optionsDialog> {
                   prefs.setBool("RetainInputSwitch", value);
                 });
               },
+            )
+          ),
+          PopupMenuItem(
+            child: SwitchListTile(
+              value: widget.enableToolBar, 
+              title: const Text("Enable Markdown Toolbar"),
+              subtitle: const Text("Enables a markdown Toolbar"),
+              activeColor: Theme.of(context).colorScheme.primary,
+              onChanged: (bool value) async {
+                setState(() {
+                  widget.enableToolBar = value;
+                  prefs.setBool("enableToolbar", value);
+                });
+                enableToolbar(value);
+              }
             )
           ),
           PopupMenuItem(

@@ -30,6 +30,7 @@ class editorState extends State<Editor> {
   LinkedScrollControllerGroup scrollGroup = LinkedScrollControllerGroup();
   ScrollController scrollRenderController = ScrollController();
   ScrollController userInputController = ScrollController();
+  bool toolBarToggle = enableToolBar;
 
 @override
   void initState() {
@@ -43,6 +44,7 @@ class editorState extends State<Editor> {
     bool? WordCount = prefs.getBool('enableCount');
     String? priorInput = prefs.getString('InputText');
     bool? syncScrolling = prefs.getBool('RetainsyncSwitch');
+    bool? enableToolBar = prefs.getBool('enableToolbar');
     if (WordCount != null){
       enableWordCount(WordCount);
     }
@@ -55,6 +57,9 @@ class editorState extends State<Editor> {
     }
     if (syncScrolling != null){
       syncScroll(syncScrolling);
+    }
+    if (enableToolBar != null) {
+      toggleToolBar(enableToolBar);
     }
   }
 
@@ -123,6 +128,13 @@ class editorState extends State<Editor> {
   void setTheme(selectedTheme){
     widget.onThemeSelect(selectedTheme);
   }
+
+  void toggleToolBar(enableToolBar){
+    setState(() {
+      toolBarToggle = enableToolBar;
+    });
+
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -145,7 +157,7 @@ class editorState extends State<Editor> {
               ),
             ),
             Visibility(
-              visible: true,
+              visible: toolBarToggle,
               child: MarkdownToolbar(
                 useIncludedTextField: false, 
                 controller: openFile,
@@ -187,7 +199,8 @@ class editorState extends State<Editor> {
                       onModeToggle: switchViewMode, 
                       wordCount, onEnableWordCount: enableWordCount,
                       onThemeSelected: setTheme,
-                      onsyncScrollEnable: syncScroll,),
+                      onsyncScrollEnable: syncScroll,
+                      onEnableToolBar: toggleToolBar,),
                     const Padding(padding: EdgeInsets.only(right: 15)),
                   ],
                 ),
