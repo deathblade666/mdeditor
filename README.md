@@ -1,4 +1,5 @@
-# ![Icon](https://github.com/deathblade666/mdeditor/blob/main/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png) mdeditor
+![Icon](https://github.com/deathblade666/mdeditor/blob/main/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png) 
+# mdeditor
 
 My first flutter app. mdeditor is a markdown editor written in Flutter. 
 
