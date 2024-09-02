@@ -1,7 +1,5 @@
 # mdeditor
 
----
-
 My first flutter app. mdeditor is a markdown editor written in Flutter. 
 
 ## Features
