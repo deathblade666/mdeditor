@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 import 'package:markdown_toolbar/markdown_toolbar.dart';
 import 'package:mdeditor/pages/menu.dart';
@@ -31,7 +32,7 @@ class editorState extends State<Editor> {
   ScrollController scrollRenderController = ScrollController();
   ScrollController userInputController = ScrollController();
   bool toolBarToggle = enableToolBar;
-
+  static const platform = MethodChannel("markdown editor");
 @override
   void initState() {
     onStart();
