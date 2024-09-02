@@ -125,58 +125,61 @@ class editorState extends State<Editor> {
       
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        elevation: 0,
-        forceMaterialTransparency: true,
-        toolbarHeight: 2,
-      ),
-      body: Column(
-        children: [
-          Visibility(
-            visible: _full,
-            child:Expanded(
-              flex: 2,
-              child: Renderer(openFile, contents, scrollRenderController),
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        appBar: AppBar(
+          elevation: 0,
+          forceMaterialTransparency: true,
+          toolbarHeight: 2,
+        ),
+        body: Column(
+          children: [
+            Visibility(
+              visible: _full,
+              child:Expanded(
+                flex: 2,
+                child: Renderer(openFile, contents, scrollRenderController),
+              ),
             ),
-          ),
-          Expanded(
-           child: mdtextfield(openFile, fileContent,ontextchanged: mdText, userInputController),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  const Padding(padding: EdgeInsets.only(left: 15)),
-                  Text(NameofFile),
-                ],
-              ),
-              Row(
-                children: [
-                  Visibility(
-                    visible: showWordCount,
-                    child: Text("$wordCount"),
-                  ),
-                  Menu(
-                    prefs,
-                    onFileLoad: loadedFile, 
-                    contents, 
-                    openFile, 
-                    onfileName: setFileName, 
-                    onModeToggle: switchViewMode, 
-                    wordCount, onEnableWordCount: enableWordCount,
-                    onThemeSelected: setTheme,
-                    onsyncScrollEnable: syncScroll,),
-                  const Padding(padding: EdgeInsets.only(right: 15)),
-                ],
-              ),
-            ]
-          ),
-        ]
+            Expanded(
+             child: mdtextfield(openFile, fileContent,ontextchanged: mdText, userInputController),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    const Padding(padding: EdgeInsets.only(left: 15)),
+                    Text(NameofFile),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Visibility(
+                      visible: showWordCount,
+                      child: Text("$wordCount"),
+                    ),
+                    Menu(
+                      prefs,
+                      onFileLoad: loadedFile, 
+                      contents, 
+                      openFile, 
+                      onfileName: setFileName, 
+                      onModeToggle: switchViewMode, 
+                      wordCount, onEnableWordCount: enableWordCount,
+                      onThemeSelected: setTheme,
+                      onsyncScrollEnable: syncScroll,),
+                    const Padding(padding: EdgeInsets.only(right: 15)),
+                  ],
+                ),
+              ]
+            ),
+          ]
+        ),
       ),
     );
   }
 }
+
 
