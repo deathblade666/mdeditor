@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown_editor_plus/widgets/markdown_parse.dart';
+import 'package:markdown/markdown.dart' as md;
 
 
 //TODO: Change font size (bigger)
@@ -40,16 +41,18 @@ class _RendererState extends State<Renderer> {
         data: widget.value,
         controller: widget.scrollRenderController,
         selectable: true,
-        checkboxBuilder: (bool value){
-          return CheckboxListTile(
-            value: value, 
-            onChanged: (bool? newValue){
-
-            }
-          );
-        },
+        inlineSyntaxes: [CheckboxSyntax()],
       ),
     );
   }
 }
 
+class CheckboxSyntax extends md.InlineSyntax {
+  CheckboxSyntax() : super(r'- \[ \] ');
+
+  @override
+  bool onMatch(md.InlineParser parser, Match match) {
+    parser.addNode(md.Element.text('checkbox', ''));
+    return true;
+  }
+}

@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
+import 'package:markdown_toolbar/markdown_toolbar.dart';
 import 'package:mdeditor/pages/menu.dart';
 import 'package:mdeditor/pages/preview.dart';
 import 'package:mdeditor/pages/textfield.dart';
@@ -143,6 +144,20 @@ class editorState extends State<Editor> {
                 child: Renderer(openFile, contents, scrollRenderController),
               ),
             ),
+            MarkdownToolbar(
+              useIncludedTextField: false, 
+              controller: openFile,
+              iconColor: Colors.white,
+              backgroundColor: Theme.of(context).colorScheme.onPrimary,
+              flipCollapseButtonIcon: true,
+              width: 40,
+              collapsable: false,
+              hideNumberedList: true,
+              hideStrikethrough: true,
+              hideHorizontalRule: true,
+              
+              ),
+              Padding(padding: EdgeInsets.only(bottom: 5)),
             Expanded(
              child: mdtextfield(openFile, fileContent,ontextchanged: mdText, userInputController),
             ),
