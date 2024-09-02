@@ -138,7 +138,7 @@ class editorState extends State<Editor> {
           Visibility(
             visible: _full,
             child:Expanded(
-             // flex: 2,
+              flex: 2,
               child: Renderer(openFile, contents, scrollRenderController),
             ),
           ),
