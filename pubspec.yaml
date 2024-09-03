@@ -42,6 +42,7 @@ dependencies:
   markdown_editor_plus: ^0.2.15
   markdown_toolbar: ^0.5.0
   
+  markdown: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

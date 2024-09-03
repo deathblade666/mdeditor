@@ -64,8 +64,8 @@ class mdtextfieldState extends State<mdtextfield> {
         controller: widget.openFile,
         cursorColor: Theme.of(context).colorScheme.primary,
         scrollController: widget.userInputController,
-        padding: EdgeInsets.only(left: 20, top: 5),
-        style: TextStyle(fontSize: 14),
+        padding: const EdgeInsets.only(left: 20, top: 5),
+        style: const TextStyle(fontSize: 14),
       ),
     );
   }

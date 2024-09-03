@@ -197,7 +197,7 @@ class editorState extends State<Editor> {
                 hideHorizontalRule: true,
               ),
             ),
-            Padding(padding: EdgeInsets.only(bottom: 5)),
+            const Padding(padding: EdgeInsets.only(bottom: 5)),
             Expanded(
              child: mdtextfield(openFile, fileContent,ontextchanged: mdText, userInputController),
             ),
