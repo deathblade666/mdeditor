@@ -28,7 +28,7 @@ The idea behind mdeditor is to provide a minimal markdown editor that wasnt "blo
 ## Known Bugs
 - [ ] Open, and saving files does not work on android 15 beta
 - [ ] when enabling sychronized scrolling you'll need to close and relaunch the app
-- [x] Open files from the context menu is currently half way implemented (app shows in the menu but doesnt load the file)
+- [x] ~~Open files from the context menu is currently half way implemented (app shows in the menu but doesnt load the file)~~
 - [ ] if modifying an existing file, when you go to to save if the total file contents is lesser than what you started with the save will fail
 
 ## How to build
