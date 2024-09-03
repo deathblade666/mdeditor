@@ -31,10 +31,11 @@ class mdtextfieldState extends State<mdtextfield> {
     double offset = widget.userInputController.offset;
     print("Text Offset: $offset");
   }
-  
+
   @override
   void initState() {
     widget.userInputController.addListener(listener);
+    //widget.openFile.addListener(textListener);
     super.initState();
   }
 
